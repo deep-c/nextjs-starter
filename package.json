@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "analyze": "cross-env ANALYZE=true npm run build",
-    "dev": "next dev",
+    "dev": "cross-env PORT=3333 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
