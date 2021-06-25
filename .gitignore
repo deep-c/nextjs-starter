@@ -30,5 +30,11 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# overrides
+compose.override.yml
+
 # vercel
 .vercel
+
+# Lighthouse
+lhreport.html
