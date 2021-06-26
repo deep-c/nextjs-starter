@@ -8,6 +8,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator nexusPrisma {
+   provider = "nexus-prisma"
+}
+
 model Account {
   id                 String    @id @default(cuid())
   userId             String
