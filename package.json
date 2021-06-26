@@ -9,14 +9,21 @@
     "start": "next start",
     "lint": "next lint",
     "lint:prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "test": "jest"
+    "test": "jest",
+    "generate:prisma": "prisma generate",
+    "db:makemigration": "prisma migrate dev"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
   },
   "dependencies": {
     "@apollo/client": "3.3.20",
+    "@next-auth/prisma-adapter": "0.4.4-canary.64",
     "@prisma/client": "2.25.0",
     "apollo-server-micro": "2.25.2",
     "graphql": "15.5.1",
     "next": "11.0.1",
+    "next-auth": "3.27.0",
     "nexus": "1.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2"
@@ -32,6 +39,7 @@
     "jest": "27.0.5",
     "postcss": "8.3.5",
     "prettier": "2.3.1",
+    "prisma": "2.25.0",
     "tailwindcss": "2.2.4",
     "ts-node": "10.0.0",
     "typescript": "4.3.4"
