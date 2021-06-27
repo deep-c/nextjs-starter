@@ -1,8 +1,9 @@
 ## Getting Started
 
-First, run the development server:
+First create .env and .env.local files and then:
 
 ```bash
+docker compose up -d
 npm run dev
 ```
 
