@@ -39,3 +39,6 @@ compose.override.yml
 
 # Lighthouse
 lhreport.html
+
+# vs-code
+.vscode
