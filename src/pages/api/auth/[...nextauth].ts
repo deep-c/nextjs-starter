@@ -12,4 +12,14 @@ export default NextAuth({
     }),
   ],
   adapter: PrismaAdapter(prisma),
+  callbacks: {
+    session: (session, userOrToken) => {
+      // Add UserId to session object. NOTE: No great way to check for token or user.
+      // We arent using JWT if JWT is enabled this will need to be modified.
+      if (session?.user) {
+        session.user = Object.assign({}, session.user, { id: userOrToken.id });
+      }
+      return session;
+    },
+  },
 });
