@@ -1,8 +1,8 @@
 import { ApolloServer } from 'apollo-server-micro';
 import type { MicroRequest } from 'apollo-server-micro/src/types';
-import { makeSchema, objectType } from 'nexus';
-import { User } from 'nexus-prisma';
+import { makeSchema } from 'nexus';
 import { getSession } from 'next-auth/client';
+import * as allTypes from '@/graphql';
 
 export const config = {
   api: {
@@ -11,17 +11,7 @@ export const config = {
 };
 
 export const schema = makeSchema({
-  types: [
-    objectType({
-      name: User.$name,
-      description: User.$description,
-      definition(t) {
-        t.nonNull.id('id');
-        t.nullable.string('name');
-        t.nullable.string('email');
-      },
-    }),
-  ],
+  types: allTypes,
 });
 
 export const context = async ({ req }: { req: MicroRequest }) => {

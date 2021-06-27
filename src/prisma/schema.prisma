@@ -12,6 +12,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// OAuth accounts associated with a User
 model Account {
   id                 String    @id @default(cuid())
   userId             String
@@ -28,6 +29,7 @@ model Account {
   @@unique([providerId, providerAccountId])
 }
 
+/// Stores user authentication database sessions
 model Session {
   id           String   @id @default(cuid())
   userId       String
@@ -52,6 +54,7 @@ model User {
   sessions      Session[]
 }
 
+/// Used to store tokens for passwordless sign in emails
 model VerificationRequest {
   id         String   @id @default(cuid())
   identifier String
