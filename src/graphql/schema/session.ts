@@ -1,5 +1,5 @@
 import { Session } from 'nexus-prisma';
-import { objectType } from 'nexus';
+import { objectType, extendType } from 'nexus';
 
 export const session = objectType({
   name: Session.$name,
@@ -13,5 +13,17 @@ export const session = objectType({
     t.field(Session.createdAt);
     t.field(Session.updatedAt);
     t.field(Session.user);
+  },
+});
+
+export const sessionsQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.list.field('sessions', {
+      type: Session.$name,
+      resolve(_, __, ctx) {
+        return ctx.prisma.session.findMany();
+      },
+    });
   },
 });

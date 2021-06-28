@@ -1,5 +1,5 @@
 import { User } from 'nexus-prisma';
-import { objectType } from 'nexus';
+import { objectType, extendType } from 'nexus';
 
 export const user = objectType({
   name: User.$name,
@@ -14,5 +14,17 @@ export const user = objectType({
     t.field(User.updatedAt);
     t.field(User.accounts);
     t.field(User.sessions);
+  },
+});
+
+export const usersQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.list.field('users', {
+      type: User.$name,
+      resolve(_, __, ctx) {
+        return ctx.prisma.user.findMany();
+      },
+    });
   },
 });
