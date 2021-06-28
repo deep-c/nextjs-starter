@@ -15,5 +15,6 @@ export const account = objectType({
     t.field(Account.accessTokenExpires);
     t.field(Account.createdAt);
     t.field(Account.updatedAt);
+    t.field(Account.user);
   },
 });

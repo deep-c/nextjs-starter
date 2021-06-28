@@ -12,5 +12,6 @@ export const session = objectType({
     t.field(Session.accessToken);
     t.field(Session.createdAt);
     t.field(Session.updatedAt);
+    t.field(Session.user);
   },
 });

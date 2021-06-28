@@ -54,7 +54,7 @@ model User {
   sessions      Session[]
 }
 
-/// Used to store tokens for passwordless sign in emails
+/// Stores tokens for passwordless sign in emails
 model VerificationRequest {
   id         String   @id @default(cuid())
   identifier String
