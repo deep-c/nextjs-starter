@@ -41,6 +41,7 @@ model Session {
   user         User     @relation(fields: [userId], references: [id])
 }
 
+/// Defines the roles used for authorization
 enum Role {
   USER
   ADMIN
