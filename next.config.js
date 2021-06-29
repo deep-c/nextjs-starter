@@ -5,4 +5,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   poweredByHeader: false,
+  images: {
+    domains: ['tailwindui.com', 'images.unsplash.com'],
+  },
 });
