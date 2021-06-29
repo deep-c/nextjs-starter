@@ -17,7 +17,10 @@ export default NextAuth({
       // Add UserId to session object. NOTE: No great way to check for token or user.
       // We arent using JWT if JWT is enabled this will need to be modified.
       if (session?.user) {
-        session.user = Object.assign({}, session.user, { id: userOrToken.id });
+        session.user = Object.assign({}, session.user, {
+          id: userOrToken.id,
+          role: userOrToken.role,
+        });
       }
       return session;
     },

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fragment, useState } from 'react';
-import type { NextPage } from 'next';
+import { Role } from '@prisma/client';
 import Image from 'next/image';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
@@ -994,6 +994,7 @@ export const AdminDashboard: NextAuthPage<AdminDashboardProps> = () => {
 
 AdminDashboard.auth = {
   loginUrl: routes.ADMIN.LOGIN,
+  allowedRoles: [Role.ADMIN, Role.SUPPORT],
 };
 
 export default AdminDashboard;

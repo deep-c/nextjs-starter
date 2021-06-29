@@ -6,6 +6,7 @@ const routes = {
   APP: {
     LOGIN: '/login',
   },
+  UNAUTHORIZED: '/unauthorized',
 };
 
 export default routes;
