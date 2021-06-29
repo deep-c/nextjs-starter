@@ -12,6 +12,7 @@ export const user = objectType({
     t.field(User.image);
     t.field(User.createdAt);
     t.field(User.updatedAt);
+    t.field(User.role);
     t.field(User.accounts);
     t.field(User.sessions);
   },
