@@ -8,6 +8,7 @@ import {
   ClockIcon,
   SearchIcon,
   SelectorIcon,
+  CogIcon,
 } from '@heroicons/react/outline';
 import { classNames } from '@/utils';
 import AccountDropdown from '@/components/user/AccountDropdown';
@@ -18,9 +19,8 @@ export interface SidebarProps {
 }
 
 const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: true },
-  { name: 'My tasks', href: '#', icon: ViewListIcon, current: false },
-  { name: 'Recent', href: '#', icon: ClockIcon, current: false },
+  { name: 'Dashboard', href: '#', icon: HomeIcon, current: false },
+  { name: 'Settings', href: '#', icon: CogIcon, current: true },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
@@ -134,9 +134,8 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
           </div>
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="h-0 flex-1 flex flex-col overflow-y-auto">
-            <AccountDropdown />
             {/* Navigation */}
-            <nav className="px-3 mt-6">
+            <nav className="px-3 divide-y mt-6">
               <div className="space-y-1">
                 {navigation.map((item) => (
                   <a
@@ -164,6 +163,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
                 ))}
               </div>
             </nav>
+            <AccountDropdown />
           </div>
         </div>
       </div>
