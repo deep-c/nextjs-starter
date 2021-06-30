@@ -9,12 +9,15 @@ import { classNames } from '@/utils';
 
 export interface AccountSettingsProps {}
 
-const tabs = [{ name: 'General', href: '#', current: true }];
+const tabs = [
+  { name: 'General', href: '#', current: true },
+  { name: 'Notifications', href: '#', current: false },
+];
 
 export const AccountSettings: NextAuthPage<AccountSettingsProps> = () => {
   return (
     <>
-      <div className="py-2">
+      <div className="py-6">
         {/* Tabs */}
         <div className="sm:hidden">
           <label htmlFor="tabs" className="sr-only">
@@ -23,7 +26,7 @@ export const AccountSettings: NextAuthPage<AccountSettingsProps> = () => {
           <select
             id="tabs"
             name="tabs"
-            className="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
             defaultValue={tabs.find((tab) => tab.current)?.name}
           >
             {tabs.map((tab) => (
@@ -31,27 +34,29 @@ export const AccountSettings: NextAuthPage<AccountSettingsProps> = () => {
             ))}
           </select>
         </div>
-        <div className="hidden sm:block mt-6">
-          <nav className="flex space-x-4" aria-label="Tabs">
-            {tabs.map((tab) => (
-              <a
-                key={tab.name}
-                href={tab.href}
-                className={classNames(
-                  tab.current
-                    ? 'bg-indigo-100 text-indigo-700'
-                    : 'text-gray-500 hover:text-gray-700',
-                  'px-3 py-2 font-medium text-sm rounded-md'
-                )}
-                aria-current={tab.current ? 'page' : undefined}
-              >
-                {tab.name}
-              </a>
-            ))}
-          </nav>
+        <div className="hidden sm:block">
+          <div className="border-b border-gray-200">
+            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+              {tabs.map((tab) => (
+                <a
+                  key={tab.name}
+                  href={tab.href}
+                  className={classNames(
+                    tab.current
+                      ? 'border-indigo-500 text-indigo-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
+                    'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+                  )}
+                  aria-current={tab.current ? 'page' : undefined}
+                >
+                  {tab.name}
+                </a>
+              ))}
+            </nav>
+          </div>
         </div>
       </div>
-      <form className="space-y-8 divide-y divide-gray-200 mt-6">
+      <form className="space-y-8 divide-y divide-gray-200 mt-4">
         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
           <div>
             <div>
@@ -109,7 +114,7 @@ export const AccountSettings: NextAuthPage<AccountSettingsProps> = () => {
                   htmlFor="photo"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Photo
+                  Avatar
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                   <div className="flex items-center">

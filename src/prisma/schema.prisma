@@ -55,6 +55,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  bio           String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   role          Role      @default(USER)

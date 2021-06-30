@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Dialog, Transition } from '@headlessui/react';
 import {
   XIcon,
-  HomeIcon,
   CogIcon,
   UserGroupIcon,
   MapIcon,
