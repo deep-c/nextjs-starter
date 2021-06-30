@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 import Image from 'next/image';
-import { Dialog, Menu, Transition } from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react';
 import {
   XIcon,
   HomeIcon,
-  ViewListIcon,
-  ClockIcon,
-  SearchIcon,
-  SelectorIcon,
   CogIcon,
+  UserGroupIcon,
+  MapIcon,
+  LockClosedIcon,
 } from '@heroicons/react/outline';
 import { classNames } from '@/utils';
 import AccountDropdown from '@/components/user/AccountDropdown';
@@ -19,7 +18,9 @@ export interface SidebarProps {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: false },
+  { name: 'Dashboard', href: '#', icon: MapIcon, current: false },
+  { name: 'Users', href: '#', icon: UserGroupIcon, current: false },
+  { name: 'Sessions', href: '#', icon: LockClosedIcon, current: false },
   { name: 'Settings', href: '#', icon: CogIcon, current: true },
 ];
 
