@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MenuAlt1Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 import ProfileDropdown from '@/components/user/ProfileDropdown';
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
 
 export interface AdminLayoutProps {}
 
