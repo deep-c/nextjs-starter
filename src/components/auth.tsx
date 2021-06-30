@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
+import type { Session } from 'next-auth';
 import type { Role } from '@prisma/client';
 import type { NextPage } from 'next';
 import type { UrlObject } from 'url';
 import routes from '@/routes';
-import { Session } from 'next-auth';
 
 export interface AuthProps {
   loginUrl?: UrlObject | string;
   allowedRoles?: Role[];
 }
 
-export type NextAuthPage<P> = NextPage<P, P> & { auth?: AuthProps };
+export type NextAuthPage<P> = NextPage<P, P> & {
+  auth?: AuthProps;
+  layout?: ReactNode;
+};
 
 export const roleHasAccess = (session: Session, roles: Role[]) => {
   return !!roles.find((role) => role === session?.user?.role);
