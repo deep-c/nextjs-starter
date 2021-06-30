@@ -1,6 +1,6 @@
 import React from 'react';
 import { Role } from '@prisma/client';
-import { NextAuthPage } from '@/components/auth';
+import { NextAuthPage } from '@/components/Auth';
 import routes from '@/routes';
 import AdminLayout from '@/layouts/admin';
 

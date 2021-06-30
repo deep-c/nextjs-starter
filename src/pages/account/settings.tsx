@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Role } from '@prisma/client';
 import { Switch } from '@headlessui/react';
-import { NextAuthPage } from '@/components/auth';
+import { NextAuthPage } from '@/components/Auth';
 import routes from '@/routes';
 import AdminLayout from '@/layouts/admin';
 import { classNames } from '@/utils';
