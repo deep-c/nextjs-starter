@@ -1,6 +1,6 @@
 import path from 'path';
 import { makeSchema, fieldAuthorizePlugin, connectionPlugin } from 'nexus';
-import * as allTypes from '@/graphql/types';
+import * as allTypes from './types';
 
 const schema = makeSchema({
   types: allTypes,
