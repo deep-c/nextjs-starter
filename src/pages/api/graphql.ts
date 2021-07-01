@@ -1,6 +1,6 @@
 import path from 'path';
 import { ApolloServer } from 'apollo-server-micro';
-import { makeSchema, fieldAuthorizePlugin } from 'nexus';
+import { makeSchema, fieldAuthorizePlugin, connectionPlugin } from 'nexus';
 import * as allTypes from '@/graphql/schema';
 import { context } from '@/graphql/context';
 
@@ -20,7 +20,7 @@ export const schema = makeSchema({
     module: path.resolve(require.resolve('@/graphql/context')),
     export: 'AppGqlContext',
   },
-  plugins: [fieldAuthorizePlugin()],
+  plugins: [fieldAuthorizePlugin(), connectionPlugin()],
 });
 
 export default new ApolloServer({

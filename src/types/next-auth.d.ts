@@ -3,9 +3,9 @@ import NextAuth from 'next-auth';
 
 export interface AuthSessionUser {
   id: string;
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
+  name: string | null;
+  email: string | null;
+  image: string | null;
   role: Role;
 }
 
