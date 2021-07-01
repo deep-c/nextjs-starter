@@ -7,6 +7,7 @@ import {
   UserGroupIcon,
   MapIcon,
   LockClosedIcon,
+  LogoutIcon,
 } from '@heroicons/react/outline';
 import { classNames } from '@/utils';
 import AccountDropdown from '@/components/user/AccountDropdown';
@@ -20,7 +21,11 @@ const navigation = [
   { name: 'Dashboard', href: '#', icon: MapIcon, current: false },
   { name: 'Users', href: '#', icon: UserGroupIcon, current: false },
   { name: 'Sessions', href: '#', icon: LockClosedIcon, current: false },
+];
+
+const userNavigation = [
   { name: 'Settings', href: '#', icon: CogIcon, current: true },
+  { name: 'Logout', href: '#', icon: LogoutIcon, current: false },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
@@ -132,10 +137,9 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
               height={50}
             />
           </div>
-          {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="h-0 flex-1 flex flex-col overflow-y-auto">
             {/* Navigation */}
-            <nav className="px-3 divide-y mt-6">
+            <nav className="flex-1 px-3 divide-y mt-6">
               <div className="space-y-1">
                 {navigation.map((item) => (
                   <a
@@ -164,6 +168,32 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
               </div>
             </nav>
             <AccountDropdown />
+            <div className="px-3 divide-y mt-6">
+              {userNavigation.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className={classNames(
+                    item.current
+                      ? 'bg-gray-200 text-gray-900'
+                      : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                    'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                  )}
+                  aria-current={item.current ? 'page' : undefined}
+                >
+                  <item.icon
+                    className={classNames(
+                      item.current
+                        ? 'text-gray-500'
+                        : 'text-gray-400 group-hover:text-gray-500',
+                      'mr-3 flex-shrink-0 h-6 w-6'
+                    )}
+                    aria-hidden="true"
+                  />
+                  {item.name}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
