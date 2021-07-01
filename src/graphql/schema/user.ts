@@ -1,5 +1,6 @@
 import { User } from 'nexus-prisma';
 import { objectType, extendType } from 'nexus';
+import type { AppGqlContext } from '../context';
 
 export const user = objectType({
   name: User.$name,
@@ -24,8 +25,24 @@ export const usersQuery = extendType({
   definition(t) {
     t.nonNull.list.field('users', {
       type: User.$name,
-      resolve(_, __, ctx) {
+      resolve(_, __, ctx: AppGqlContext) {
         return ctx.prisma.user.findMany();
+      },
+    });
+  },
+});
+
+export const meQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nullable.field('me', {
+      type: User.$name,
+      resolve(_, __, ctx: AppGqlContext) {
+        return ctx.prisma.user.findUnique({
+          where: {
+            id: ctx.user?.id,
+          },
+        });
       },
     });
   },
