@@ -1,6 +1,6 @@
 ## Getting Started
 
-First create .env and .env.local files and then:
+First create a .env.local file from the env.local.example and then:
 
 ```bash
 docker compose up -d
@@ -11,9 +11,6 @@ Attach to debugger:
 
 ```
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
@@ -26,5 +23,3 @@ Attach to debugger:
   ]
 }
 ```
-
-Open [http://localhost:3333](http://localhost:3333)
