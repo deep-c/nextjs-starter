@@ -9,7 +9,7 @@ export type AppGqlContext = {
   user: AuthSessionUser | null;
 };
 
-export const context = async ({
+const context = async ({
   req,
 }: {
   req: MicroRequest;
@@ -20,3 +20,5 @@ export const context = async ({
     prisma,
   };
 };
+
+export default context;

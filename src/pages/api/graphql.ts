@@ -1,8 +1,6 @@
-import path from 'path';
 import { ApolloServer } from 'apollo-server-micro';
-import { makeSchema, fieldAuthorizePlugin, connectionPlugin } from 'nexus';
-import * as allTypes from '@/graphql/schema';
-import { context } from '@/graphql/context';
+import context from '@/graphql/context';
+import schema from '@/graphql/schema';
 
 export const config = {
   api: {
@@ -10,20 +8,7 @@ export const config = {
   },
 };
 
-export const schema = makeSchema({
-  types: allTypes,
-  outputs: {
-    typegen: path.join(process.cwd(), 'generated/nexus-typegen.ts'),
-    schema: path.join(process.cwd(), 'generated/schema.graphql'),
-  },
-  contextType: {
-    module: path.resolve(require.resolve('@/graphql/context')),
-    export: 'AppGqlContext',
-  },
-  plugins: [fieldAuthorizePlugin(), connectionPlugin()],
-});
-
-export default new ApolloServer({
+const server = new ApolloServer({
   schema,
   context,
   playground: {
@@ -32,6 +17,8 @@ export default new ApolloServer({
       'schema.polling.enable': false,
     },
   },
-}).createHandler({
+});
+
+export default server.createHandler({
   path: '/api/graphql',
 });
