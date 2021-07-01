@@ -10,7 +10,6 @@ import {
   LogoutIcon,
 } from '@heroicons/react/outline';
 import { classNames } from '@/utils';
-import AccountDropdown from '@/components/user/AccountDropdown';
 
 export interface SidebarProps {
   open: boolean;
@@ -167,8 +166,25 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
                 ))}
               </div>
             </nav>
-            <AccountDropdown />
-            <div className="px-3 divide-y mt-6">
+            <div className="group w-full bg-gray-100 rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700">
+              <span className="flex w-full justify-between items-center">
+                <span className="flex min-w-0 items-center justify-between space-x-3">
+                  <Image
+                    className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
+                    src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                    alt=""
+                    width={50}
+                    height={50}
+                  />
+                  <span className="flex-1 flex flex-col min-w-0">
+                    <span className="text-gray-900 text-sm font-medium truncate">
+                      Jessy Schwarz
+                    </span>
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div className="px-3 divide-y mt-4">
               {userNavigation.map((item) => (
                 <a
                   key={item.name}

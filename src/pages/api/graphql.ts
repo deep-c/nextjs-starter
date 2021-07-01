@@ -17,6 +17,7 @@ const server = new ApolloServer({
       'schema.polling.enable': false,
     },
   },
+  tracing: process.env.NODE_ENV === 'development',
 });
 
 export default server.createHandler({
