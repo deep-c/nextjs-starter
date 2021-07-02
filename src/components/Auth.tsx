@@ -3,19 +3,15 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
 import type { Session } from 'next-auth';
 import type { Role } from '@prisma/client';
-import type { NextPage } from 'next';
 import type { UrlObject } from 'url';
-import routes from '@/routes';
+import { LOGIN, UNAUTHORIZED } from '@/routes';
 
-export interface AuthProps {
+export interface AuthSettings {
   loginUrl?: UrlObject | string;
   allowedRoles?: Role[];
 }
 
-export type NextAuthPage<P> = NextPage<P, P> & {
-  auth?: AuthProps;
-  layout?: ReactNode;
-};
+export interface AuthProps extends AuthSettings {}
 
 export const roleHasAccess = (session: Session, roles: Role[]) => {
   return !!roles.find((role) => role === session?.user?.role);
@@ -28,13 +24,13 @@ const Auth: React.FC<AuthProps> = ({ children, loginUrl, allowedRoles }) => {
   useEffect(() => {
     if (!loading) {
       if (!hasUser) {
-        router.push(loginUrl ?? routes.APP.LOGIN);
+        router.push(loginUrl ?? LOGIN.path);
       } else if (
         session &&
         allowedRoles &&
         !roleHasAccess(session, allowedRoles)
       ) {
-        router.push(routes.UNAUTHORIZED);
+        router.push(UNAUTHORIZED.path);
       }
     }
     if (!loading && !hasUser && loginUrl) {
@@ -48,7 +44,7 @@ const Auth: React.FC<AuthProps> = ({ children, loginUrl, allowedRoles }) => {
 };
 
 Auth.defaultProps = {
-  loginUrl: routes.APP.LOGIN,
+  loginUrl: LOGIN.path,
 };
 
 export default Auth;

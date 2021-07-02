@@ -1,9 +1,5 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { Role } from '@prisma/client';
-import { Switch } from '@headlessui/react';
-import { NextAuthPage } from '@/components/Auth';
-import routes from '@/routes';
+import React from 'react';
+import { ACCOUNT_SETTINGS, NextRoutePage } from '@/routes';
 import AdminLayout from '@/layouts/admin';
 import { classNames } from '@/utils';
 
@@ -14,7 +10,7 @@ const tabs = [
   { name: 'Notifications', href: '#', current: false },
 ];
 
-export const AccountSettings: NextAuthPage<AccountSettingsProps> = () => {
+export const AccountSettings: NextRoutePage<AccountSettingsProps> = () => {
   return (
     <>
       <div className="py-6">
@@ -160,11 +156,7 @@ export const AccountSettings: NextAuthPage<AccountSettingsProps> = () => {
   );
 };
 
-AccountSettings.auth = {
-  loginUrl: routes.APP.LOGIN,
-  allowedRoles: [Role.ADMIN, Role.SUPPORT, Role.USER],
-};
-
+AccountSettings.auth = ACCOUNT_SETTINGS.auth;
 AccountSettings.layout = AdminLayout;
 
 export default AccountSettings;
