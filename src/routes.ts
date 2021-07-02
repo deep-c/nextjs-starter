@@ -13,42 +13,47 @@ import {
 } from '@heroicons/react/outline';
 
 export type Url = string | UrlObject;
+export type DynamicPathFn = (option: Record<string, any>) => Url;
 export interface AppRoute {
-  path: Url;
+  path: Url | DynamicPathFn;
   name: string;
   icon: ReactNode;
-  auth?: AuthSettings;
+  auth: AuthSettings;
 }
 export type NextRoutePage<P> = NextPage<P, P> & {
-  auth?: AuthProps;
+  auth?: AuthProps | boolean;
   layout?: ReactNode;
 };
 
-export const LOGIN: AppRoute = {
+export const LOGIN = {
   path: '/login',
   name: 'Login',
   icon: LoginIcon,
+  auth: false,
 };
 
-export const UNAUTHORIZED: AppRoute = {
+export const UNAUTHORIZED = {
   path: '/unauthorized',
   name: 'Unauthorized',
   icon: BanIcon,
+  auth: false,
 };
 
-export const ADMIN_LOGIN: AppRoute = {
+export const ADMIN_LOGIN = {
   path: '/admin/login',
   name: 'Login',
   icon: LoginIcon,
+  auth: false,
 };
 
-export const ADMIN_DASHBOARD: AppRoute = {
+export const ADMIN_DASHBOARD = {
   path: '/admin/dashboard',
   name: 'Dashboard',
   icon: XIcon,
+  auth: false,
 };
 
-export const ADMIN_USERS: AppRoute = {
+export const ADMIN_USERS = {
   path: '/admin/users',
   name: 'Users',
   icon: UserGroupIcon,
@@ -58,7 +63,7 @@ export const ADMIN_USERS: AppRoute = {
   },
 };
 
-export const ADMIN_SESSIONS: AppRoute = {
+export const ADMIN_SESSIONS = {
   path: '/admin/sessions',
   name: 'Sessions',
   icon: LockClosedIcon,
@@ -68,7 +73,7 @@ export const ADMIN_SESSIONS: AppRoute = {
   },
 };
 
-export const ACCOUNT_SETTINGS: AppRoute = {
+export const ACCOUNT_SETTINGS = {
   path: '/account/settings',
   name: 'Settings',
   icon: CogIcon,

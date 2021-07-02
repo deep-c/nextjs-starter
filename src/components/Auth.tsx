@@ -1,4 +1,4 @@
-import React, { useEffect, ReactNode } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
 import type { Session } from 'next-auth';

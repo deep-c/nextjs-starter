@@ -5,6 +5,8 @@ First create a .env.local file from the env.local.example and then:
 ```bash
 docker compose up -d
 npm run dev
+# OR
+Run Launch configuration via vscode below
 ```
 
 Attach to debugger:
@@ -15,11 +17,22 @@ Attach to debugger:
   "configurations": [
     {
       "type": "node",
-      "request": "attach",
-      "name": "Launch Program",
+      "request": "launch",
+      "name": "Launch",
       "skipFiles": ["<node_internals>/**"],
-      "port": 9229
+      "port": 9229,
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "dev"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Attach",
+      "port": 9229,
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
     }
   ]
 }
+
 ```
