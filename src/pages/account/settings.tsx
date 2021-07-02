@@ -13,7 +13,10 @@ const tabs = [
 export const AccountSettings: NextRoutePage<AccountSettingsProps> = () => {
   return (
     <>
-      <div className="py-6">
+      <div className="pt-6 pb-6">
+        <h1 className="text-3xl font-extrabold text-gray-900">Settings</h1>
+      </div>
+      <div className="pb-6">
         {/* Tabs */}
         <div className="sm:hidden">
           <label htmlFor="tabs" className="sr-only">

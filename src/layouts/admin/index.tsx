@@ -49,14 +49,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         </div>
         <main className="flex-1 overflow-y-auto focus:outline-none">
           <div className="relative max-w-4xl mx-12 md:px-8 xl:px-0">
-            <div className="pt-6 pb-16">
-              <div>
-                <h1 className="text-3xl font-extrabold text-gray-900">
-                  Settings
-                </h1>
-              </div>
-              {children}
-            </div>
+            {children}
           </div>
         </main>
       </div>
