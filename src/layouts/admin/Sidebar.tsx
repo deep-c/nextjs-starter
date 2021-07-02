@@ -9,7 +9,7 @@ import {
   LockClosedIcon,
   LogoutIcon,
 } from '@heroicons/react/outline';
-import { classNames } from '@/utils';
+import { classNames } from '@/utils/ui';
 
 export interface SidebarProps {
   open: boolean;

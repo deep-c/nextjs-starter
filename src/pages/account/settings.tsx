@@ -1,7 +1,7 @@
 import React from 'react';
 import { ACCOUNT_SETTINGS, NextRoutePage } from '@/routes';
 import AdminLayout from '@/layouts/admin';
-import { classNames } from '@/utils';
+import { classNames } from '@/utils/ui';
 
 export interface AccountSettingsProps {}
 

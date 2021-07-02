@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Image from 'next/image';
 import { Menu, Transition } from '@headlessui/react';
-import { classNames } from '@/utils';
+import { classNames } from '@/utils/ui';
 
 export interface AccountDropdownProps {}
 
