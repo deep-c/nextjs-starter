@@ -16,8 +16,7 @@ export interface MyAppProps extends AppProps {
 
 function MyApp({ Component, pageProps }: MyAppProps) {
   const client = useApollo(pageProps.initialApolloState);
-  const Layout =
-    Component.layout ?? ((children: ReactNode) => <>{children}</>);
+  const Layout = Component.layout ?? (({ children }) => <>{children}</>);
   return (
     <Provider session={pageProps.session}>
       <ApolloProvider client={client}>
