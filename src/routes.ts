@@ -11,7 +11,6 @@ import {
   LockClosedIcon,
   BanIcon,
 } from '@heroicons/react/outline';
-import AdminLogin from './pages/admin/login';
 
 export type Url = string | UrlObject;
 export interface AppRoute {
