@@ -28,7 +28,9 @@ function MyApp({ Component, pageProps }: MyAppProps) {
             </Layout>
           </Auth>
         ) : (
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         )}
       </ApolloProvider>
     </Provider>
