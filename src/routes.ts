@@ -11,6 +11,7 @@ import {
   LockClosedIcon,
   BanIcon,
 } from '@heroicons/react/outline';
+import AdminLogin from './pages/admin/login';
 
 export type Url = string | UrlObject;
 export interface AppRoute {
@@ -52,12 +53,20 @@ export const ADMIN_USERS: AppRoute = {
   path: '/admin/users',
   name: 'Users',
   icon: UserGroupIcon,
+  auth: {
+    loginUrl: ADMIN_LOGIN.path,
+    allowedRoles: [Role.ADMIN, Role.SUPPORT],
+  },
 };
 
 export const ADMIN_SESSIONS: AppRoute = {
   path: '/admin/sessions',
   name: 'Sessions',
   icon: LockClosedIcon,
+  auth: {
+    loginUrl: ADMIN_LOGIN.path,
+    allowedRoles: [Role.ADMIN, Role.SUPPORT],
+  },
 };
 
 export const ACCOUNT_SETTINGS: AppRoute = {
