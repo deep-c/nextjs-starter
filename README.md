@@ -4,6 +4,7 @@ First create a .env.local file from the env.local.example and then:
 
 ```bash
 docker compose up -d
+
 npm run dev
 # OR
 Run Launch configuration via vscode below
