@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-micro';
 import context from '@/graphql/context';
 import schema from '@/graphql/schema';
+import { GRAPHQL_V1_API } from '@/routes';
 
 export const config = {
   api: {
@@ -21,5 +22,5 @@ const server = new ApolloServer({
 });
 
 export default server.createHandler({
-  path: '/api/graphql',
+  path: GRAPHQL_V1_API.path,
 });

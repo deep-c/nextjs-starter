@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
+import { GRAPHQL_V1_API } from '@/routes';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 
@@ -14,7 +15,7 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
-      uri: process.env.NEXT_PUBLIC_HOST + '/api/graphql',
+      uri: process.env.NEXT_PUBLIC_HOST + GRAPHQL_V1_API.path,
     }),
     cache: new InMemoryCache(),
   });

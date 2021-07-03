@@ -10,6 +10,7 @@ import {
   UserGroupIcon,
   LockClosedIcon,
   BanIcon,
+  LinkIcon,
 } from '@heroicons/react/outline';
 
 export type Url = string | UrlObject;
@@ -23,6 +24,13 @@ export interface AppRoute {
 export type NextRoutePage<P> = NextPage<P, P> & {
   auth?: AuthProps | boolean;
   layout?: ReactNode;
+};
+
+export const GRAPHQL_V1_API = {
+  path: '/api/v1/graphql',
+  name: 'GraphQL API',
+  icon: LinkIcon,
+  auth: false,
 };
 
 export const LOGIN = {
