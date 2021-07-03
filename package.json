@@ -10,7 +10,7 @@
     "lint": "next lint",
     "lint:prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "test": "jest",
-    "generate:prisma": "dotenv -c -- prisma generate",
+    "db:generate": "dotenv -c -- prisma generate",
     "db:makemigration": "dotenv -c -- prisma migrate dev"
   },
   "prisma": {
