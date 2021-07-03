@@ -1,31 +1,24 @@
 import React, { Fragment } from 'react';
 import Image from 'next/image';
 import { Dialog, Transition } from '@headlessui/react';
-import {
-  XIcon,
-  CogIcon,
-  UserGroupIcon,
-  MapIcon,
-  LockClosedIcon,
-  LogoutIcon,
-} from '@heroicons/react/outline';
+import { XIcon } from '@heroicons/react/outline';
 import { classNames } from '@/utils/ui';
+import ActiveLink from '@/components/ActiveLink';
+import {
+  ADMIN_DASHBOARD,
+  ADMIN_USERS,
+  ADMIN_SESSIONS,
+  ACCOUNT_SETTINGS,
+} from '@/routes';
 
 export interface SidebarProps {
   open: boolean;
   handleState: (state: boolean) => void;
 }
 
-const navigation = [
-  { name: 'Dashboard', href: '#', icon: MapIcon, current: false },
-  { name: 'Users', href: '#', icon: UserGroupIcon, current: false },
-  { name: 'Sessions', href: '#', icon: LockClosedIcon, current: false },
-];
+const navigation = [ADMIN_DASHBOARD, ADMIN_USERS, ADMIN_SESSIONS];
 
-const userNavigation = [
-  { name: 'Settings', href: '#', icon: CogIcon, current: true },
-  { name: 'Logout', href: '#', icon: LogoutIcon, current: false },
-];
+const userNavigation = [ACCOUNT_SETTINGS];
 
 const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
   return (
@@ -91,28 +84,30 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
                 <nav className="px-2">
                   <div className="space-y-1">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-                          'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md'
+                      <ActiveLink key={item.path} href={item.path}>
+                        {({ isActive }) => (
+                          <a
+                            className={classNames(
+                              isActive
+                                ? 'bg-gray-100 text-gray-900'
+                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+                              'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md'
+                            )}
+                            aria-current={isActive ? 'page' : undefined}
+                          >
+                            <item.icon
+                              className={classNames(
+                                isActive
+                                  ? 'text-gray-500'
+                                  : 'text-gray-400 group-hover:text-gray-500',
+                                'mr-3 flex-shrink-0 h-6 w-6'
+                              )}
+                              aria-hidden="true"
+                            />
+                            {item.name}
+                          </a>
                         )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        <item.icon
-                          className={classNames(
-                            item.current
-                              ? 'text-gray-500'
-                              : 'text-gray-400 group-hover:text-gray-500',
-                            'mr-3 flex-shrink-0 h-6 w-6'
-                          )}
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
+                      </ActiveLink>
                     ))}
                   </div>
                 </nav>
@@ -141,28 +136,30 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
             <nav className="flex-1 px-3 divide-y mt-6">
               <div className="space-y-1">
                 {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? 'bg-gray-200 text-gray-900'
-                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                  <ActiveLink key={item.path} href={item.path}>
+                    {({ isActive }) => (
+                      <a
+                        className={classNames(
+                          isActive
+                            ? 'bg-gray-200 text-gray-900'
+                            : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                          'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                        )}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        <item.icon
+                          className={classNames(
+                            isActive
+                              ? 'text-gray-500'
+                              : 'text-gray-400 group-hover:text-gray-500',
+                            'mr-3 flex-shrink-0 h-6 w-6'
+                          )}
+                          aria-hidden="true"
+                        />
+                        {item.name}
+                      </a>
                     )}
-                    aria-current={item.current ? 'page' : undefined}
-                  >
-                    <item.icon
-                      className={classNames(
-                        item.current
-                          ? 'text-gray-500'
-                          : 'text-gray-400 group-hover:text-gray-500',
-                        'mr-3 flex-shrink-0 h-6 w-6'
-                      )}
-                      aria-hidden="true"
-                    />
-                    {item.name}
-                  </a>
+                  </ActiveLink>
                 ))}
               </div>
             </nav>
@@ -184,30 +181,33 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
                 </span>
               </span>
             </div>
-            <div className="px-3 divide-y mt-4">
+            {/* User Navigation */}
+            <div className="px-3 divide-y mt-2">
               {userNavigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? 'bg-gray-200 text-gray-900'
-                      : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
-                    'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                <ActiveLink key={item.path} href={item.path}>
+                  {({ isActive }) => (
+                    <a
+                      className={classNames(
+                        isActive
+                          ? 'bg-gray-200 text-gray-900'
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                      )}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      <item.icon
+                        className={classNames(
+                          isActive
+                            ? 'text-gray-500'
+                            : 'text-gray-400 group-hover:text-gray-500',
+                          'mr-3 flex-shrink-0 h-6 w-6'
+                        )}
+                        aria-hidden="true"
+                      />
+                      {item.name}
+                    </a>
                   )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  <item.icon
-                    className={classNames(
-                      item.current
-                        ? 'text-gray-500'
-                        : 'text-gray-400 group-hover:text-gray-500',
-                      'mr-3 flex-shrink-0 h-6 w-6'
-                    )}
-                    aria-hidden="true"
-                  />
-                  {item.name}
-                </a>
+                </ActiveLink>
               ))}
             </div>
           </div>

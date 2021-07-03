@@ -8,4 +8,8 @@ module.exports = withBundleAnalyzer({
   images: {
     domains: ['tailwindui.com', 'images.unsplash.com'],
   },
+  i18n: {
+    locales: ['en-AU'],
+    defaultLocale: 'en-AU',
+  },
 });

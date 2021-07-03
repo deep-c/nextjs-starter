@@ -11,6 +11,7 @@ import {
   LockClosedIcon,
   BanIcon,
   LinkIcon,
+  MapIcon,
 } from '@heroicons/react/outline';
 
 export type Url = string | UrlObject;
@@ -57,7 +58,7 @@ export const ADMIN_LOGIN = {
 export const ADMIN_DASHBOARD = {
   path: '/admin/dashboard',
   name: 'Dashboard',
-  icon: XIcon,
+  icon: MapIcon,
   auth: false,
 };
 

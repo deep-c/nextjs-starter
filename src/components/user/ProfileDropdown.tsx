@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import Image from 'next/image';
 import { Menu, Transition } from '@headlessui/react';
+import ActiveLink from '@/components/ActiveLink';
 import { classNames } from '@/utils/ui';
+import { ACCOUNT_SETTINGS } from '@/routes';
 
 export interface AccountDropdownProps {}
 
@@ -39,15 +41,20 @@ const AccountDropdown: React.FC<AccountDropdownProps> = () => {
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="#"
-                      className={classNames(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm'
+                    <ActiveLink href={ACCOUNT_SETTINGS.path}>
+                      {({ isActive }) => (
+                        <a
+                          className={classNames(
+                            isActive
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-700',
+                            'block px-4 py-2 text-sm'
+                          )}
+                        >
+                          Settings
+                        </a>
                       )}
-                    >
-                      Settings
-                    </a>
+                    </ActiveLink>
                   )}
                 </Menu.Item>
               </div>

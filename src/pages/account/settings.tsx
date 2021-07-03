@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import { ACCOUNT_SETTINGS, NextRoutePage } from '@/routes';
 import AdminLayout from '@/layouts/admin';
 import { classNames } from '@/utils/ui';
@@ -13,6 +14,14 @@ const tabs = [
 export const AccountSettings: NextRoutePage<AccountSettingsProps> = () => {
   return (
     <>
+      <Head>
+        <title>Account Settings | Admin</title>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width"
+        />
+        <meta name="description" content="User account settings" />
+      </Head>
       <div className="pt-6 pb-6">
         <h1 className="text-3xl font-extrabold text-gray-900">Settings</h1>
       </div>
@@ -59,9 +68,9 @@ export const AccountSettings: NextRoutePage<AccountSettingsProps> = () => {
         <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
           <div>
             <div>
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
+              <h2 className="text-lg leading-6 font-medium text-gray-900">
                 Profile
-              </h3>
+              </h2>
               <p className="mt-1 max-w-2xl text-sm text-gray-500">
                 This information will be displayed publicly so be careful what
                 you share.
