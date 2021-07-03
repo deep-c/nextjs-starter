@@ -1,43 +1,53 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/client';
 import type { Session } from 'next-auth';
 import type { Role } from '@prisma/client';
 import type { UrlObject } from 'url';
-import { LOGIN, UNAUTHORIZED } from '@/routes';
+import type { AuthSessionUser } from '@/types/next-auth';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/client';
+import { LOGIN, UNAUTHORIZED, Url } from '@/routes';
 
 export interface AuthSettings {
-  loginUrl?: UrlObject | string;
+  loginUrl?: Url;
   allowedRoles?: Role[];
 }
 
 export interface AuthProps extends AuthSettings {}
 
-export const roleHasAccess = (session: Session, roles: Role[]) => {
-  return !!roles.find((role) => role === session?.user?.role);
+export const isAuthorized = (
+  allowedRoles: Role[],
+  user?: AuthSessionUser | null
+) => {
+  return (
+    isAuthenticated(user) && !!allowedRoles.find((role) => role === user?.role)
+  );
+};
+
+export const isAuthenticated = (user?: AuthSessionUser | null) => {
+  return !!user;
 };
 
 const Auth: React.FC<AuthProps> = ({ children, loginUrl, allowedRoles }) => {
   const [session, loading] = useSession();
-  const hasUser = !!session?.user;
+  const hasAuth = isAuthenticated(session?.user);
   const router = useRouter();
   useEffect(() => {
     if (!loading) {
-      if (!hasUser) {
+      if (!hasAuth) {
         router.push(loginUrl ?? LOGIN.path);
       } else if (
         session &&
         allowedRoles &&
-        !roleHasAccess(session, allowedRoles)
+        !isAuthorized(allowedRoles, session?.user)
       ) {
         router.push(UNAUTHORIZED.path);
       }
     }
-    if (!loading && !hasUser && loginUrl) {
+    if (!loading && !hasAuth && loginUrl) {
       router.push(loginUrl);
     }
-  }, [loading, hasUser, router, loginUrl, allowedRoles, session]);
-  if (loading || !hasUser) {
+  }, [loading, hasAuth, router, loginUrl, allowedRoles, session]);
+  if (loading || !hasAuth) {
     return <div />;
   }
   return <>{children}</>;

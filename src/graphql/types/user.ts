@@ -1,5 +1,7 @@
 import { User } from 'nexus-prisma';
 import { objectType, extendType } from 'nexus';
+import { Role } from '@prisma/client';
+import { isAuthorized, isAuthenticated } from '@/components/Auth';
 
 export const user = objectType({
   name: User.$name,
@@ -27,6 +29,9 @@ export const usersQuery = extendType({
       resolve(_, __, ctx) {
         return ctx.prisma.user.findMany();
       },
+      authorize: (_, __, ctx) => {
+        return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);
+      },
     });
   },
 });
@@ -42,6 +47,9 @@ export const meQuery = extendType({
             id: ctx.user?.id,
           },
         });
+      },
+      authorize: (_, __, ctx) => {
+        return isAuthenticated(ctx.user);
       },
     });
   },
