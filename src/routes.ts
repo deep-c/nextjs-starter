@@ -4,7 +4,6 @@ import type { NextPage } from 'next';
 import type { AuthSettings, AuthProps } from '@/components/Auth';
 import { Role } from '@prisma/client';
 import {
-  XIcon,
   CogIcon,
   LoginIcon,
   UserGroupIcon,
