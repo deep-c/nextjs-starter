@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import Image from 'next/image';
+import { useQuery } from '@apollo/client';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { classNames } from '@/utils/ui';
 import ActiveLink from '@/components/ActiveLink';
+import { me } from '@/graphql/query/user';
 import {
   ADMIN_DASHBOARD,
   ADMIN_USERS,
@@ -21,6 +23,10 @@ const navigation = [ADMIN_DASHBOARD, ADMIN_USERS, ADMIN_SESSIONS];
 const userNavigation = [ACCOUNT_SETTINGS];
 
 const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
+  const { loading: meLoading, error, data } = useQuery(me);
+
+  if (meLoading) return null;
+
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
@@ -166,16 +172,28 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
             <div className="group w-full bg-gray-100 rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700">
               <span className="flex w-full justify-between items-center">
                 <span className="flex min-w-0 items-center justify-between space-x-3">
-                  <Image
-                    className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
-                    src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
-                    alt=""
-                    width={50}
-                    height={50}
-                  />
+                  {data.me.image ? (
+                    <Image
+                      className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
+                      src={data.me.image}
+                      alt=""
+                      width={50}
+                      height={50}
+                    />
+                  ) : (
+                    <span className="h-14 w-14 rounded-full overflow-hidden bg-gray-100">
+                      <svg
+                        className="h-full w-full text-gray-300"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                      </svg>
+                    </span>
+                  )}
                   <span className="flex-1 flex flex-col min-w-0">
                     <span className="text-gray-900 text-sm font-medium truncate">
-                      Jessy Schwarz
+                      {data.me.name}
                     </span>
                   </span>
                 </span>

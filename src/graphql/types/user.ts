@@ -1,5 +1,11 @@
 import { User } from 'nexus-prisma';
-import { objectType, extendType } from 'nexus';
+import {
+  objectType,
+  extendType,
+  idArg,
+  nonNull,
+  inputObjectType,
+} from 'nexus';
 import { Role } from '@prisma/client';
 import { isAuthorized, isAuthenticated } from '@/components/Auth';
 
@@ -18,6 +24,15 @@ export const user = objectType({
     t.field(User.bio);
     t.field(User.accounts);
     t.field(User.sessions);
+  },
+});
+
+export const userUpdateInput = inputObjectType({
+  name: 'UserUpdateInput',
+  definition(t) {
+    t.field(User.name);
+    t.field(User.image);
+    t.field(User.bio);
   },
 });
 
@@ -50,6 +65,31 @@ export const meQuery = extendType({
       },
       authorize: (_, __, ctx) => {
         return isAuthenticated(ctx.user);
+      },
+    });
+  },
+});
+
+export const updateUser = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.field('updateUser', {
+      type: User.$name,
+      args: {
+        id: nonNull(idArg()),
+        fields: nonNull(userUpdateInput),
+      },
+      resolve: (_, args, ctx) => {
+        return ctx.prisma.user.update({
+          where: { id: args.id },
+          data: args.fields,
+        });
+      },
+      authorize: (_, args, ctx) => {
+        return (
+          isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user) ||
+          args.id === ctx.user?.id
+        );
       },
     });
   },
