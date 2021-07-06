@@ -1,8 +1,6 @@
-import type { Session } from 'next-auth';
-import type { Role } from '@prisma/client';
-import type { UrlObject } from 'url';
-import type { AuthSessionUser } from '@/types/next-auth';
 import React, { useEffect } from 'react';
+import type { Role } from '@prisma/client';
+import type { AuthSessionUser } from '@/types/next-auth';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
 import { LOGIN, UNAUTHORIZED, Url } from '@/routes';
