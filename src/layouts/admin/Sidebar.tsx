@@ -23,9 +23,7 @@ const navigation = [ADMIN_DASHBOARD, ADMIN_USERS, ADMIN_SESSIONS];
 const userNavigation = [ACCOUNT_SETTINGS];
 
 const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
-  const { loading: meLoading, error, data } = useQuery(me);
-
-  if (meLoading) return null;
+  const { data } = useQuery(me);
 
   return (
     <>
@@ -172,7 +170,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
             <div className="group w-full bg-gray-100 rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700">
               <span className="flex w-full justify-between items-center">
                 <span className="flex min-w-0 items-center justify-between space-x-3">
-                  {data.me.image ? (
+                  {data?.me?.image ? (
                     <Image
                       className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
                       src={data.me.image}
@@ -193,7 +191,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
                   )}
                   <span className="flex-1 flex flex-col min-w-0">
                     <span className="text-gray-900 text-sm font-medium truncate">
-                      {data.me.name}
+                      {data?.me?.name}
                     </span>
                   </span>
                 </span>

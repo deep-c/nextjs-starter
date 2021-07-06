@@ -15,13 +15,13 @@ type GeneralSettingsData = {
 };
 
 const GeneralSettings: React.FC<GeneralSettings> = () => {
-  const { loading: queryLoading, error, data } = useQuery(me);
+  const { loading: queryLoading, data } = useQuery(me);
   const [updateUserSettings, { loading: mutationLoading }] =
     useMutation(updateUser);
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields },
+    formState: { errors: formErrors, dirtyFields },
   } = useForm();
   const onSubmit: SubmitHandler<GeneralSettingsData> = async (formFields) => {
     const result = await updateUserSettings({
@@ -59,15 +59,26 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
               >
                 Name
               </label>
-              <div className="mt-1 sm:mt-0 sm:col-span-2">
+              <div className="mt-1 sm:mt-0 sm:col-span-2 relative">
                 <input
                   type="text"
                   id="name"
                   autoComplete="name"
                   className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                   defaultValue={data.me.name}
-                  {...register('name', { maxLength: 50 })}
+                  aria-invalid="true"
+                  aria-describedby="name-error"
+                  {...register('name', {
+                    maxLength: 50,
+                    minLength: 5,
+                    required: true,
+                  })}
                 />
+                {formErrors.name && (
+                  <p className="mt-2 text-sm text-red-600" id="name-error">
+                    Your name must be between 5 and 50 characters.
+                  </p>
+                )}
               </div>
             </div>
             <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-t sm:border-gray-200 sm:pt-5">
