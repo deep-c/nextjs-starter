@@ -1,18 +1,20 @@
 import React, { Fragment, useCallback } from 'react';
 import Image from 'next/image';
-import type { Session } from '@/components/Auth';
+import { signOut } from 'next-auth/client';
 import { Dialog, Transition } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
+import { XIcon, LogoutIcon } from '@heroicons/react/outline';
 import { classNames } from '@/utils/ui';
 import ActiveLink from '@/components/ActiveLink';
 import {
   ADMIN_DASHBOARD,
   ADMIN_USERS,
   ADMIN_SESSIONS,
+  ADMIN_LOGIN,
   ACCOUNT_SETTINGS,
   filterRoutesForRole,
 } from '@/routes';
 import Avatar from '@/components/user/Avatar';
+import type { Session } from '@/components/Auth';
 
 export interface SidebarProps {
   open: boolean;
@@ -210,6 +212,27 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState, session }) => {
                   )}
                 </ActiveLink>
               ))}
+              <button
+                onClick={() =>
+                  signOut({
+                    callbackUrl:
+                      process.env.NEXT_PUBLIC_HOST + ADMIN_LOGIN.path,
+                  })
+                }
+                className={classNames(
+                  'text-gray-700 hover:text-gray-900 hover:bg-gray-50 w-full',
+                  'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                )}
+              >
+                <LogoutIcon
+                  className={classNames(
+                    'text-gray-400 group-hover:text-gray-500',
+                    'mr-3 flex-shrink-0 h-6 w-6'
+                  )}
+                  aria-hidden="true"
+                />
+                Logout
+              </button>
             </div>
           </div>
         </div>

@@ -68,7 +68,9 @@ export const ADMIN_DASHBOARD = {
   path: '/admin/dashboard',
   name: 'Dashboard',
   icon: MapIcon,
-  auth: false,
+  auth: {
+    loginUrl: ADMIN_LOGIN.path,
+  },
 };
 
 export const ADMIN_USERS = {
@@ -96,6 +98,6 @@ export const ACCOUNT_SETTINGS = {
   name: 'Settings',
   icon: CogIcon,
   auth: {
-    loginUrl: LOGIN.path,
+    loginUrl: ADMIN_LOGIN.path,
   },
 };
