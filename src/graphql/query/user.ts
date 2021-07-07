@@ -14,3 +14,23 @@ export const me = gql`
     }
   }
 `;
+
+export const getUsersForAdmin = gql`
+  query GetUsersForAdmin($cursor: String) {
+    users(first: 1, after: $cursor) {
+      edges {
+        node {
+          id
+          name
+          image
+          email
+          role
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+`;

@@ -185,7 +185,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState, session }) => {
               </span>
             </div>
             {/* User Navigation */}
-            <div className="px-3 divide-y mt-2">
+            <div className="px-3 mt-2">
               {userNavigation.map((item) => (
                 <ActiveLink key={item.path} href={item.path}>
                   {({ isActive }) => (

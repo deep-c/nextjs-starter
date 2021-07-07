@@ -3,8 +3,9 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { me } from '@/graphql/query/user';
 import { updateUser } from '@/graphql/mutation/user';
+import type { GetMe } from '@/types/__generated__/apollo/GetMe';
 import { getDirtyValues } from '@/utils/form';
-import Avatar from '../Avatar';
+import Avatar from '@/components/user/Avatar';
 
 export interface GeneralSettings {}
 
@@ -15,7 +16,7 @@ type GeneralSettingsData = {
 };
 
 const GeneralSettings: React.FC<GeneralSettings> = () => {
-  const { loading: queryLoading, data } = useQuery(me);
+  const { loading: queryLoading, data } = useQuery<GetMe>(me);
   const [updateUserSettings, { loading: mutationLoading }] =
     useMutation(updateUser);
   const {
@@ -26,7 +27,7 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
   const onSubmit: SubmitHandler<GeneralSettingsData> = async (formFields) => {
     const result = await updateUserSettings({
       variables: {
-        id: data.me.id,
+        id: data?.me?.id,
         fields: getDirtyValues(dirtyFields, formFields),
       },
     });
@@ -65,7 +66,7 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
                   id="name"
                   autoComplete="name"
                   className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
-                  defaultValue={data.me.name}
+                  defaultValue={data?.me?.name ?? ''}
                   aria-invalid="true"
                   aria-describedby="name-error"
                   {...register('name', {
@@ -95,7 +96,7 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
                     id="image"
                     autoComplete="image"
                     className="max-w-lg block w-full mr-6 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
-                    defaultValue={data.me.image}
+                    defaultValue={data?.me?.image ?? ''}
                     {...register('image', { maxLength: 500 })}
                   />
                   {data?.me && <Avatar image={data.me.image} />}
@@ -114,7 +115,7 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
                   id="bio"
                   rows={3}
                   className="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
-                  defaultValue={data.me.bio}
+                  defaultValue={data?.me?.bio ?? ''}
                   {...register('bio', { maxLength: 500 })}
                 />
                 <p className="mt-2 text-sm text-gray-500">

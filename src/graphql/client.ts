@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
+import { relayStylePagination } from '@apollo/client/utilities';
 import { GRAPHQL_V1_API } from '@/routes';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
@@ -17,7 +18,15 @@ function createApolloClient() {
     link: new HttpLink({
       uri: process.env.NEXT_PUBLIC_HOST + GRAPHQL_V1_API.path,
     }),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            users: relayStylePagination(),
+          },
+        },
+      },
+    }),
   });
 }
 

@@ -14,8 +14,8 @@ const Avatar: React.FC<AvatarProps> = ({ name, image }) => {
           className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
           src={image}
           alt=""
-          width={50}
-          height={50}
+          width={60}
+          height={60}
         />
       ) : (
         <span className="h-14 w-14 rounded-full overflow-hidden bg-gray-100">

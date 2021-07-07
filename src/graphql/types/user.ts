@@ -7,6 +7,7 @@ import {
   inputObjectType,
 } from 'nexus';
 import { Role } from '@prisma/client';
+import { connectionFromArray } from 'graphql-relay';
 import { isAuthorized, isAuthenticated } from '@/utils/auth';
 
 export const user = objectType({
@@ -39,10 +40,10 @@ export const userUpdateInput = inputObjectType({
 export const usersQuery = extendType({
   type: 'Query',
   definition(t) {
-    t.nonNull.list.field('users', {
+    t.nonNull.connectionField('users', {
       type: User.$name,
-      resolve(_, __, ctx) {
-        return ctx.prisma.user.findMany();
+      async resolve(_, args, ctx) {
+        return connectionFromArray(await ctx.prisma.user.findMany(), args);
       },
       authorize: (_, __, ctx) => {
         return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);

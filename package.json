@@ -3,19 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "analyze": "cross-env ANALYZE=true npm run build",
-    "dev": "dotenv -c -- next dev",
-    "build": "npm run build:nexus-typegen && dotenv -c -- next build",
+    "analyze": "npm run build:types && cross-env ANALYZE=true npm run build",
+    "dev": "npm run build:types && dotenv -c -- next dev",
+    "build": "npm run build:types && dotenv -c -- next build",
     "start": "dotenv -c -- next start",
     "lint": "next lint",
     "lint:prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "test": "jest",
-    "build:nexus-typegen": "ts-node --transpile-only -r tsconfig-paths/register ./src/graphql/schema.ts",
-    "db:generate": "dotenv -c -- prisma generate",
+    "build:types": "npm run build:prisma && npm run build:nexus && npm run build:apollo",
+    "build:nexus": "ts-node --transpile-only -r tsconfig-paths/register ./src/graphql/schema.ts",
+    "build:apollo": "apollo client:codegen --excludes=**/schema.graphql --localSchemaFile=./src/types/__generated__/nexus/schema.graphql --tagName=gql --target=typescript --outputFlat src/types/__generated__/apollo",
+    "build:prisma": "dotenv -c -- prisma generate",
     "db:makemigration": "dotenv -c -- prisma migrate dev"
   },
   "prisma": {
     "schema": "src/database/schema.prisma"
+  },
+  "resolutions": {
+    "graphql": "15.5.1"
   },
   "dependencies": {
     "@apollo/client": "3.3.20",
@@ -26,6 +31,7 @@
     "@tailwindcss/forms": "0.3.3",
     "apollo-server-micro": "2.25.2",
     "graphql": "15.5.1",
+    "graphql-relay": "0.8.0",
     "next": "11.0.1",
     "next-auth": "3.27.0",
     "nexus": "1.1.0",
@@ -37,6 +43,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "11.0.1",
     "@types/react": "17.0.11",
+    "apollo": "2.33.4",
     "autoprefixer": "10.2.6",
     "cross-env": "7.0.3",
     "dotenv-cli": "4.0.0",
