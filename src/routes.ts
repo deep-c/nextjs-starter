@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AuthSessionUser } from '@/types/next-auth';
 import type { AuthSettings, AuthProps } from '@/components/Auth';
-import { isAuthorized } from '@/components/Auth';
+import { isAuthorized } from '@/utils/auth';
 import { Role } from '@prisma/client';
 import {
   CogIcon,
@@ -25,22 +25,6 @@ export interface AppRoute {
 export type NextRoutePage<P> = NextPage<P, P> & {
   auth?: AuthProps | boolean;
   layout?: ReactNode;
-};
-
-export const filterRoutesForRole =
-  (user: AuthSessionUser | undefined) =>
-  (item: AppRoute): boolean => {
-    if (!item.auth || item.auth === true || !item?.auth.allowedRoles) {
-      return true;
-    }
-    return isAuthorized(item.auth.allowedRoles, user);
-  };
-
-export const GRAPHQL_V1_API = {
-  path: '/api/v1/graphql',
-  name: 'GraphQL API',
-  icon: LinkIcon,
-  auth: false,
 };
 
 export const LOGIN = {
@@ -101,3 +85,19 @@ export const ACCOUNT_SETTINGS = {
     loginUrl: ADMIN_LOGIN.path,
   },
 };
+
+export const GRAPHQL_V1_API = {
+  path: '/api/v1/graphql',
+  name: 'GraphQL API',
+  icon: LinkIcon,
+  auth: false,
+};
+
+export const filterRoutesForRole =
+  (user: AuthSessionUser | undefined) =>
+  (item: AppRoute): boolean => {
+    if (!item.auth || item.auth === true || !item?.auth.allowedRoles) {
+      return true;
+    }
+    return isAuthorized(item.auth.allowedRoles, user);
+  };

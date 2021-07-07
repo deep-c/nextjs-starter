@@ -7,7 +7,7 @@ import {
   inputObjectType,
 } from 'nexus';
 import { Role } from '@prisma/client';
-import { isAuthorized, isAuthenticated } from '@/components/Auth';
+import { isAuthorized, isAuthenticated } from '@/utils/auth';
 
 export const user = objectType({
   name: User.$name,

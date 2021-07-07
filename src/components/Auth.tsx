@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import type { Role } from '@prisma/client';
-import type { AuthSessionUser } from '@/types/next-auth';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/client';
 import { LOGIN, UNAUTHORIZED, Url } from '@/routes';
+import { isAuthenticated, isAuthorized } from '@/utils/auth';
 
 export interface AuthSettings {
   loginUrl?: Url;
@@ -14,19 +14,6 @@ export type Session = ReturnType<typeof useSession>[0];
 export interface AuthChildProps {
   session: Session;
 }
-
-export const isAuthorized = (
-  allowedRoles: Role[],
-  user?: AuthSessionUser | null
-) => {
-  return (
-    isAuthenticated(user) && !!allowedRoles.find((role) => role === user?.role)
-  );
-};
-
-export const isAuthenticated = (user?: AuthSessionUser | null) => {
-  return !!user;
-};
 
 const Auth: React.FC<AuthProps> = ({ children, loginUrl, allowedRoles }) => {
   const [session, loading] = useSession();

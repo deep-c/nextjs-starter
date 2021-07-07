@@ -1,6 +1,7 @@
 ## Getting Started
 
 First create a .env.local file from the env.local.example and then:
+#NOTE: Ensure NODE_ENV is appropriately set when using dev and start npm commands
 
 ```bash
 docker compose up -d
