@@ -56,6 +56,8 @@ Technologies Used:
 - Tailwindcss
 - Typescript
 - Jest
+- Prettier
+- ESLint
 
 Recommendations:
 
