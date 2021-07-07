@@ -45,7 +45,7 @@ Attach to debugger:
 
 **My GraphQl schema is not updating when using the development playground / typescript (nexus) is complaining that types are incompatible.**
 
-Ensure that there are no typescript error's in other files. What looks to happen here is the updated typegen information doesnt get flushed if there are typescript errors detected in the application and thus dynamic type information for the GraphQL schema and typescript is not updated.
+Ensure that there are no typescript error's in other files. What looks to happen here is the updated typegen information doesnt get flushed if there are typescript errors detected in the application and thus dynamic type information for the GraphQL schema and nexus is not updated.
 
 **Typescript is throwing a lot of type errors after I have just cloned the project or after running an npm script**
 
@@ -53,4 +53,4 @@ A number of libraries (prisma/nexus/apollo) used produce typings dynamically at 
 
 **Running `build:apollo` results in an error**
 
-Ensure that you are using yark for dependency management so we can use a single version of the graphql dependency through use of the resolutions field which is yarn specific. Furthermore ensure that you do not change the path for nexus schema generation output as `apollo client:codegen` has been configured to use the current output paths
+Ensure that you are using yarn for dependency management so we can use a single version of the graphql dependency through use of the resolutions field which is yarn specific. Furthermore ensure that you do not change the path for nexus schema generation output as `apollo client:codegen` has been configured to use the current output paths. See https://github.com/apollographql/apollo-tooling/issues/1296
