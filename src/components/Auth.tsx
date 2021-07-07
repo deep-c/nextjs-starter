@@ -9,11 +9,8 @@ export interface AuthSettings {
   loginUrl?: Url;
   allowedRoles?: Role[];
 }
-
 export interface AuthProps extends AuthSettings {}
-
 export type Session = ReturnType<typeof useSession>[0];
-
 export interface AuthChildProps {
   session: Session;
 }
