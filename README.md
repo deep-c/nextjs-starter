@@ -1,7 +1,8 @@
 ## Getting Started
 
+NOTE: Ensure NODE_ENV is appropriately set when using dev and start npm commands
+
 First create a .env.local file from the env.local.example and then:
-#NOTE: Ensure NODE_ENV is appropriately set when using dev and start npm commands
 
 ```bash
 yarn install #Yarn must be used for now
@@ -40,6 +41,25 @@ Attach to debugger:
 }
 
 ```
+
+Technologies Used:
+
+- Next.js
+- Apollo Client
+- HeadlessUI React Tailwind Components
+- NextAuth.js
+- Prisma
+- GraphQL
+- Nexus
+- Nexus Prisma
+- React Hook Form
+- Tailwindcss
+- Typescript
+- Jest
+
+Recommendations:
+
+- If using VSCode which I highly recommend, use the Apollo GraphQL extension. https://www.apollographql.com/docs/devtools/editor-plugins/
 
 ## Possible problems and solutions
 
