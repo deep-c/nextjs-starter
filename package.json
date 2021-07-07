@@ -12,7 +12,7 @@
     "test": "jest",
     "build:types": "npm run build:prisma && npm run build:nexus && npm run build:apollo",
     "build:nexus": "ts-node --transpile-only -r tsconfig-paths/register ./src/graphql/schema.ts",
-    "build:apollo": "apollo client:codegen --excludes=**/schema.graphql --localSchemaFile=./src/types/__generated__/nexus/schema.graphql --tagName=gql --target=typescript --outputFlat src/types/__generated__/apollo",
+    "build:apollo": "apollo client:codegen -c apollo.config.js --target=typescript --outputFlat src/types/__generated__/apollo",
     "build:prisma": "dotenv -c -- prisma generate",
     "db:makemigration": "dotenv -c -- prisma migrate dev"
   },
