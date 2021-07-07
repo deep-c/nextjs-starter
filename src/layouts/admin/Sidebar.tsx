@@ -1,30 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import Image from 'next/image';
-import { useQuery } from '@apollo/client';
+import type { Session } from '@/components/Auth';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { classNames } from '@/utils/ui';
 import ActiveLink from '@/components/ActiveLink';
-import { me } from '@/graphql/query/user';
 import {
   ADMIN_DASHBOARD,
   ADMIN_USERS,
   ADMIN_SESSIONS,
   ACCOUNT_SETTINGS,
+  filterRoutesForRole,
 } from '@/routes';
 import Avatar from '@/components/user/Avatar';
 
 export interface SidebarProps {
   open: boolean;
   handleState: (state: boolean) => void;
+  session: Session;
 }
 
 const navigation = [ADMIN_DASHBOARD, ADMIN_USERS, ADMIN_SESSIONS];
 
 const userNavigation = [ACCOUNT_SETTINGS];
 
-const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
-  const { data } = useQuery(me);
+const Sidebar: React.FC<SidebarProps> = ({ open, handleState, session }) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const filterRoutes = useCallback(filterRoutesForRole(session?.user), [
+    session,
+  ]);
 
   return (
     <>
@@ -88,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
                 <nav className="px-2">
                   <div className="space-y-1">
-                    {navigation.map((item) => (
+                    {navigation.filter(filterRoutes).map((item) => (
                       <ActiveLink key={item.path} href={item.path}>
                         {({ isActive }) => (
                           <a
@@ -140,7 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
             {/* Navigation */}
             <nav className="flex-1 px-3 divide-y mt-6">
               <div className="space-y-1">
-                {navigation.map((item) => (
+                {navigation.filter(filterRoutes).map((item) => (
                   <ActiveLink key={item.path} href={item.path}>
                     {({ isActive }) => (
                       <a
@@ -170,8 +174,11 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState }) => {
             </nav>
             <div className="group w-full bg-gray-100 rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700">
               <span className="flex w-full justify-between items-center">
-                {data?.me && (
-                  <Avatar image={data.me.image} name={data.me.name} />
+                {session?.user && (
+                  <Avatar
+                    image={session.user.image}
+                    name={session.user.name}
+                  />
                 )}
               </span>
             </div>

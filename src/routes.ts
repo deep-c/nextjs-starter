@@ -1,7 +1,8 @@
-import type { UrlObject } from 'url';
 import type { ReactNode } from 'react';
 import type { NextPage } from 'next';
+import type { AuthSessionUser } from '@/types/next-auth';
 import type { AuthSettings, AuthProps } from '@/components/Auth';
+import { isAuthorized } from '@/components/Auth';
 import { Role } from '@prisma/client';
 import {
   CogIcon,
@@ -13,18 +14,27 @@ import {
   MapIcon,
 } from '@heroicons/react/outline';
 
-export type Url = string | UrlObject;
+export type Url = string;
 export type DynamicPathFn = (option: Record<string, any>) => Url;
 export interface AppRoute {
-  path: Url | DynamicPathFn;
+  path: Url;
   name: string;
   icon: ReactNode;
-  auth: AuthSettings;
+  auth: AuthSettings | boolean;
 }
 export type NextRoutePage<P> = NextPage<P, P> & {
   auth?: AuthProps | boolean;
   layout?: ReactNode;
 };
+
+export const filterRoutesForRole =
+  (user: AuthSessionUser | undefined) =>
+  (item: AppRoute): boolean => {
+    if (!item.auth || item.auth === true || !item?.auth.allowedRoles) {
+      return true;
+    }
+    return isAuthorized(item.auth.allowedRoles, user);
+  };
 
 export const GRAPHQL_V1_API = {
   path: '/api/v1/graphql',

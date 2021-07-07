@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import type { FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent, FC } from 'react';
 import type { AppProps } from 'next/app';
 import { ApolloProvider } from '@apollo/client';
 import { NextComponentType, NextPageContext } from 'next';
@@ -14,7 +14,7 @@ export interface MyAppProps extends AppProps {
   };
 }
 
-function MyApp({ Component, pageProps }: MyAppProps) {
+const MyApp: FC<MyAppProps> = ({ Component, pageProps }) => {
   const client = useApollo(pageProps.initialApolloState);
   const Layout = Component.layout ?? (({ children }) => <>{children}</>);
   return (
@@ -34,5 +34,5 @@ function MyApp({ Component, pageProps }: MyAppProps) {
       </ApolloProvider>
     </Provider>
   );
-}
+};
 export default MyApp;

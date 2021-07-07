@@ -12,6 +12,12 @@ export interface AuthSettings {
 
 export interface AuthProps extends AuthSettings {}
 
+export type Session = ReturnType<typeof useSession>[0];
+
+export interface AuthChildProps {
+  session: Session;
+}
+
 export const isAuthorized = (
   allowedRoles: Role[],
   user?: AuthSessionUser | null
@@ -48,7 +54,16 @@ const Auth: React.FC<AuthProps> = ({ children, loginUrl, allowedRoles }) => {
   if (loading || !hasAuth) {
     return <div />;
   }
-  return <>{children}</>;
+  return (
+    <>
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, { session });
+        }
+        return child;
+      })}
+    </>
+  );
 };
 
 Auth.defaultProps = {

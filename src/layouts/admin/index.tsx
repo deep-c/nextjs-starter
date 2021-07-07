@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import { MenuAlt1Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
+import type { AuthChildProps } from '@/components/Auth';
 import ProfileDropdown from '@/components/user/ProfileDropdown';
 import Sidebar from './Sidebar';
 
-export interface AdminLayoutProps {}
+export interface AdminLayoutProps extends AuthChildProps {}
 
-export const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
+export const AdminLayout: React.FC<AdminLayoutProps> = ({
+  children,
+  session,
+}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="h-screen flex overflow-hidden bg-white">
-      <Sidebar open={sidebarOpen} handleState={setSidebarOpen} />
+      <Sidebar
+        open={sidebarOpen}
+        handleState={setSidebarOpen}
+        session={session}
+      />
       {/* Main column */}
       <div className="flex flex-col w-0 flex-1 overflow-hidden">
         {/* Search header */}
