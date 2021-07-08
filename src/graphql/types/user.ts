@@ -7,7 +7,7 @@ import {
   inputObjectType,
 } from 'nexus';
 import { Role } from '@prisma/client';
-import { connectionFromArray } from 'graphql-relay';
+import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
 import { isAuthorized, isAuthenticated } from '@/utils/auth';
 
 export const user = objectType({
@@ -43,7 +43,12 @@ export const usersQuery = extendType({
     t.nonNull.connectionField('users', {
       type: User.$name,
       async resolve(_, args, ctx) {
-        return connectionFromArray(await ctx.prisma.user.findMany(), args);
+        const result = await findManyCursorConnection(
+          (args) => ctx.prisma.user.findMany(args),
+          () => ctx.prisma.user.count(),
+          args
+        );
+        return result;
       },
       authorize: (_, __, ctx) => {
         return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);
