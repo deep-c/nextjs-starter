@@ -76,3 +76,7 @@ A number of libraries (prisma/nexus/apollo) used produce typings dynamically at 
 **Running `build:apollo` results in an error**
 
 Ensure that you are using yarn for dependency management so we can use a single version of the graphql dependency through use of the resolutions field which is yarn specific. Furthermore ensure that you do not change the path for nexus schema generation output as `apollo client:codegen` has been configured to use the current output paths. See https://github.com/apollographql/apollo-tooling/issues/1296
+
+**Types are still missing when running the app in dev mode**
+
+If you installed packages via another shell and had the dev server still running generated types for Prisma will get nuked. You will need to rerun the dev server after adding or removing packages.
