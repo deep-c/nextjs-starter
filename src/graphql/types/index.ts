@@ -3,3 +3,4 @@ export * from './account';
 export * from './session';
 export * from './verificationRequest';
 export * from './role';
+export * from './status';

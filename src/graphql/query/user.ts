@@ -8,6 +8,7 @@ export const me = gql`
       email
       image
       role
+      status
       bio
       createdAt
       updatedAt
@@ -25,6 +26,7 @@ export const getUsersForAdmin = gql`
           image
           email
           role
+          status
         }
       }
       pageInfo {
