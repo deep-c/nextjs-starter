@@ -17,8 +17,8 @@ export const me = gql`
 `;
 
 export const getUsersForAdmin = gql`
-  query GetUsersForAdmin($cursor: String) {
-    users(first: 1, after: $cursor) {
+  query GetUsersForAdmin($first: Int, $cursor: String) {
+    users(first: $first, after: $cursor) {
       edges {
         node {
           id

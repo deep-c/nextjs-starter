@@ -10,8 +10,10 @@ import Avatar from '@/components/user/Avatar';
 export interface UsersAdminProps {}
 
 export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
-  const { loading, data, fetchMore } =
-    useQuery<GetUsersForAdmin>(getUsersForAdmin);
+  const { loading, data, fetchMore } = useQuery<GetUsersForAdmin>(
+    getUsersForAdmin,
+    { variables: { first: 10 } }
+  );
   const pageInfo = data?.users?.pageInfo;
   const userNodes = data?.users?.edges?.map((edge) => edge?.node);
 
@@ -125,11 +127,9 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
           <button
             disabled={!pageInfo?.hasNextPage}
             onClick={() => {
-              // @ts-ignore
               if (pageInfo?.hasNextPage) {
                 fetchMore({
                   variables: {
-                    // @ts-ignore
                     cursor: pageInfo.endCursor,
                   },
                 });
