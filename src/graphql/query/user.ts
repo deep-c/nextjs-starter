@@ -16,6 +16,22 @@ export const me = gql`
   }
 `;
 
+export const getUserForAdmin = gql`
+  query GetUserForAdmin($id: ID!) {
+    user(id: $id) {
+      name
+      image
+      bio
+      email
+      emailVerified
+      createdAt
+      updatedAt
+      role
+      status
+    }
+  }
+`;
+
 export const getUsersForAdmin = gql`
   query GetUsersForAdmin($first: Int, $cursor: String) {
     users(first: $first, after: $cursor) {

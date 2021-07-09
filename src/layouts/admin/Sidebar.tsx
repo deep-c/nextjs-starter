@@ -13,7 +13,7 @@ import {
   ACCOUNT_SETTINGS,
   filterRoutesForRole,
 } from '@/routes';
-import Avatar from '@/components/user/Avatar';
+import UserAvatar from '@/components/UserAvatar';
 import type { Session } from '@/components/Auth';
 
 export interface SidebarProps {
@@ -177,7 +177,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState, session }) => {
             <div className="group w-full bg-gray-100 rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700">
               <span className="flex w-full justify-between items-center">
                 {session?.user && (
-                  <Avatar
+                  <UserAvatar
                     image={session.user.image}
                     name={session.user.name}
                   />

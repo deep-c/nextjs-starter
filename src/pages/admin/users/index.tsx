@@ -1,11 +1,12 @@
 import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useQuery } from '@apollo/client';
-import { ADMIN_USERS, NextRoutePage } from '@/routes';
+import { ADMIN_USERS, ADMIN_USER, NextRoutePage } from '@/routes';
 import AdminLayout from '@/layouts/admin';
 import { getUsersForAdmin } from '@/graphql/query/user';
 import type { GetUsersForAdmin } from '@/types/__generated__/apollo/GetUsersForAdmin';
-import Avatar from '@/components/user/Avatar';
+import UserAvatar from '@/components/UserAvatar';
 
 export interface UsersAdminProps {}
 
@@ -20,7 +21,7 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
   return (
     <>
       <Head>
-        <title>Users | Admin</title>
+        <title>Manage Users | Admin</title>
         <meta
           name="viewport"
           content="initial-scale=1.0, width=device-width"
@@ -28,7 +29,7 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
         <meta name="description" content="User Dashboard" />
       </Head>
       <div className="pt-6 pb-6">
-        <h1 className="text-3xl font-extrabold text-gray-900">Users</h1>
+        <h1 className="text-3xl font-extrabold text-gray-900">Manage Users</h1>
       </div>
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -74,7 +75,7 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
                           <tr key={user.id}>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
-                                <Avatar image={user.image} />
+                                <UserAvatar image={user.image} />
                                 <div className="ml-4">
                                   <div className="text-sm font-medium text-gray-900">
                                     {user.name}
@@ -96,12 +97,16 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
                               {user.role.toLowerCase()}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a
-                                href="#"
-                                className="text-indigo-600 hover:text-indigo-900"
+                              <Link
+                                href={{
+                                  pathname: ADMIN_USER.path,
+                                  query: { id: user.id },
+                                }}
                               >
-                                Edit
-                              </a>
+                                <a className="text-indigo-600 hover:text-indigo-900">
+                                  Edit
+                                </a>
+                              </Link>
                             </td>
                           </tr>
                         )

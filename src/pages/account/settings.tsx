@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { ACCOUNT_SETTINGS, NextRoutePage } from '@/routes';
 import AdminLayout from '@/layouts/admin';
-import GeneralSettings from '@/components/user/forms/GeneralSettings';
+import UserSettingsForm from '@/components/UserGeneralSettingsForm';
 import { classNames } from '@/utils/ui';
 
 export interface AccountSettingsProps {}
@@ -54,7 +54,7 @@ export const AccountSettings: NextRoutePage<AccountSettingsProps> = () => {
           </div>
         </div>
       </div>
-      <GeneralSettings />
+      <UserSettingsForm />
     </>
   );
 };

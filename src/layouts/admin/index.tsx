@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MenuAlt1Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 import type { AuthChildProps } from '@/components/Auth';
-import ProfileDropdown from '@/components/user/ProfileDropdown';
+import UserProfileDropdown from '@/components/UserProfileDropdown';
 import Sidebar from './Sidebar';
 
 export interface AdminLayoutProps extends AuthChildProps {}
@@ -51,7 +51,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
               </form>
             </div>
             <div className="flex items-center">
-              <ProfileDropdown />
+              <UserProfileDropdown />
             </div>
           </div>
         </div>

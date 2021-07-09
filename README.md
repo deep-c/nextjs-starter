@@ -80,3 +80,7 @@ Ensure that you are using yarn for dependency management so we can use a single 
 **Types are still missing when running the app in dev mode**
 
 If you installed packages via another shell and had the dev server still running generated types for Prisma will get nuked. You will need to rerun the dev server after adding or removing packages.
+
+**VSCode Apollo GraphQL extension for Apollo client types in `src/graphql/[query|mutation]` is throwing a type error after updating the graphql nexus types**
+
+It seems the extension doesnt automatically reload the type definitions if the files change. To reload a schema, open the Command Palette (cmd + shift + p on mac), search "Apollo" and choose the "Apollo: Reload Schema" option.

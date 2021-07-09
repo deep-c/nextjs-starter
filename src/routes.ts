@@ -8,6 +8,7 @@ import {
   CogIcon,
   LoginIcon,
   UserGroupIcon,
+  UserIcon,
   LockClosedIcon,
   BanIcon,
   LinkIcon,
@@ -61,6 +62,16 @@ export const ADMIN_USERS = {
   path: '/admin/users',
   name: 'Users',
   icon: UserGroupIcon,
+  auth: {
+    loginUrl: ADMIN_LOGIN.path,
+    allowedRoles: [Role.ADMIN, Role.SUPPORT],
+  },
+};
+
+export const ADMIN_USER = {
+  path: '/admin/users/[id]',
+  name: 'Users',
+  icon: UserIcon,
   auth: {
     loginUrl: ADMIN_LOGIN.path,
     allowedRoles: [Role.ADMIN, Role.SUPPORT],

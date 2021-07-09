@@ -2,33 +2,28 @@ import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { me } from '@/graphql/query/user';
-import { updateUser } from '@/graphql/mutation/user';
+import { updateMe } from '@/graphql/mutation/user';
 import type { GetMe } from '@/types/__generated__/apollo/GetMe';
-import { getDirtyValues } from '@/utils/form';
-import Avatar from '@/components/user/Avatar';
+import type { UpdateMeInput } from '@/types/__generated__/apollo/globalTypes';
+import UserAvatar from '@/components/UserAvatar';
 
-export interface GeneralSettings {}
+export interface UserSettingsFormProps {}
 
-type GeneralSettingsData = {
-  name: string;
-  image: string;
-  bio: string;
-};
-
-const GeneralSettings: React.FC<GeneralSettings> = () => {
+const UserSettingsForm: React.FC<UserSettingsFormProps> = () => {
   const { loading: queryLoading, data } = useQuery<GetMe>(me);
   const [updateUserSettings, { loading: mutationLoading }] =
-    useMutation(updateUser);
+    useMutation(updateMe);
   const {
     register,
     handleSubmit,
-    formState: { errors: formErrors, dirtyFields },
+    reset,
+    formState: { errors: formErrors, isDirty },
   } = useForm();
-  const onSubmit: SubmitHandler<GeneralSettingsData> = async (formFields) => {
+  const onSubmit: SubmitHandler<UpdateMeInput> = async (formFields) => {
     const result = await updateUserSettings({
       variables: {
         id: data?.me?.id,
-        fields: getDirtyValues(dirtyFields, formFields),
+        fields: formFields,
       },
     });
     return result;
@@ -67,7 +62,7 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
                   autoComplete="name"
                   className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                   defaultValue={data?.me?.name ?? ''}
-                  aria-invalid="true"
+                  aria-invalid={formErrors.name ? 'true' : 'false'}
                   aria-describedby="name-error"
                   {...register('name', {
                     maxLength: 50,
@@ -99,7 +94,7 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
                     defaultValue={data?.me?.image ?? ''}
                     {...register('image', { maxLength: 500 })}
                   />
-                  {data?.me && <Avatar image={data.me.image} />}
+                  {data?.me && <UserAvatar image={data.me.image} />}
                 </div>
               </div>
             </div>
@@ -129,8 +124,16 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
       <div className="pt-5">
         <div className="flex justify-end">
           <button
+            onClick={() => reset()}
+            disabled={queryLoading || mutationLoading || !isDirty}
+            type="button"
+            className="disabled:opacity-50 disabled:cursor-text bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Cancel
+          </button>
+          <button
             type="submit"
-            disabled={mutationLoading || !Object.keys(dirtyFields).length}
+            disabled={queryLoading || mutationLoading || !isDirty}
             className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-text"
           >
             Save
@@ -141,4 +144,4 @@ const GeneralSettings: React.FC<GeneralSettings> = () => {
   );
 };
 
-export default GeneralSettings;
+export default UserSettingsForm;
