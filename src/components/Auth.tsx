@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { LOGIN, UNAUTHORIZED, Url } from 'src/routes';
-import { isAuthenticated, isAuthorized } from 'utils/auth';
+import { isAuthenticated, isAuthorized } from 'src/utils/auth';
 
 export interface AuthSettings {
   loginUrl?: Url;
