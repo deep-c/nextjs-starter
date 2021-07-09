@@ -1,12 +1,12 @@
-import React from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import { Role, Status, User } from '@prisma/client';
-import { useQuery, useMutation } from '@apollo/client';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { getUserForAdmin } from '@/graphql/query/user';
-import { updateUser } from '@/graphql/mutation/user';
-import type { GetUserForAdmin } from '@/types/__generated__/apollo/GetUserForAdmin';
-import type { UpdateUserInput } from '@/types/__generated__/apollo/globalTypes';
-import UserAvatar from '@/components/UserAvatar';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import UserAvatar from 'src/components/UserAvatar';
+import type { GetUserForAdmin } from 'src/genTypes/apollo/GetUserForAdmin';
+import type { UpdateUserInput } from 'src/genTypes/apollo/globalTypes';
+import { updateUser } from 'src/graphql/mutation/user';
+import { getUserForAdmin } from 'src/graphql/query/user';
 
 export interface UserAdminFormProps extends Pick<User, 'id'> {}
 

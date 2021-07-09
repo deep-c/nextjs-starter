@@ -1,6 +1,6 @@
-import path from 'path';
+import { connectionPlugin, fieldAuthorizePlugin, makeSchema } from 'nexus';
 import NexusPrismaScalars from 'nexus-prisma/scalars';
-import { makeSchema, fieldAuthorizePlugin, connectionPlugin } from 'nexus';
+import path from 'path';
 import * as allTypes from './types';
 
 const schema = makeSchema({

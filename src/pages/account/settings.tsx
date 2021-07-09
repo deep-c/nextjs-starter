@@ -1,9 +1,9 @@
-import React from 'react';
 import Head from 'next/head';
-import { ACCOUNT_SETTINGS, NextRoutePage } from '@/routes';
-import AdminLayout from '@/layouts/admin';
-import UserSettingsForm from '@/components/UserGeneralSettingsForm';
-import { classNames } from '@/utils/ui';
+import React from 'react';
+import UserSettingsForm from 'src/components/UserGeneralSettingsForm';
+import AdminLayout from 'src/layouts/admin';
+import { ACCOUNT_SETTINGS, NextRoutePage } from 'src/routes';
+import { classNames } from 'src/utils/ui';
 
 export interface AccountSettingsProps {}
 

@@ -1,7 +1,7 @@
-import React from 'react';
-import Image from 'next/image';
 import { signIn } from 'next-auth/client';
-import { ADMIN_LOGIN, NextRoutePage, ADMIN_DASHBOARD } from '@/routes';
+import Image from 'next/image';
+import React from 'react';
+import { ADMIN_DASHBOARD, ADMIN_LOGIN, NextRoutePage } from 'src/routes';
 
 export interface AdminLoginProps {}
 

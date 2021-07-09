@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
-import { useRouter } from 'next/router';
 import Link, { LinkProps } from 'next/link';
+import { useRouter } from 'next/router';
+import React, { ReactNode } from 'react';
 
 export interface ActiveLinkChildProps {
   isActive: boolean;

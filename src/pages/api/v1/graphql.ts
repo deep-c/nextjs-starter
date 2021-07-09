@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server-micro';
-import context from '@/graphql/context';
-import schema from '@/graphql/schema';
-import { GRAPHQL_V1_API } from '@/routes';
+import context from 'src/graphql/context';
+import schema from 'src/graphql/schema';
+import { GRAPHQL_V1_API } from 'src/routes';
 
 export const config = {
   api: {

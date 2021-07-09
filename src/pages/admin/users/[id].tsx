@@ -1,9 +1,9 @@
-import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ADMIN_USER, NextRoutePage } from '@/routes';
-import AdminLayout from '@/layouts/admin';
-import UserAdminForm from '@/components/UserAdminForm';
+import React from 'react';
+import UserAdminForm from 'src/components/UserAdminForm';
+import AdminLayout from 'src/layouts/admin';
+import { ADMIN_USER, NextRoutePage } from 'src/routes';
 
 export interface UserAdminProps {}
 

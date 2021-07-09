@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { MenuAlt1Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
-import type { AuthChildProps } from '@/components/Auth';
-import UserProfileDropdown from '@/components/UserProfileDropdown';
+import React, { useState } from 'react';
+import type { AuthChildProps } from 'src/components/Auth';
+import UserProfileDropdown from 'src/components/UserProfileDropdown';
 import Sidebar from './Sidebar';
 
 export interface AdminLayoutProps extends AuthChildProps {}

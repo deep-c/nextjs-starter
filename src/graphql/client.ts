@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import {
   ApolloClient,
   HttpLink,
@@ -6,7 +5,8 @@ import {
   NormalizedCacheObject,
 } from '@apollo/client';
 import { relayStylePagination } from '@apollo/client/utilities';
-import { GRAPHQL_V1_API } from '@/routes';
+import { useMemo } from 'react';
+import { GRAPHQL_V1_API } from 'src/routes';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | null = null;
 

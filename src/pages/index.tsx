@@ -1,8 +1,8 @@
-import Head from 'next/head';
 import { signIn, signOut, useSession } from 'next-auth/client';
+import Head from 'next/head';
 
 export default function Home() {
-  const [session, loading] = useSession();
+  const [session] = useSession();
 
   return (
     <div>

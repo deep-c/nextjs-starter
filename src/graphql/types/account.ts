@@ -1,5 +1,5 @@
-import { Account } from 'nexus-prisma';
 import { objectType } from 'nexus';
+import { Account } from 'nexus-prisma';
 
 export const account = objectType({
   name: Account.$name,

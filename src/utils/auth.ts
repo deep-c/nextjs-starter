@@ -1,5 +1,5 @@
 import type { Role } from '@prisma/client';
-import type { AuthSessionUser } from '@/types/next-auth';
+import type { AuthSessionUser } from 'src/types/next-auth';
 
 export const isAuthorized = (
   allowedRoles: Role[],

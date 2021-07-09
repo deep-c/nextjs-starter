@@ -1,5 +1,5 @@
-import { Role } from 'nexus-prisma';
 import { enumType } from 'nexus';
+import { Role } from 'nexus-prisma';
 
 export const roleType = enumType({
   name: Role.name,

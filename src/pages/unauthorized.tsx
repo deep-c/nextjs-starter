@@ -1,7 +1,7 @@
-import React from 'react';
 import { BanIcon } from '@heroicons/react/solid';
-import { UNAUTHORIZED, NextRoutePage } from '@/routes';
-import AdminLayout from '@/layouts/admin';
+import React from 'react';
+import AdminLayout from 'src/layouts/admin';
+import { NextRoutePage, UNAUTHORIZED } from 'src/routes';
 
 const UnAuthorized: NextRoutePage<{}> = () => {
   return (

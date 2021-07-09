@@ -1,20 +1,20 @@
-import React, { Fragment, useCallback } from 'react';
-import Image from 'next/image';
-import { signOut } from 'next-auth/client';
 import { Dialog, Transition } from '@headlessui/react';
-import { XIcon, LogoutIcon } from '@heroicons/react/outline';
-import { classNames } from '@/utils/ui';
-import ActiveLink from '@/components/ActiveLink';
+import { LogoutIcon, XIcon } from '@heroicons/react/outline';
+import { signOut } from 'next-auth/client';
+import Image from 'next/image';
+import React, { Fragment, useCallback } from 'react';
+import ActiveLink from 'src/components/ActiveLink';
+import type { Session } from 'src/components/Auth';
+import UserAvatar from 'src/components/UserAvatar';
 import {
-  ADMIN_DASHBOARD,
-  ADMIN_USERS,
-  ADMIN_SESSIONS,
-  ADMIN_LOGIN,
   ACCOUNT_SETTINGS,
+  ADMIN_DASHBOARD,
+  ADMIN_LOGIN,
+  ADMIN_SESSIONS,
+  ADMIN_USERS,
   filterRoutesForRole,
-} from '@/routes';
-import UserAvatar from '@/components/UserAvatar';
-import type { Session } from '@/components/Auth';
+} from 'src/routes';
+import { classNames } from 'src/utils/ui';
 
 export interface SidebarProps {
   open: boolean;

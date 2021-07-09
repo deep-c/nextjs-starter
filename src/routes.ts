@@ -1,19 +1,19 @@
-import type { ReactNode } from 'react';
-import type { NextPage } from 'next';
-import type { AuthSessionUser } from '@/types/next-auth';
-import type { AuthSettings, AuthProps } from '@/components/Auth';
-import { isAuthorized } from '@/utils/auth';
-import { Role } from '@prisma/client';
 import {
+  BanIcon,
   CogIcon,
+  LinkIcon,
+  LockClosedIcon,
   LoginIcon,
+  MapIcon,
   UserGroupIcon,
   UserIcon,
-  LockClosedIcon,
-  BanIcon,
-  LinkIcon,
-  MapIcon,
 } from '@heroicons/react/outline';
+import { Role } from '@prisma/client';
+import type { NextPage } from 'next';
+import type { ReactNode } from 'react';
+import type { AuthProps, AuthSettings } from 'src/components/Auth';
+import type { AuthSessionUser } from 'src/types/next-auth';
+import { isAuthorized } from 'src/utils/auth';
 
 export type Url = string;
 export type DynamicPathFn = (option: Record<string, any>) => Url;

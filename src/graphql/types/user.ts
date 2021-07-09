@@ -1,14 +1,14 @@
-import { User } from 'nexus-prisma';
+import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+import { Role } from '@prisma/client';
 import {
-  objectType,
   extendType,
   idArg,
-  nonNull,
   inputObjectType,
+  nonNull,
+  objectType,
 } from 'nexus';
-import { Role } from '@prisma/client';
-import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
-import { isAuthorized, isAuthenticated } from '@/utils/auth';
+import { User } from 'nexus-prisma';
+import { isAuthenticated, isAuthorized } from 'src/utils/auth';
 
 export const user = objectType({
   name: User.$name,

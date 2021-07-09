@@ -1,11 +1,11 @@
+import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { me } from '@/graphql/query/user';
-import { updateMe } from '@/graphql/mutation/user';
-import type { GetMe } from '@/types/__generated__/apollo/GetMe';
-import type { UpdateMeInput } from '@/types/__generated__/apollo/globalTypes';
-import UserAvatar from '@/components/UserAvatar';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import UserAvatar from 'src/components/UserAvatar';
+import type { GetMe } from 'src/genTypes/apollo/GetMe';
+import type { UpdateMeInput } from 'src/genTypes/apollo/globalTypes';
+import { updateMe } from 'src/graphql/mutation/user';
+import { me } from 'src/graphql/query/user';
 
 export interface UserSettingsFormProps {}
 

@@ -1,8 +1,8 @@
-import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { ADMIN_DASHBOARD, NextRoutePage } from '@/routes';
-import AdminLayout from '@/layouts/admin';
+import React from 'react';
+import AdminLayout from 'src/layouts/admin';
+import { ADMIN_DASHBOARD, NextRoutePage } from 'src/routes';
 
 export interface AdminDashboardProps {}
 

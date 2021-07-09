@@ -1,5 +1,5 @@
-import { VerificationRequest } from 'nexus-prisma';
 import { objectType } from 'nexus';
+import { VerificationRequest } from 'nexus-prisma';
 
 export const verificationRequest = objectType({
   name: VerificationRequest.$name,

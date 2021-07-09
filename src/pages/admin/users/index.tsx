@@ -1,12 +1,12 @@
-import React from 'react';
+import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useQuery } from '@apollo/client';
-import { ADMIN_USERS, ADMIN_USER, NextRoutePage } from '@/routes';
-import AdminLayout from '@/layouts/admin';
-import { getUsersForAdmin } from '@/graphql/query/user';
-import type { GetUsersForAdmin } from '@/types/__generated__/apollo/GetUsersForAdmin';
-import UserAvatar from '@/components/UserAvatar';
+import React from 'react';
+import UserAvatar from 'src/components/UserAvatar';
+import type { GetUsersForAdmin } from 'src/genTypes/apollo/GetUsersForAdmin';
+import { getUsersForAdmin } from 'src/graphql/query/user';
+import AdminLayout from 'src/layouts/admin';
+import { ADMIN_USER, ADMIN_USERS, NextRoutePage } from 'src/routes';
 
 export interface UsersAdminProps {}
 

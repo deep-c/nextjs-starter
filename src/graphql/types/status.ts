@@ -1,5 +1,5 @@
-import { Status } from 'nexus-prisma';
 import { enumType } from 'nexus';
+import { Status } from 'nexus-prisma';
 
 export const statusType = enumType({
   name: Status.name,

@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
-import Image from 'next/image';
 import { Menu, Transition } from '@headlessui/react';
-import ActiveLink from '@/components/ActiveLink';
-import { classNames } from '@/utils/ui';
-import { ACCOUNT_SETTINGS } from '@/routes';
+import Image from 'next/image';
+import React, { Fragment } from 'react';
+import ActiveLink from 'src/components/ActiveLink';
+import { ACCOUNT_SETTINGS } from 'src/routes';
+import { classNames } from 'src/utils/ui';
 
 export interface AccountDropdownProps {}
 
