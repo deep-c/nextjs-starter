@@ -12,7 +12,7 @@ const UnAuthorized: NextRoutePage<{}> = () => {
         </div>
         <div className="ml-3">
           <h3 className="text-sm font-medium text-red-800">
-            UNAUTHORIZED - You do not have permission to view this page.
+            UNAUTHORIZED - You do not have permission to view the page.
           </h3>
         </div>
       </div>
