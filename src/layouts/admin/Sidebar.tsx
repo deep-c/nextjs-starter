@@ -95,7 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState, session }) => {
                 <nav className="px-2">
                   <div className="space-y-1">
                     {navigation.filter(filterRoutes).map((item) => (
-                      <ActiveLink key={item.path} href={item.path}>
+                      <ActiveLink key={item.path} href={item.path} nested>
                         {({ isActive }) => (
                           <a
                             className={classNames(
@@ -147,7 +147,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState, session }) => {
             <nav className="flex-1 px-3 divide-y mt-6">
               <div className="space-y-1">
                 {navigation.filter(filterRoutes).map((item) => (
-                  <ActiveLink key={item.path} href={item.path}>
+                  <ActiveLink key={item.path} href={item.path} nested>
                     {({ isActive }) => (
                       <a
                         className={classNames(
@@ -187,7 +187,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, handleState, session }) => {
             {/* User Navigation */}
             <div className="px-3 mt-2">
               {userNavigation.map((item) => (
-                <ActiveLink key={item.path} href={item.path}>
+                <ActiveLink key={item.path} href={item.path} nested>
                   {({ isActive }) => (
                     <a
                       className={classNames(

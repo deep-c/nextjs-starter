@@ -7,14 +7,30 @@ export interface ActiveLinkChildProps {
 }
 
 export interface ActiveLinkProps extends LinkProps {
+  nested?: boolean;
   children: (props: ActiveLinkChildProps) => ReactNode;
 }
 
-const ActiveLink: React.FC<ActiveLinkProps> = ({ children, ...props }) => {
+const ActiveLink: React.FC<ActiveLinkProps> = ({
+  children,
+  nested,
+  ...props
+}) => {
   const { asPath } = useRouter();
-  const isActive = asPath === props.href || asPath === props.as;
+  const isActive =
+    asPath === props.href ||
+    asPath === props.as ||
+    !!(
+      nested &&
+      typeof props.href === 'string' &&
+      asPath.startsWith(props.href)
+    );
 
   return <Link {...props}>{children({ isActive })}</Link>;
+};
+
+ActiveLink.defaultProps = {
+  nested: false,
 };
 
 export default ActiveLink;
