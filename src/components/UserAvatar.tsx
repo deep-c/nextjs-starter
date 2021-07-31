@@ -4,9 +4,10 @@ import React from 'react';
 export interface AvatarProps {
   name?: string | null;
   image?: string | null;
+  size?: [number, number];
 }
 
-const Avatar: React.FC<AvatarProps> = ({ name, image }) => {
+const Avatar: React.FC<AvatarProps> = ({ name, image, size }) => {
   return (
     <span className="flex min-w-0 items-center justify-between space-x-3">
       {image ? (
@@ -14,8 +15,8 @@ const Avatar: React.FC<AvatarProps> = ({ name, image }) => {
           className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
           src={image}
           alt=""
-          width={60}
-          height={60}
+          width={size?.[0] ?? 60}
+          height={size?.[1] ?? 60}
         />
       ) : (
         <span className="h-14 w-14 rounded-full overflow-hidden bg-gray-100">
@@ -37,6 +38,10 @@ const Avatar: React.FC<AvatarProps> = ({ name, image }) => {
       )}
     </span>
   );
+};
+
+Avatar.defaultProps = {
+  size: [60, 60],
 };
 
 export default Avatar;

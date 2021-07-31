@@ -1,17 +1,15 @@
+import { useQuery } from '@apollo/client';
 import Head from 'next/head';
-import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
+import UserAvatar from 'src/components/UserAvatar';
+import type { GetMe } from 'src/genTypes/apollo/GetMe';
+import { me } from 'src/graphql/query/user';
 import AdminLayout from 'src/layouts/admin';
-import { ADMIN_DASHBOARD, NextRoutePage } from 'src/routes';
+import { ACCOUNT_SETTINGS, ADMIN_DASHBOARD, NextRoutePage } from 'src/routes';
 
 export interface AdminDashboardProps {}
 
-const user = {
-  name: 'Rebecca Nicholas',
-  role: 'Product Designer',
-  imageUrl:
-    'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-};
 const stats = [
   { label: 'Items posted for sale', value: 12 },
   { label: 'Items being watched', value: 4 },
@@ -19,6 +17,7 @@ const stats = [
 ];
 
 export const AdminDashboard: NextRoutePage<AdminDashboardProps> = () => {
+  const { data } = useQuery<GetMe>(me);
   return (
     <>
       <Head>
@@ -40,33 +39,28 @@ export const AdminDashboard: NextRoutePage<AdminDashboardProps> = () => {
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="sm:flex sm:space-x-5">
               <div className="flex-shrink-0">
-                <Image
-                  className="mx-auto h-20 w-20 rounded-full"
-                  src={user.imageUrl}
-                  alt=""
-                  width={100}
-                  height={100}
-                />
+                {data?.me && (
+                  <UserAvatar image={data.me.image} size={[100, 100]} />
+                )}
               </div>
               <div className="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
                 <p className="text-sm font-medium text-gray-600">
                   Welcome back,
                 </p>
                 <p className="text-xl font-bold text-gray-900 sm:text-2xl">
-                  {user.name}
+                  {data?.me?.name}
                 </p>
                 <p className="text-sm font-medium text-gray-600">
-                  {user.role}
+                  {data?.me?.bio}
                 </p>
               </div>
             </div>
             <div className="mt-5 flex justify-center sm:mt-0">
-              <a
-                href="#"
-                className="flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-              >
-                Edit Settings
-              </a>
+              <Link href={ACCOUNT_SETTINGS.path}>
+                <a className="flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                  Edit Settings
+                </a>
+              </Link>
             </div>
           </div>
         </div>
