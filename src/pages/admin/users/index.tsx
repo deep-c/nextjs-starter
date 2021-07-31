@@ -1,8 +1,9 @@
 import { useQuery } from '@apollo/client';
-import { SearchIcon } from '@heroicons/react/outline';
+import { ExclamationIcon, SearchIcon } from '@heroicons/react/outline';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import UserAvatar from 'src/components/UserAvatar';
 import type { GetUsersForAdmin } from 'src/genTypes/apollo/GetUsersForAdmin';
 import { getUsersForAdmin } from 'src/graphql/query/user';
@@ -10,12 +11,27 @@ import AdminLayout from 'src/layouts/admin';
 import { ADMIN_USER, ADMIN_USERS, NextRoutePage } from 'src/routes';
 
 export interface UsersAdminProps {}
+export interface UsersAdminFilterForm {
+  search: string;
+}
 
 export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
-  const { loading, data, fetchMore } = useQuery<GetUsersForAdmin>(
+  let { loading, data, fetchMore, refetch } = useQuery<GetUsersForAdmin>(
     getUsersForAdmin,
-    { variables: { first: 10, search: '' } }
+    { variables: { first: 10 } }
   );
+  const { register, handleSubmit } = useForm();
+  const onFilterSubmit: SubmitHandler<UsersAdminFilterForm> = async (
+    formFields
+  ) => {
+    const result = await refetch({
+      first: 10,
+      search: formFields.search,
+    });
+    loading = result.loading;
+    data = result.data;
+    return result;
+  };
   const pageInfo = data?.users?.pageInfo;
   const userNodes = data?.users?.edges?.map((edge) => edge?.node);
 
@@ -33,29 +49,32 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
         <h1 className="text-3xl font-extrabold text-gray-900">Manage Users</h1>
       </div>
       <div className="flex flex-row-reverse">
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Quick Search
-          </label>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <SearchIcon
-                className="h-5 w-5 text-gray-400"
-                aria-hidden="true"
+        <form onSubmit={handleSubmit(onFilterSubmit)}>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Quick Search
+            </label>
+            <div className="mt-1 relative rounded-md shadow-sm">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <SearchIcon
+                  className="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </div>
+              <input
+                type="text"
+                id="search"
+                className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                placeholder="Search name or email.."
+                defaultValue=""
+                {...register('search', { maxLength: 50 })}
               />
             </div>
-            <input
-              type="text"
-              name="search"
-              id="search"
-              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-              placeholder="Search name or email.."
-            />
           </div>
-        </div>
+        </form>
       </div>
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -94,7 +113,18 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {userNodes &&
+                  {(!userNodes || !userNodes.length) && !loading ? (
+                    <tr key="empty">
+                      <td className="px-6 py-4 whitespace-nowrap ">
+                        <ExclamationIcon
+                          className="h-5 w-5 text-yellow-400 inline-block"
+                          aria-hidden="true"
+                        />
+                        <span className="pl-4">No users found</span>
+                      </td>
+                    </tr>
+                  ) : (
+                    userNodes &&
                     userNodes.map(
                       (user) =>
                         user && (
@@ -136,7 +166,8 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
                             </td>
                           </tr>
                         )
-                    )}
+                    )
+                  )}
                 </tbody>
               </table>
             </div>
