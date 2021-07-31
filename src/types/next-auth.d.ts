@@ -1,4 +1,4 @@
-import type { Role } from '@prisma/client';
+import type { Role, User as AppUser } from '@prisma/client';
 import 'next-auth';
 
 export interface AuthSessionUser {
@@ -13,4 +13,6 @@ declare module 'next-auth' {
   interface Session {
     user?: AuthSessionUser;
   }
+
+  interface User extends AppUser {}
 }
