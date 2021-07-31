@@ -8,12 +8,9 @@ const schema = makeSchema({
   outputs: {
     typegen: path.join(
       process.cwd(),
-      'src/types/__generated__/nexus/nexus-typegen.ts'
+      'src/types/__gen__/nexus/nexus-typegen.ts'
     ),
-    schema: path.join(
-      process.cwd(),
-      'src/types/__generated__/nexus/schema.graphql'
-    ),
+    schema: path.join(process.cwd(), 'src/types/__gen__/nexus/schema.graphql'),
   },
   contextType: {
     module: path.join(process.cwd(), 'src/graphql/context.ts'),

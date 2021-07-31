@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server-micro';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import context from 'src/graphql/context';
 import schema from 'src/graphql/schema';
 import { GRAPHQL_V1_API } from 'src/routes';
@@ -12,15 +13,16 @@ export const config = {
 const server = new ApolloServer({
   schema,
   context,
-  playground: {
-    settings: {
-      'request.credentials': 'include',
-      'schema.polling.enable': false,
-    },
-  },
-  tracing: process.env.NODE_ENV === 'development',
 });
 
-export default server.createHandler({
-  path: GRAPHQL_V1_API.path,
-});
+const startServer = server.start();
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  await startServer;
+  await server.createHandler({
+    path: GRAPHQL_V1_API.path,
+  })(req, res);
+}

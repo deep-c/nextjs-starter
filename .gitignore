@@ -44,4 +44,4 @@ lhreport.html
 
 # nexus generated types and GraphQL schema
 generated
-__generated__
+__gen__

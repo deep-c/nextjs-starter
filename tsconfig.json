@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
-      "src/genTypes/*": ["src/types/__generated__/*"]
+      "src/genTypes/*": ["src/types/__gen__/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
