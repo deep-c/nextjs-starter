@@ -1,4 +1,5 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { Status } from '@prisma/client';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import prisma from 'src/database/connection';
@@ -13,7 +14,13 @@ export default NextAuth({
   ],
   adapter: PrismaAdapter(prisma),
   callbacks: {
-    session: (session, userOrToken) => {
+    async signIn(user, account, profile) {
+      if (user.status === Status.DISABLED) {
+        return false;
+      }
+      return true;
+    },
+    async session(session, userOrToken) {
       // Add UserId to session object. NOTE: No great way to check for token or user.
       // We arent using JWT if JWT is enabled this will need to be modified.
       if (session?.user) {
