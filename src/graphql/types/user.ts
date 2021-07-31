@@ -5,7 +5,9 @@ import {
   idArg,
   inputObjectType,
   nonNull,
+  nullable,
   objectType,
+  stringArg,
 } from 'nexus';
 import { User } from 'nexus-prisma';
 import { isAuthenticated, isAuthorized } from 'src/utils/auth';
@@ -54,9 +56,29 @@ export const getUsers = extendType({
   definition(t) {
     t.nonNull.connectionField('users', {
       type: User.$name,
+      additionalArgs: {
+        search: nullable(stringArg()),
+      },
       async resolve(_, args, ctx) {
+        let searchArgs = {};
+        if (args.search) {
+          searchArgs = {
+            where: {
+              OR: {
+                name: {
+                  contains: args.search,
+                  mode: 'insensitive',
+                },
+                email: {
+                  contains: args.search,
+                  mode: 'insensitive',
+                },
+              },
+            },
+          };
+        }
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.user.findMany(args),
+          (args) => ctx.prisma.user.findMany({ ...args, ...searchArgs }),
           () => ctx.prisma.user.count(),
           args
         );

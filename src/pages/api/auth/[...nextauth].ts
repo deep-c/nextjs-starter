@@ -13,6 +13,9 @@ export default NextAuth({
     }),
   ],
   adapter: PrismaAdapter(prisma),
+  session: {
+    jwt: false,
+  },
   callbacks: {
     async signIn(user, account, profile) {
       if (user.status === Status.DISABLED) {
@@ -25,8 +28,8 @@ export default NextAuth({
       // We arent using JWT if JWT is enabled this will need to be modified.
       if (session?.user) {
         session.user = Object.assign({}, session.user, {
-          id: userOrToken.id,
-          role: userOrToken.role,
+          id: userOrToken.id || session.user.id,
+          role: userOrToken.role || session.user.role,
         });
       }
       return session;

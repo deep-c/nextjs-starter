@@ -14,7 +14,7 @@ export interface UsersAdminProps {}
 export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
   const { loading, data, fetchMore } = useQuery<GetUsersForAdmin>(
     getUsersForAdmin,
-    { variables: { first: 10 } }
+    { variables: { first: 10, search: '' } }
   );
   const pageInfo = data?.users?.pageInfo;
   const userNodes = data?.users?.edges?.map((edge) => edge?.node);
