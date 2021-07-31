@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import UserAvatar from 'src/components/UserAvatar';
 import type { GetMe } from 'src/genTypes/apollo/GetMe';
@@ -17,7 +17,7 @@ const UserSettingsForm: React.FC<UserSettingsFormProps> = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors: formErrors, isDirty },
+    formState: { errors: formErrors, isDirty, isSubmitSuccessful },
   } = useForm();
   const onSubmit: SubmitHandler<UpdateMeInput> = async (formFields) => {
     const result = await updateUserSettings({
@@ -28,6 +28,12 @@ const UserSettingsForm: React.FC<UserSettingsFormProps> = () => {
     });
     return result;
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   if (queryLoading) return null;
 

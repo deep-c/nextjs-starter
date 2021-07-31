@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { Role, Status, User } from '@prisma/client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import UserAvatar from 'src/components/UserAvatar';
 import type { GetUserForAdmin } from 'src/genTypes/apollo/GetUserForAdmin';
@@ -21,7 +21,7 @@ const UserAdminForm: React.FC<UserAdminFormProps> = ({ id }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors: formErrors, isDirty },
+    formState: { errors: formErrors, isDirty, isSubmitSuccessful },
   } = useForm();
   const onSubmit: SubmitHandler<UpdateUserInput> = async (formFields) => {
     const result = await updateUserSettings({
@@ -32,6 +32,12 @@ const UserAdminForm: React.FC<UserAdminFormProps> = ({ id }) => {
     });
     return result;
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   if (queryLoading) return null;
 
