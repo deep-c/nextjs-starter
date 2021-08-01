@@ -144,7 +144,7 @@ export const updateMe = extendType({
           data: args.fields,
         });
       },
-      authorize: (_, args, ctx) => {
+      authorize: (_, __, ctx) => {
         return isAuthenticated(ctx.user);
       },
     });

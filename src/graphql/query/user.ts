@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const me = gql`
+export const meQuery = gql`
   query GetMe {
     me {
       id
@@ -16,7 +16,7 @@ export const me = gql`
   }
 `;
 
-export const getUserForAdmin = gql`
+export const getUserForAdminQuery = gql`
   query GetUserForAdmin($id: ID!) {
     user(id: $id) {
       name
@@ -32,7 +32,7 @@ export const getUserForAdmin = gql`
   }
 `;
 
-export const getUsersForAdmin = gql`
+export const getUsersForAdminQuery = gql`
   query GetUsersForAdmin($first: Int, $cursor: String, $search: String) {
     users(first: $first, after: $cursor, search: $search) {
       edges {

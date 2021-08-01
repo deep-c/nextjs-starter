@@ -1,15 +1,16 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { ExclamationIcon, SearchIcon } from '@heroicons/react/outline';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import UserAvatar from 'src/components/UserAvatar';
 import type { GetSessionsForAdmin } from 'src/genTypes/apollo/GetSessionsForAdmin';
-import { getSessionsForAdmin } from 'src/graphql/query/session';
+import type { RemoveSession } from 'src/genTypes/apollo/RemoveSession';
+import { removeSessionMutation } from 'src/graphql/mutation/session';
+import { getSessionsForAdminQuery } from 'src/graphql/query/session';
 import AdminLayout from 'src/layouts/admin';
-import { ADMIN_SESSION, ADMIN_USERS, NextRoutePage } from 'src/routes';
+import { ADMIN_USERS, NextRoutePage } from 'src/routes';
 import { classNames } from 'src/utils/ui';
 
 export interface SessionsAdminProps {}
@@ -19,9 +20,19 @@ export interface SessionsAdminFilterForm {
 
 export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
   let { loading, data, fetchMore, refetch } = useQuery<GetSessionsForAdmin>(
-    getSessionsForAdmin,
+    getSessionsForAdminQuery,
     { variables: { first: 10 } }
   );
+  const [removeSession] = useMutation<RemoveSession>(removeSessionMutation, {
+    update: (cache, { data }) => {
+      const normalizedId = cache.identify({
+        id: data?.removeSession?.id,
+        __typename: data?.removeSession?.__typename,
+      });
+      cache.evict({ id: normalizedId });
+      cache.gc();
+    },
+  });
   const { locale } = useRouter();
   const { register, handleSubmit } = useForm();
   const onFilterSubmit: SubmitHandler<SessionsAdminFilterForm> = async (
@@ -178,16 +189,18 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <Link
-                              href={{
-                                pathname: ADMIN_SESSION.path,
-                                query: { id: session.id },
-                              }}
+                            <span
+                              onClick={() =>
+                                removeSession({
+                                  variables: {
+                                    id: session.id,
+                                  },
+                                })
+                              }
+                              className="text-red-600 hover:text-red-900 cursor-pointer"
                             >
-                              <a className="text-indigo-600 hover:text-indigo-900">
-                                Edit
-                              </a>
-                            </Link>
+                              Remove
+                            </span>
                           </td>
                         </tr>
                       );

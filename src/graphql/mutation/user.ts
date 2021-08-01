@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const updateMe = gql`
+export const updateMeMutation = gql`
   mutation UpdateMe($fields: UpdateMeInput!) {
     updateMe(fields: $fields) {
       id
@@ -14,7 +14,7 @@ export const updateMe = gql`
   }
 `;
 
-export const updateUser = gql`
+export const updateUserMutation = gql`
   mutation UpdateUser($id: ID!, $fields: UpdateUserInput!) {
     updateUser(id: $id, fields: $fields) {
       name

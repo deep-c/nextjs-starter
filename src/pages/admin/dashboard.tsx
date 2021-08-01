@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import UserAvatar from 'src/components/UserAvatar';
 import type { GetMe } from 'src/genTypes/apollo/GetMe';
-import { me } from 'src/graphql/query/user';
+import { meQuery } from 'src/graphql/query/user';
 import AdminLayout from 'src/layouts/admin';
 import { ACCOUNT_SETTINGS, ADMIN_DASHBOARD, NextRoutePage } from 'src/routes';
 
@@ -17,7 +17,7 @@ const stats = [
 ];
 
 export const AdminDashboard: NextRoutePage<AdminDashboardProps> = () => {
-  const { data } = useQuery<GetMe>(me);
+  const { data } = useQuery<GetMe>(meQuery);
   return (
     <>
       <Head>

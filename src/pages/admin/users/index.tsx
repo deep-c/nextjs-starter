@@ -6,7 +6,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import UserAvatar from 'src/components/UserAvatar';
 import type { GetUsersForAdmin } from 'src/genTypes/apollo/GetUsersForAdmin';
-import { getUsersForAdmin } from 'src/graphql/query/user';
+import { getUsersForAdminQuery } from 'src/graphql/query/user';
 import AdminLayout from 'src/layouts/admin';
 import { ADMIN_USER, ADMIN_USERS, NextRoutePage } from 'src/routes';
 
@@ -17,7 +17,7 @@ export interface UsersAdminFilterForm {
 
 export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
   let { loading, data, fetchMore, refetch } = useQuery<GetUsersForAdmin>(
-    getUsersForAdmin,
+    getUsersForAdminQuery,
     { variables: { first: 10 } }
   );
   const { register, handleSubmit } = useForm();

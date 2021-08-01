@@ -1,28 +1,30 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { Role, Status, User } from '@prisma/client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import UserAvatar from 'src/components/UserAvatar';
 import type { GetUserForAdmin } from 'src/genTypes/apollo/GetUserForAdmin';
 import type { UpdateUserInput } from 'src/genTypes/apollo/globalTypes';
-import { updateUser } from 'src/graphql/mutation/user';
-import { getUserForAdmin } from 'src/graphql/query/user';
+import type { UpdateUser } from 'src/genTypes/apollo/UpdateUser';
+import { updateUserMutation } from 'src/graphql/mutation/user';
+import { getUserForAdminQuery } from 'src/graphql/query/user';
 
 export interface UserAdminFormProps extends Pick<User, 'id'> {}
 
 const UserAdminForm: React.FC<UserAdminFormProps> = ({ id }) => {
   const { loading: queryLoading, data } = useQuery<GetUserForAdmin>(
-    getUserForAdmin,
+    getUserForAdminQuery,
     { variables: { id } }
   );
   const [updateUserSettings, { loading: mutationLoading }] =
-    useMutation(updateUser);
+    useMutation<UpdateUser>(updateUserMutation);
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors: formErrors, isDirty, isSubmitSuccessful },
+    formState: { errors: formErrors, isDirty },
   } = useForm();
+
   const onSubmit: SubmitHandler<UpdateUserInput> = async (formFields) => {
     const result = await updateUserSettings({
       variables: {
@@ -32,12 +34,6 @@ const UserAdminForm: React.FC<UserAdminFormProps> = ({ id }) => {
     });
     return result;
   };
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-  }, [isSubmitSuccessful, reset]);
 
   if (queryLoading) return null;
 
