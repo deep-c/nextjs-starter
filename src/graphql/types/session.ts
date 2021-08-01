@@ -1,5 +1,8 @@
-import { extendType, objectType } from 'nexus';
+import { findManyCursorConnection } from '@devoxa/prisma-relay-cursor-connection';
+import { Role } from '@prisma/client';
+import { extendType, nullable, objectType, stringArg } from 'nexus';
 import { Session } from 'nexus-prisma';
+import { isAuthorized } from 'src/utils/auth';
 
 export const session = objectType({
   name: Session.$name,
@@ -16,13 +19,46 @@ export const session = objectType({
   },
 });
 
-export const sessionsQuery = extendType({
+export const getSessions = extendType({
   type: 'Query',
   definition(t) {
-    t.nonNull.list.field('sessions', {
+    t.nonNull.connectionField('sessions', {
       type: Session.$name,
-      resolve(_, __, ctx) {
-        return ctx.prisma.session.findMany();
+      additionalArgs: {
+        search: nullable(stringArg()),
+      },
+      async resolve(_, args, ctx) {
+        let searchArgs = {};
+        if (args.search) {
+          searchArgs = {
+            where: {
+              OR: {
+                name: {
+                  contains: args.search,
+                  mode: 'insensitive',
+                },
+                email: {
+                  contains: args.search,
+                  mode: 'insensitive',
+                },
+              },
+            },
+          };
+        }
+        const result = await findManyCursorConnection(
+          (args) =>
+            ctx.prisma.session.findMany({
+              include: { user: true },
+              ...args,
+              ...searchArgs,
+            }),
+          () => ctx.prisma.session.count(),
+          args
+        );
+        return result;
+      },
+      authorize: (_, __, ctx) => {
+        return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);
       },
     });
   },

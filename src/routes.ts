@@ -70,7 +70,7 @@ export const ADMIN_USERS = {
 
 export const ADMIN_USER = {
   path: '/admin/users/[id]',
-  name: 'Users',
+  name: 'User',
   icon: UserIcon,
   auth: {
     loginUrl: ADMIN_LOGIN.path,
@@ -81,6 +81,16 @@ export const ADMIN_USER = {
 export const ADMIN_SESSIONS = {
   path: '/admin/sessions',
   name: 'Sessions',
+  icon: LockClosedIcon,
+  auth: {
+    loginUrl: ADMIN_LOGIN.path,
+    allowedRoles: [Role.ADMIN, Role.SUPPORT],
+  },
+};
+
+export const ADMIN_SESSION = {
+  path: '/admin/session/[id]',
+  name: 'Session',
   icon: LockClosedIcon,
   auth: {
     loginUrl: ADMIN_LOGIN.path,
