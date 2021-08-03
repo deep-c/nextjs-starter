@@ -1,4 +1,12 @@
 const rules = {
+  'eslint-comments/disable-enable-pair': ['error', { allowWholeFile: true }],
+  'eslint-comments/no-restricted-disable': [
+    'error',
+    // `alert` and `confirm` cannot be used in iframes so we can't allow it
+    'no-alert',
+    'eslint-comments/no-restricted-disable',
+    'react-hooks/rules-of-hooks',
+  ],
   'import/extensions': [
     'error',
     'ignorePackages',
@@ -30,7 +38,6 @@ const rules = {
       'newlines-between': 'always',
     },
   ],
-
   'jsx-a11y/anchor-is-valid': [
     'warn',
     {
@@ -61,14 +68,12 @@ const rules = {
       props: true,
     },
   ],
-
   'no-plusplus': [
     'error',
     {
       allowForLoopAfterthoughts: true,
     },
   ],
-
   // TODO Remove once Airbnb enables this
   'react/jsx-no-constructed-context-values': 'warn',
   // TODO Remove once Airbnb enables this
@@ -84,6 +89,12 @@ const rules = {
   'react/sort-prop-types': 'warn',
   // TODO Remove once Airbnb allows this
   'react/static-property-placement': ['warn', 'static public field'],
+  'react-hooks/exhaustive-deps': [
+    'warn',
+    {
+      additionalHooks: '(useDrag|useDrop|useEnterKey)',
+    },
+  ],
   'sort-destructure-keys/sort-destructure-keys': 'warn',
   'sort-imports': [
     'warn',
@@ -103,6 +114,7 @@ const commonExtends = [
   'next',
   'prettier',
   'plugin:compat/recommended',
+  'plugin:eslint-comments/recommended',
   'plugin:jest/all',
 ];
 const commonPlugins = ['sort-destructure-keys'];
