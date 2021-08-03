@@ -14,19 +14,19 @@ export interface ActiveLinkProps extends LinkProps {
 const ActiveLink: React.FC<ActiveLinkProps> = ({
   children,
   nested,
-  ...props
+  ...linkProps
 }) => {
   const { asPath } = useRouter();
   const isActive =
-    asPath === props.href ||
-    asPath === props.as ||
+    asPath === linkProps.href ||
+    asPath === linkProps.as ||
     !!(
       nested &&
-      typeof props.href === 'string' &&
-      asPath.startsWith(props.href)
+      typeof linkProps.href === 'string' &&
+      asPath.startsWith(linkProps.href)
     );
 
-  return <Link {...props}>{children({ isActive })}</Link>;
+  return <Link {...linkProps}>{children({ isActive })}</Link>;
 };
 
 ActiveLink.defaultProps = {
