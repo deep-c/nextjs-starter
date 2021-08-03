@@ -72,8 +72,8 @@ export const ADMIN_USERS = {
 
 export const ADMIN_USER = {
   auth: {
-    loginUrl: ADMIN_LOGIN.path,
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
+    loginUrl: ADMIN_LOGIN.path,
   },
   icon: UserIcon,
   name: 'User',
