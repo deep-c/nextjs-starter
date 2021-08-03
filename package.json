@@ -15,7 +15,6 @@
     "build:prisma": "dotenv -c -- prisma generate",
     "start": "dotenv -c -- next start",
     "lint": "next lint",
-    "lint:eslint": "eslint --ext=.js,.jsx,.mjs,.ts,.tsx --ignore-path .gitignore --max-warnings 0",
     "lint:prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "test": "jest",
     "db:makemigration": "dotenv -c -- prisma migrate dev"
