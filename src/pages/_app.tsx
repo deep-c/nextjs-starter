@@ -1,16 +1,28 @@
 import { ApolloProvider } from '@apollo/client';
 import { NextComponentType, NextPageContext } from 'next';
 import { Provider } from 'next-auth/client';
+
+import Auth, { AuthProps } from 'src/components/Auth';
+import { AppInitialState, useApollo } from 'src/graphql/client';
+
+import type { Session } from 'next-auth';
 import type { AppProps } from 'next/app';
 import type { FC, FunctionComponent } from 'react';
-import Auth, { AuthProps } from 'src/components/Auth';
-import { useApollo } from 'src/graphql/client';
+
 import '../styles/globals.css';
 
 export interface MyAppProps extends AppProps {
-  Component: NextComponentType<NextPageContext, any, {}> & {
+  Component: NextComponentType<
+    NextPageContext,
+    Record<string, unknown>,
+    Record<string, unknown>
+  > & {
     auth?: AuthProps;
     layout?: FunctionComponent;
+  };
+  pageProps: {
+    initialApolloState: AppInitialState;
+    session: Session;
   };
 }
 

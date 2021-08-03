@@ -2,13 +2,13 @@ import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
+
 import UserAvatar from 'src/components/UserAvatar';
-import type { GetMe } from 'src/genTypes/apollo/GetMe';
 import { meQuery } from 'src/graphql/query/user';
-import AdminLayout from 'src/layouts/admin';
+import AdminLayout from 'src/layouts/AdminLayout';
 import { ACCOUNT_SETTINGS, ADMIN_DASHBOARD, NextRoutePage } from 'src/routes';
 
-export interface AdminDashboardProps {}
+import type { GetMe } from 'src/genTypes/apollo/GetMe';
 
 const stats = [
   { label: 'Items posted for sale', value: 12 },
@@ -16,17 +16,17 @@ const stats = [
   { label: 'New messages', value: 2 },
 ];
 
-export const AdminDashboard: NextRoutePage<AdminDashboardProps> = () => {
+export const AdminDashboard: NextRoutePage<unknown> = () => {
   const { data } = useQuery<GetMe>(meQuery);
   return (
     <>
       <Head>
         <title>Dashboard | Admin</title>
         <meta
-          name="viewport"
           content="initial-scale=1.0, width=device-width"
+          name="viewport"
         />
-        <meta name="description" content="User Dashboard" />
+        <meta content="User Dashboard" name="description" />
       </Head>
       <div className="pt-6 pb-6">
         <h1 className="text-3xl font-extrabold text-gray-900">Dashboard</h1>

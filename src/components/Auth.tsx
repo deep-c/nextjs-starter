@@ -1,38 +1,43 @@
-import type { Role } from '@prisma/client';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+
 import { LOGIN, UNAUTHORIZED, Url } from 'src/routes';
 import { isAuthenticated, isAuthorized } from 'src/utils/auth';
 
+import type { Role } from '@prisma/client';
+
 export interface AuthSettings {
-  loginUrl?: Url;
   allowedRoles?: Role[];
+  loginUrl?: Url;
 }
-export interface AuthProps extends AuthSettings {}
+export type AuthProps = AuthSettings;
 export type Session = ReturnType<typeof useSession>[0];
 export interface AuthChildProps {
   session: Session;
 }
 
-const Auth: React.FC<AuthProps> = ({ children, loginUrl, allowedRoles }) => {
+const Auth: React.FC<AuthProps> = ({ allowedRoles, children, loginUrl }) => {
   const [session, loading] = useSession();
   const hasAuth = isAuthenticated(session?.user);
   const router = useRouter();
   useEffect(() => {
     if (!loading) {
       if (!hasAuth) {
-        router.push(loginUrl ?? LOGIN.path);
+        // eslint-disable-next-line no-void
+        void router.push(loginUrl ?? LOGIN.path);
       } else if (
         session &&
         allowedRoles &&
         !isAuthorized(allowedRoles, session?.user)
       ) {
-        router.push(UNAUTHORIZED.path);
+        // eslint-disable-next-line no-void
+        void router.push(UNAUTHORIZED.path);
       }
     }
     if (!loading && !hasAuth && loginUrl) {
-      router.push(loginUrl);
+      // eslint-disable-next-line no-void
+      void router.push(loginUrl);
     }
   }, [loading, hasAuth, router, loginUrl, allowedRoles, session]);
   if (loading || !hasAuth) {

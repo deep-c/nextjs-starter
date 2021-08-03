@@ -9,19 +9,21 @@ import {
   UserIcon,
 } from '@heroicons/react/outline';
 import { Role } from '@prisma/client';
+
+import { isAuthorized } from 'src/utils/auth';
+
 import type { NextPage } from 'next';
 import type { ReactNode } from 'react';
 import type { AuthProps, AuthSettings } from 'src/components/Auth';
 import type { AuthSessionUser } from 'src/types/next-auth';
-import { isAuthorized } from 'src/utils/auth';
 
 export type Url = string;
-export type DynamicPathFn = (option: Record<string, any>) => Url;
+export type DynamicPathFn = (option: Record<string, unknown>) => Url;
 export interface AppRoute {
-  path: Url;
-  name: string;
-  icon: ReactNode;
   auth: AuthSettings | boolean;
+  icon: ReactNode;
+  name: string;
+  path: Url;
 }
 export type NextRoutePage<P> = NextPage<P, P> & {
   auth?: AuthProps | boolean;
@@ -29,89 +31,89 @@ export type NextRoutePage<P> = NextPage<P, P> & {
 };
 
 export const LOGIN = {
-  path: '/login',
-  name: 'Login',
-  icon: LoginIcon,
   auth: false,
+  icon: LoginIcon,
+  name: 'Login',
+  path: '/login',
 };
 
 export const UNAUTHORIZED = {
-  path: '/unauthorized',
-  name: 'Unauthorized',
-  icon: BanIcon,
   auth: false,
+  icon: BanIcon,
+  name: 'Unauthorized',
+  path: '/unauthorized',
 };
 
 export const ADMIN_LOGIN = {
-  path: '/admin/login',
-  name: 'Login',
-  icon: LoginIcon,
   auth: false,
+  icon: LoginIcon,
+  name: 'Login',
+  path: '/admin/login',
 };
 
 export const ADMIN_DASHBOARD = {
-  path: '/admin/dashboard',
-  name: 'Dashboard',
-  icon: MapIcon,
   auth: {
     loginUrl: ADMIN_LOGIN.path,
   },
+  icon: MapIcon,
+  name: 'Dashboard',
+  path: '/admin/dashboard',
 };
 
 export const ADMIN_USERS = {
-  path: '/admin/users',
-  name: 'Users',
-  icon: UserGroupIcon,
   auth: {
-    loginUrl: ADMIN_LOGIN.path,
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
+    loginUrl: ADMIN_LOGIN.path,
   },
+  icon: UserGroupIcon,
+  name: 'Users',
+  path: '/admin/users',
 };
 
 export const ADMIN_USER = {
-  path: '/admin/users/[id]',
-  name: 'User',
-  icon: UserIcon,
   auth: {
     loginUrl: ADMIN_LOGIN.path,
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
   },
+  icon: UserIcon,
+  name: 'User',
+  path: '/admin/users/[id]',
 };
 
 export const ADMIN_SESSIONS = {
-  path: '/admin/sessions',
-  name: 'Sessions',
-  icon: LockClosedIcon,
   auth: {
-    loginUrl: ADMIN_LOGIN.path,
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
+    loginUrl: ADMIN_LOGIN.path,
   },
+  icon: LockClosedIcon,
+  name: 'Sessions',
+  path: '/admin/sessions',
 };
 
 export const ADMIN_SESSION = {
-  path: '/admin/session/[id]',
-  name: 'Session',
-  icon: LockClosedIcon,
   auth: {
-    loginUrl: ADMIN_LOGIN.path,
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
+    loginUrl: ADMIN_LOGIN.path,
   },
+  icon: LockClosedIcon,
+  name: 'Session',
+  path: '/admin/session/[id]',
 };
 
 export const ACCOUNT_SETTINGS = {
-  path: '/account/settings',
-  name: 'Settings',
-  icon: CogIcon,
   auth: {
     loginUrl: ADMIN_LOGIN.path,
   },
+  icon: CogIcon,
+  name: 'Settings',
+  path: '/account/settings',
 };
 
 export const GRAPHQL_V1_API = {
-  path: '/api/v1/graphql',
-  name: 'GraphQL API',
-  icon: LinkIcon,
   auth: false,
+  icon: LinkIcon,
+  name: 'GraphQL API',
+  path: '/api/v1/graphql',
 };
 
 export const filterRoutesForRole =

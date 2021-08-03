@@ -1,13 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
+
 import UserAdminForm from 'src/components/UserAdminForm';
-import AdminLayout from 'src/layouts/admin';
+import AdminLayout from 'src/layouts/AdminLayout';
 import { ADMIN_USER, NextRoutePage } from 'src/routes';
 
-export interface UserAdminProps {}
-
-export const AdminDashboard: NextRoutePage<UserAdminProps> = () => {
+export const AdminDashboard: NextRoutePage<unknown> = () => {
   const router = useRouter();
   const id = router.query.id as string;
 
@@ -16,10 +15,10 @@ export const AdminDashboard: NextRoutePage<UserAdminProps> = () => {
       <Head>
         <title>Manage User | Admin</title>
         <meta
-          name="viewport"
           content="initial-scale=1.0, width=device-width"
+          name="viewport"
         />
-        <meta name="description" content="User Admin" />
+        <meta content="User Admin" name="description" />
       </Head>
       <div className="pt-6 pb-6">
         <h1 className="text-3xl font-extrabold text-gray-900">Manage User</h1>

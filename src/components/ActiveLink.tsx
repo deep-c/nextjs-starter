@@ -7,8 +7,8 @@ export interface ActiveLinkChildProps {
 }
 
 export interface ActiveLinkProps extends LinkProps {
-  nested?: boolean;
   children: (props: ActiveLinkChildProps) => ReactNode;
+  nested?: boolean;
 }
 
 const ActiveLink: React.FC<ActiveLinkProps> = ({

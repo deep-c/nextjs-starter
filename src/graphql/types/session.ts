@@ -10,11 +10,10 @@ import {
   stringArg,
 } from 'nexus';
 import { Session } from 'nexus-prisma';
+
 import { isAuthorized } from 'src/utils/auth';
 
 export const session = objectType({
-  name: Session.$name,
-  description: Session.$description,
   definition(t) {
     t.field(Session.id);
     t.field(Session.userId);
@@ -25,36 +24,38 @@ export const session = objectType({
     t.field(Session.updatedAt);
     t.field(Session.user);
   },
+  description: Session.$description,
+  name: Session.$name,
 });
 
 export const updateSessionInput = inputObjectType({
-  name: 'UpdateSessionInput',
   definition(t) {
     t.field(Session.expires);
     t.field(Session.sessionToken);
     t.field(Session.accessToken);
   },
+  name: 'UpdateSessionInput',
 });
 
 export const getSessions = extendType({
-  type: 'Query',
   definition(t) {
     t.nonNull.connectionField('sessions', {
-      type: Session.$name,
       additionalArgs: {
         search: nullable(stringArg()),
       },
-      async resolve(_, args, ctx) {
+      authorize: (_, __, ctx) =>
+        isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user),
+      resolve: async (_, args, ctx) => {
         let searchArgs = {};
         if (args.search) {
           searchArgs = {
             where: {
               OR: {
-                name: {
+                email: {
                   contains: args.search,
                   mode: 'insensitive',
                 },
-                email: {
+                name: {
                   contains: args.search,
                   mode: 'insensitive',
                 },
@@ -63,10 +64,10 @@ export const getSessions = extendType({
           };
         }
         const result = await findManyCursorConnection(
-          (args) =>
+          (_args) =>
             ctx.prisma.session.findMany({
               include: { user: true },
-              ...args,
+              ..._args,
               ...searchArgs,
             }),
           () => ctx.prisma.session.count(),
@@ -74,49 +75,44 @@ export const getSessions = extendType({
         );
         return result;
       },
-      authorize: (_, __, ctx) => {
-        return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);
-      },
+      type: Session.$name,
     });
   },
+  type: 'Query',
 });
 
 export const updateSession = extendType({
-  type: 'Mutation',
   definition(t) {
     t.field('updateSession', {
-      type: Session.$name,
       args: {
-        id: nonNull(idArg()),
         fields: nonNull(updateSessionInput),
+        id: nonNull(idArg()),
       },
-      resolve: (_, args, ctx) => {
-        return ctx.prisma.session.update({
-          where: { id: args.id },
+      authorize: (_, __, ctx) =>
+        isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user),
+      resolve: async (_, args, ctx) =>
+        ctx.prisma.session.update({
           data: args.fields,
-        });
-      },
-      authorize: (_, __, ctx) => {
-        return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);
-      },
+          where: { id: args.id },
+        }),
+      type: Session.$name,
     });
   },
+  type: 'Mutation',
 });
 
 export const removeSession = extendType({
-  type: 'Mutation',
   definition(t) {
     t.field('removeSession', {
-      type: Session.$name,
       args: {
         id: nonNull(idArg()),
       },
-      resolve: (_, args, ctx) => {
-        return ctx.prisma.session.delete({ where: { id: args.id } });
-      },
-      authorize: (_, __, ctx) => {
-        return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);
-      },
+      authorize: (_, __, ctx) =>
+        isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user),
+      resolve: async (_, args, ctx) =>
+        ctx.prisma.session.delete({ where: { id: args.id } }),
+      type: Session.$name,
     });
   },
+  type: 'Mutation',
 });

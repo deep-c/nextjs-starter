@@ -1,3 +1,3 @@
-export const classNames = (...classes: string[]) => {
-  return classes.filter(Boolean).join(' ');
-};
+// eslint-disable-next-line import/prefer-default-export
+export const classNames = (...classes: string[]): string =>
+  classes.filter(Boolean).join(' ');

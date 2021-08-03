@@ -1,25 +1,27 @@
+import path from 'path';
+
 import { connectionPlugin, fieldAuthorizePlugin, makeSchema } from 'nexus';
 import NexusPrismaScalars from 'nexus-prisma/scalars';
-import path from 'path';
+
 import * as allTypes from './types';
 
 const schema = makeSchema({
-  types: [allTypes, NexusPrismaScalars],
+  contextType: {
+    export: 'AppGqlContext',
+    module: path.join(process.cwd(), 'src/graphql/context.ts'),
+  },
   outputs: {
+    schema: path.join(process.cwd(), 'src/types/__gen__/nexus/schema.graphql'),
     typegen: path.join(
       process.cwd(),
       'src/types/__gen__/nexus/nexus-typegen.ts'
     ),
-    schema: path.join(process.cwd(), 'src/types/__gen__/nexus/schema.graphql'),
-  },
-  contextType: {
-    module: path.join(process.cwd(), 'src/graphql/context.ts'),
-    export: 'AppGqlContext',
   },
   plugins: [
     fieldAuthorizePlugin(),
     connectionPlugin({ includeNodesField: true }),
   ],
+  types: [allTypes, NexusPrismaScalars],
 });
 
 export default schema;

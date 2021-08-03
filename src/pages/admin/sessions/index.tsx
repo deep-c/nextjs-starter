@@ -4,37 +4,40 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import UserAvatar from 'src/components/UserAvatar';
-import type { GetSessionsForAdmin } from 'src/genTypes/apollo/GetSessionsForAdmin';
-import type { RemoveSession } from 'src/genTypes/apollo/RemoveSession';
 import { removeSessionMutation } from 'src/graphql/mutation/session';
 import { getSessionsForAdminQuery } from 'src/graphql/query/session';
-import AdminLayout from 'src/layouts/admin';
+import AdminLayout from 'src/layouts/AdminLayout';
 import { ADMIN_USERS, NextRoutePage } from 'src/routes';
 import { classNames } from 'src/utils/ui';
 
-export interface SessionsAdminProps {}
+import type { GetSessionsForAdmin } from 'src/genTypes/apollo/GetSessionsForAdmin';
+import type { RemoveSession } from 'src/genTypes/apollo/RemoveSession';
+
 export interface SessionsAdminFilterForm {
   search: string;
 }
 
-export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
-  let { loading, data, fetchMore, refetch } = useQuery<GetSessionsForAdmin>(
+export const SessionsAdmin: NextRoutePage<unknown> = () => {
+  // eslint-disable-next-line prefer-const
+  let { data, fetchMore, loading, refetch } = useQuery<GetSessionsForAdmin>(
     getSessionsForAdminQuery,
     { variables: { first: 10 } }
   );
   const [removeSession] = useMutation<RemoveSession>(removeSessionMutation, {
-    update: (cache, { data }) => {
+    update: (cache, { data: _data }) => {
       const normalizedId = cache.identify({
-        id: data?.removeSession?.id,
-        __typename: data?.removeSession?.__typename,
+        // eslint-disable-next-line no-underscore-dangle
+        __typename: _data?.removeSession?.__typename,
+        id: _data?.removeSession?.id,
       });
       cache.evict({ id: normalizedId });
       cache.gc();
     },
   });
   const { locale } = useRouter();
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit, register } = useForm();
   const onFilterSubmit: SubmitHandler<SessionsAdminFilterForm> = async (
     formFields
   ) => {
@@ -55,10 +58,10 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
       <Head>
         <title>Manage Sessions | Admin</title>
         <meta
-          name="viewport"
           content="initial-scale=1.0, width=device-width"
+          name="viewport"
         />
-        <meta name="description" content="User Dashboard" />
+        <meta content="User Dashboard" name="description" />
       </Head>
       <div className="pt-6 pb-6">
         <h1 className="text-3xl font-extrabold text-gray-900">
@@ -69,24 +72,24 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
         <form onSubmit={handleSubmit(onFilterSubmit)}>
           <div>
             <label
-              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
+              htmlFor="email"
             >
               Quick Search
             </label>
             <div className="mt-1 relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <SearchIcon
-                  className="h-5 w-5 text-gray-400"
                   aria-hidden="true"
+                  className="h-5 w-5 text-gray-400"
                 />
               </div>
               <input
-                type="text"
-                id="search"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-                placeholder="Search name or email.."
                 defaultValue=""
+                id="search"
+                placeholder="Search name or email.."
+                type="text"
                 {...register('search', { maxLength: 50 })}
               />
             </div>
@@ -101,30 +104,30 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th
-                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      scope="col"
                     >
                       ID
                     </th>
                     <th
-                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      scope="col"
                     >
                       Expires
                     </th>
                     <th
-                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      scope="col"
                     >
                       Created On
                     </th>
                     <th
-                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      scope="col"
                     >
                       Updated On
                     </th>
-                    <th scope="col" className="relative px-6 py-3">
+                    <th className="relative px-6 py-3" scope="col">
                       <span className="sr-only">Edit</span>
                     </th>
                   </tr>
@@ -134,8 +137,8 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
                     <tr key="empty">
                       <td className="px-6 py-4 whitespace-nowrap ">
                         <ExclamationIcon
-                          className="h-5 w-5 text-yellow-400 inline-block"
                           aria-hidden="true"
+                          className="h-5 w-5 text-yellow-400 inline-block"
                         />
                         <span className="pl-4">No sessions found</span>
                       </td>
@@ -168,6 +171,7 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
                                 expiresAt > today
                                   ? 'bg-green-100 text-green-800'
                                   : 'bg-red-100 text-red-800',
+                                // eslint-disable-next-line max-len
                                 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full'
                               )}
                             >
@@ -189,7 +193,8 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <span
+                            <button
+                              className="text-red-600 hover:text-red-900 cursor-pointer"
                               onClick={() =>
                                 removeSession({
                                   variables: {
@@ -197,10 +202,10 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
                                   },
                                 })
                               }
-                              className="text-red-600 hover:text-red-900 cursor-pointer"
+                              type="button"
                             >
                               Remove
-                            </span>
+                            </button>
                           </td>
                         </tr>
                       );
@@ -213,8 +218,8 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
         </div>
       </div>
       <nav
-        className="bg-white py-3 flex items-center justify-between border-t border-gray-200"
         aria-label="Pagination"
+        className="bg-white py-3 flex items-center justify-between border-t border-gray-200"
       >
         <div className="hidden sm:block">
           <p className="text-sm text-gray-700">
@@ -225,17 +230,19 @@ export const SessionsAdmin: NextRoutePage<SessionsAdminProps> = () => {
         </div>
         <div className="flex-1 flex justify-between sm:justify-end">
           <button
+            className="disabled:opacity-50 disabled:cursor-not-allowed ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             disabled={!pageInfo?.hasNextPage}
             onClick={() => {
               if (pageInfo?.hasNextPage) {
-                fetchMore({
+                // eslint-disable-next-line no-void
+                void fetchMore({
                   variables: {
                     cursor: pageInfo.endCursor,
                   },
                 });
               }
             }}
-            className="disabled:opacity-50 disabled:cursor-not-allowed ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+            type="button"
           >
             More
           </button>

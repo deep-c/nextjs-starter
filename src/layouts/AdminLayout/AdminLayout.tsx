@@ -1,13 +1,14 @@
 import { MenuAlt1Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 import React, { useState } from 'react';
-import type { AuthChildProps } from 'src/components/Auth';
+
 import UserProfileDropdown from 'src/components/UserProfileDropdown';
+
 import Sidebar from './Sidebar';
 
-export interface AdminLayoutProps extends AuthChildProps {}
+import type { AuthChildProps } from 'src/components/Auth';
 
-export const AdminLayout: React.FC<AdminLayoutProps> = ({
+export const AdminLayout: React.FC<AuthChildProps> = ({
   children,
   session,
 }) => {
@@ -15,8 +16,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   return (
     <div className="h-screen flex overflow-hidden bg-white">
       <Sidebar
-        open={sidebarOpen}
         handleState={setSidebarOpen}
+        open={sidebarOpen}
         session={session}
       />
       {/* Main column */}
@@ -26,24 +27,25 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
           <button
             className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 lg:hidden"
             onClick={() => setSidebarOpen(true)}
+            type="button"
           >
             <span className="sr-only">Open sidebar</span>
-            <MenuAlt1Icon className="h-6 w-6" aria-hidden="true" />
+            <MenuAlt1Icon aria-hidden="true" className="h-6 w-6" />
           </button>
           <div className="flex-1 flex justify-between px-4 sm:px-6 lg:px-8">
             <div className="flex-1 flex">
-              <form className="w-full flex md:ml-0" action="#" method="GET">
-                <label htmlFor="search_field" className="sr-only">
+              <form action="#" className="w-full flex md:ml-0" method="GET">
+                <label className="sr-only" htmlFor="search_field">
                   Search
                 </label>
                 <div className="relative w-full text-gray-400 focus-within:text-gray-600">
                   <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-                    <SearchIcon className="h-5 w-5" aria-hidden="true" />
+                    <SearchIcon aria-hidden="true" className="h-5 w-5" />
                   </div>
                   <input
+                    className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:text-sm"
                     id="search_field"
                     name="search_field"
-                    className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:text-sm"
                     placeholder="Search"
                     type="search"
                   />

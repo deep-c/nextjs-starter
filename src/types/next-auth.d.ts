@@ -1,11 +1,11 @@
-import type { Role, User as AppUser } from '@prisma/client';
+import type { User as AppUser, Role } from '@prisma/client';
 import 'next-auth';
 
 export interface AuthSessionUser {
-  id: string;
-  name: string | null;
   email: string | null;
+  id: string;
   image: string | null;
+  name: string | null;
   role: Role;
 }
 
@@ -14,5 +14,6 @@ declare module 'next-auth' {
     user?: AuthSessionUser;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface User extends AppUser {}
 }

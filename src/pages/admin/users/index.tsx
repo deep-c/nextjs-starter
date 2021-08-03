@@ -4,23 +4,25 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import UserAvatar from 'src/components/UserAvatar';
-import type { GetUsersForAdmin } from 'src/genTypes/apollo/GetUsersForAdmin';
 import { getUsersForAdminQuery } from 'src/graphql/query/user';
-import AdminLayout from 'src/layouts/admin';
+import AdminLayout from 'src/layouts/AdminLayout';
 import { ADMIN_USER, ADMIN_USERS, NextRoutePage } from 'src/routes';
 
-export interface UsersAdminProps {}
+import type { GetUsersForAdmin } from 'src/genTypes/apollo/GetUsersForAdmin';
+
 export interface UsersAdminFilterForm {
   search: string;
 }
 
-export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
-  let { loading, data, fetchMore, refetch } = useQuery<GetUsersForAdmin>(
+export const UsersAdmin: NextRoutePage<unknown> = () => {
+  // eslint-disable-next-line prefer-const
+  let { data, fetchMore, loading, refetch } = useQuery<GetUsersForAdmin>(
     getUsersForAdminQuery,
     { variables: { first: 10 } }
   );
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit, register } = useForm();
   const onFilterSubmit: SubmitHandler<UsersAdminFilterForm> = async (
     formFields
   ) => {
@@ -40,10 +42,10 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
       <Head>
         <title>Manage Users | Admin</title>
         <meta
-          name="viewport"
           content="initial-scale=1.0, width=device-width"
+          name="viewport"
         />
-        <meta name="description" content="User Dashboard" />
+        <meta content="User Dashboard" name="description" />
       </Head>
       <div className="pt-6 pb-6">
         <h1 className="text-3xl font-extrabold text-gray-900">Manage Users</h1>
@@ -52,24 +54,24 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
         <form onSubmit={handleSubmit(onFilterSubmit)}>
           <div>
             <label
-              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
+              htmlFor="email"
             >
               Quick Search
             </label>
             <div className="mt-1 relative rounded-md shadow-sm">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <SearchIcon
-                  className="h-5 w-5 text-gray-400"
                   aria-hidden="true"
+                  className="h-5 w-5 text-gray-400"
                 />
               </div>
               <input
-                type="text"
-                id="search"
                 className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-                placeholder="Search name or email.."
                 defaultValue=""
+                id="search"
+                placeholder="Search name or email.."
+                type="text"
                 {...register('search', { maxLength: 50 })}
               />
             </div>
@@ -84,30 +86,30 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th
-                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      scope="col"
                     >
                       Name
                     </th>
                     <th
-                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      scope="col"
                     >
                       Email
                     </th>
                     <th
-                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      scope="col"
                     >
                       Status
                     </th>
                     <th
-                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      scope="col"
                     >
                       Role
                     </th>
-                    <th scope="col" className="relative px-6 py-3">
+                    <th className="relative px-6 py-3" scope="col">
                       <span className="sr-only">Edit</span>
                     </th>
                   </tr>
@@ -117,8 +119,8 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
                     <tr key="empty">
                       <td className="px-6 py-4 whitespace-nowrap ">
                         <ExclamationIcon
-                          className="h-5 w-5 text-yellow-400 inline-block"
                           aria-hidden="true"
+                          className="h-5 w-5 text-yellow-400 inline-block"
                         />
                         <span className="pl-4">No users found</span>
                       </td>
@@ -175,8 +177,8 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
         </div>
       </div>
       <nav
-        className="bg-white py-3 flex items-center justify-between border-t border-gray-200"
         aria-label="Pagination"
+        className="bg-white py-3 flex items-center justify-between border-t border-gray-200"
       >
         <div className="hidden sm:block">
           <p className="text-sm text-gray-700">
@@ -187,17 +189,19 @@ export const UsersAdmin: NextRoutePage<UsersAdminProps> = () => {
         </div>
         <div className="flex-1 flex justify-between sm:justify-end">
           <button
+            className="disabled:opacity-50 disabled:cursor-not-allowed ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             disabled={!pageInfo?.hasNextPage}
             onClick={() => {
               if (pageInfo?.hasNextPage) {
-                fetchMore({
+                // eslint-disable-next-line no-void
+                void fetchMore({
                   variables: {
                     cursor: pageInfo.endCursor,
                   },
                 });
               }
             }}
-            className="disabled:opacity-50 disabled:cursor-not-allowed ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+            type="button"
           >
             More
           </button>
