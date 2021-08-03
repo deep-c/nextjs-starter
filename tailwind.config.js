@@ -1,12 +1,13 @@
+/* eslint-disable global-require */
 module.exports = {
-  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
-  mode: 'jit',
   darkMode: false, // or 'media' or 'class'
+  mode: 'jit',
+  plugins: [require('@tailwindcss/forms')],
+  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
   },
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms')],
 };

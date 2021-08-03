@@ -3,13 +3,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 module.exports = withBundleAnalyzer({
-  reactStrictMode: true,
-  poweredByHeader: false,
+  i18n: {
+    defaultLocale: 'en-AU',
+    locales: ['en-AU'],
+  },
   images: {
     domains: ['tailwindui.com', 'images.unsplash.com'],
   },
-  i18n: {
-    locales: ['en-AU'],
-    defaultLocale: 'en-AU',
-  },
+  poweredByHeader: false,
+  reactStrictMode: true,
 });
