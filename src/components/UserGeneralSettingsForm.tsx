@@ -1,39 +1,53 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import UserAvatar from 'src/components/UserAvatar';
 import { updateMeMutation } from 'src/graphql/mutation/user';
 import { meQuery } from 'src/graphql/query/user';
 
+import makeSimpleNotification, {
+  SimpleNotificationState,
+} from './SimpleNotification';
+
 import type { GetMe } from 'src/genTypes/apollo/GetMe';
+import type { UpdateUser } from 'src/genTypes/apollo/UpdateUser';
 import type { UpdateMeInput } from 'src/genTypes/apollo/globalTypes';
 
 const UserSettingsForm: React.FC = () => {
   const { data, loading: queryLoading } = useQuery<GetMe>(meQuery);
   const [updateUserSettings, { loading: mutationLoading }] =
-    useMutation(updateMeMutation);
+    useMutation<UpdateUser>(updateMeMutation);
   const {
-    formState: { errors: formErrors, isDirty, isSubmitSuccessful },
+    formState: { errors: formErrors, isDirty },
     handleSubmit,
     register,
     reset,
   } = useForm();
   const onSubmit: SubmitHandler<UpdateMeInput> = async (formFields) => {
-    const result = await updateUserSettings({
-      variables: {
-        fields: formFields,
-        id: data?.me?.id,
-      },
-    });
-    return result;
-  };
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
+    try {
+      const result = await updateUserSettings({
+        variables: {
+          fields: formFields,
+          id: data?.me?.id,
+        },
+      });
+      makeSimpleNotification(
+        'Settings saved.',
+        SimpleNotificationState.SUCCESS
+      );
+      reset({
+        bio: result.data?.updateUser?.bio,
+        image: result.data?.updateUser?.image,
+        name: result.data?.updateUser?.name,
+      });
+    } catch (e) {
+      makeSimpleNotification(
+        'Unable to save settings.',
+        SimpleNotificationState.ERROR
+      );
     }
-  }, [isSubmitSuccessful, reset]);
+  };
 
   if (queryLoading) return null;
 

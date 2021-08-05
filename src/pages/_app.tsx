@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 import { NextComponentType, NextPageContext } from 'next';
 import { Provider } from 'next-auth/client';
+import { Toaster } from 'react-hot-toast';
 
 import Auth, { AuthProps } from 'src/components/Auth';
 import { AppInitialState, useApollo } from 'src/graphql/client';
@@ -32,6 +33,7 @@ const MyApp: FC<MyAppProps> = ({ Component, pageProps }) => {
   return (
     <Provider session={pageProps.session}>
       <ApolloProvider client={client}>
+        <Toaster position="top-right" />
         {Component.auth ? (
           <Auth {...Component.auth}>
             <Layout>
