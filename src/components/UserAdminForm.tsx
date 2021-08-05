@@ -3,6 +3,9 @@ import { Role, Status, User } from '@prisma/client';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import makeSimpleNotification, {
+  SimpleNotificationState,
+} from 'src/components/SimpleNotification';
 import UserAvatar from 'src/components/UserAvatar';
 import { updateUserMutation } from 'src/graphql/mutation/user';
 import { getUserForAdminQuery } from 'src/graphql/query/user';
@@ -26,15 +29,31 @@ const UserAdminForm: React.FC<UserAdminFormProps> = ({ id }) => {
     register,
     reset,
   } = useForm();
-
   const onSubmit: SubmitHandler<UpdateUserInput> = async (formFields) => {
-    const result = await updateUserSettings({
-      variables: {
-        fields: formFields,
-        id,
-      },
-    });
-    return result;
+    try {
+      const result = await updateUserSettings({
+        variables: {
+          fields: formFields,
+          id,
+        },
+      });
+      makeSimpleNotification(
+        'User changes saved.',
+        SimpleNotificationState.SUCCESS
+      );
+      reset({
+        bio: result.data?.updateUser?.bio,
+        image: result.data?.updateUser?.image,
+        name: result.data?.updateUser?.name,
+        role: result.data?.updateUser?.role,
+        status: result.data?.updateUser?.status,
+      });
+    } catch (e) {
+      makeSimpleNotification(
+        'Unable to save user.',
+        SimpleNotificationState.ERROR
+      );
+    }
   };
 
   if (queryLoading) return null;

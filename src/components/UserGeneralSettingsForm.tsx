@@ -2,13 +2,12 @@ import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import makeSimpleNotification, {
+  SimpleNotificationState,
+} from 'src/components/SimpleNotification';
 import UserAvatar from 'src/components/UserAvatar';
 import { updateMeMutation } from 'src/graphql/mutation/user';
 import { meQuery } from 'src/graphql/query/user';
-
-import makeSimpleNotification, {
-  SimpleNotificationState,
-} from './SimpleNotification';
 
 import type { GetMe } from 'src/genTypes/apollo/GetMe';
 import type { UpdateUser } from 'src/genTypes/apollo/UpdateUser';

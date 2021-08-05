@@ -5,6 +5,9 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import makeSimpleNotification, {
+  SimpleNotificationState,
+} from 'src/components/SimpleNotification';
 import UserAvatar from 'src/components/UserAvatar';
 import { removeSessionMutation } from 'src/graphql/mutation/session';
 import { getSessionsForAdminQuery } from 'src/graphql/query/session';
@@ -195,13 +198,24 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <button
                               className="text-red-600 hover:text-red-900 cursor-pointer"
-                              onClick={() =>
-                                removeSession({
-                                  variables: {
-                                    id: session.id,
-                                  },
-                                })
-                              }
+                              onClick={async () => {
+                                try {
+                                  await removeSession({
+                                    variables: {
+                                      id: session.id,
+                                    },
+                                  });
+                                  makeSimpleNotification(
+                                    `Session ${session.id} removed.`,
+                                    SimpleNotificationState.SUCCESS
+                                  );
+                                } catch (e) {
+                                  makeSimpleNotification(
+                                    `Unable remove session ${session.id}.`,
+                                    SimpleNotificationState.ERROR
+                                  );
+                                }
+                              }}
                               type="button"
                             >
                               Remove
