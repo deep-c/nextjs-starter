@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+// eslint-disable-next-line import/prefer-default-export
 export const getSessionsForAdminQuery = gql`
   query GetSessionsForAdmin($first: Int, $cursor: String, $search: String) {
     sessions(first: $first, after: $cursor, search: $search) {

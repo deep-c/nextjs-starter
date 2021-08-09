@@ -1,9 +1,8 @@
 import { objectType } from 'nexus';
 import { VerificationRequest } from 'nexus-prisma';
 
+// eslint-disable-next-line import/prefer-default-export
 export const verificationRequest = objectType({
-  name: VerificationRequest.$name,
-  description: VerificationRequest.$description,
   definition(t) {
     t.field(VerificationRequest.id);
     t.field(VerificationRequest.identifier);
@@ -12,4 +11,6 @@ export const verificationRequest = objectType({
     t.field(VerificationRequest.createdAt);
     t.field(VerificationRequest.updatedAt);
   },
+  description: VerificationRequest.$description,
+  name: VerificationRequest.$name,
 });

@@ -10,11 +10,10 @@ import {
   stringArg,
 } from 'nexus';
 import { User } from 'nexus-prisma';
+
 import { isAuthenticated, isAuthorized } from 'src/utils/auth';
 
 export const user = objectType({
-  name: User.$name,
-  description: User.$description,
   definition(t) {
     t.field(User.id);
     t.field(User.name);
@@ -29,19 +28,20 @@ export const user = objectType({
     t.field(User.accounts);
     t.field(User.sessions);
   },
+  description: User.$description,
+  name: User.$name,
 });
 
 export const updateMeInput = inputObjectType({
-  name: 'UpdateMeInput',
   definition(t) {
     t.field(User.name);
     t.field(User.image);
     t.field(User.bio);
   },
+  name: 'UpdateMeInput',
 });
 
 export const updateUserInput = inputObjectType({
-  name: 'UpdateUserInput',
   definition(t) {
     t.field(User.name);
     t.field(User.image);
@@ -49,27 +49,28 @@ export const updateUserInput = inputObjectType({
     t.field(User.role);
     t.field(User.status);
   },
+  name: 'UpdateUserInput',
 });
 
 export const getUsers = extendType({
-  type: 'Query',
   definition(t) {
     t.nonNull.connectionField('users', {
-      type: User.$name,
       additionalArgs: {
         search: nullable(stringArg()),
       },
-      async resolve(_, args, ctx) {
+      authorize: (_, __, ctx) =>
+        isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user),
+      resolve: async (_, args, ctx) => {
         let searchArgs = {};
         if (args.search) {
           searchArgs = {
             where: {
               OR: {
-                name: {
+                email: {
                   contains: args.search,
                   mode: 'insensitive',
                 },
-                email: {
+                name: {
                   contains: args.search,
                   mode: 'insensitive',
                 },
@@ -78,97 +79,85 @@ export const getUsers = extendType({
           };
         }
         const result = await findManyCursorConnection(
-          (args) => ctx.prisma.user.findMany({ ...args, ...searchArgs }),
+          (_args) => ctx.prisma.user.findMany({ ..._args, ...searchArgs }),
           () => ctx.prisma.user.count(),
           args
         );
         return result;
       },
-      authorize: (_, __, ctx) => {
-        return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);
-      },
+      type: User.$name,
     });
   },
+  type: 'Query',
 });
 
 export const getMe = extendType({
-  type: 'Query',
   definition(t) {
     t.nullable.field('me', {
-      type: User.$name,
-      resolve(_, __, ctx) {
-        return ctx.prisma.user.findUnique({
+      authorize: (_, __, ctx) => isAuthenticated(ctx.user),
+      resolve: async (_, __, ctx) =>
+        ctx.prisma.user.findUnique({
           where: {
             id: ctx.user?.id,
           },
-        });
-      },
-      authorize: (_, __, ctx) => {
-        return isAuthenticated(ctx.user);
-      },
+        }),
+      type: User.$name,
     });
   },
+  type: 'Query',
 });
 
 export const getUser = extendType({
-  type: 'Query',
   definition(t) {
     t.nullable.field('user', {
-      type: User.$name,
       args: {
         id: nonNull(idArg()),
       },
-      resolve(_, args, ctx) {
-        return ctx.prisma.user.findUnique({
+      authorize: (_, __, ctx) => isAuthenticated(ctx.user),
+      resolve: (_, args, ctx) =>
+        ctx.prisma.user.findUnique({
           where: args,
-        });
-      },
-      authorize: (_, __, ctx) => {
-        return isAuthenticated(ctx.user);
-      },
+        }),
+      type: User.$name,
     });
   },
+  type: 'Query',
 });
 
 export const updateMe = extendType({
-  type: 'Mutation',
   definition(t) {
     t.field('updateMe', {
-      type: User.$name,
       args: {
         fields: nonNull(updateMeInput),
       },
-      resolve: (_, args, ctx) => {
-        return ctx.prisma.user.update({
-          where: { id: ctx.user?.id },
+      authorize: (_, __, ctx) => isAuthenticated(ctx.user),
+      resolve: (_, args, ctx) =>
+        ctx.prisma.user.update({
           data: args.fields,
-        });
-      },
-      authorize: (_, __, ctx) => {
-        return isAuthenticated(ctx.user);
-      },
+          where: { id: ctx.user?.id },
+        }),
+      type: User.$name,
     });
   },
+  type: 'Mutation',
 });
 
 export const updateUser = extendType({
-  type: 'Mutation',
   definition(t) {
     t.field('updateUser', {
-      type: User.$name,
       args: {
-        id: nonNull(idArg()),
         fields: nonNull(updateUserInput),
+        id: nonNull(idArg()),
       },
-      resolve: (_, args, ctx) => {
-        return ctx.prisma.user.update({
-          where: { id: args.id },
+      authorize: (_, __, ctx) =>
+        isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user),
+      resolve: (_, args, ctx) =>
+        ctx.prisma.user.update({
           data: args.fields,
-        });
-      },
-      authorize: (_, __, ctx) => {
-        return isAuthorized([Role.ADMIN, Role.SUPPORT], ctx.user);
-      },
+          where: { id: args.id },
+        }),
+      type: User.$name,
     });
   },
+  type: 'Mutation',
 });

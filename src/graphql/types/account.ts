@@ -1,9 +1,8 @@
 import { objectType } from 'nexus';
 import { Account } from 'nexus-prisma';
 
+// eslint-disable-next-line import/prefer-default-export
 export const account = objectType({
-  name: Account.$name,
-  description: Account.$description,
   definition(t) {
     t.field(Account.id);
     t.field(Account.userId);
@@ -17,4 +16,6 @@ export const account = objectType({
     t.field(Account.updatedAt);
     t.field(Account.user);
   },
+  description: Account.$description,
+  name: Account.$name,
 });
