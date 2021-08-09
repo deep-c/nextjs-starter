@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import makeSimpleNotification, {
   SimpleNotificationState,
-} from 'src/components/SimpleNotification';
+} from 'src/components/Notifications';
 import UserAvatar from 'src/components/UserAvatar';
 import { removeSessionMutation } from 'src/graphql/mutation/session';
 import { getSessionsForAdminQuery } from 'src/graphql/query/session';

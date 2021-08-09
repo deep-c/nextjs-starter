@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import makeSimpleNotification, {
   SimpleNotificationState,
-} from 'src/components/SimpleNotification';
+} from 'src/components/Notifications';
 import UserAvatar from 'src/components/UserAvatar';
 import { updateMeMutation } from 'src/graphql/mutation/user';
 import { meQuery } from 'src/graphql/query/user';
