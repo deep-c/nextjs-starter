@@ -1,8 +1,6 @@
-/*
- * https://jestjs.io/docs/configuration
- */
+import type { Config } from '@jest/types';
 
-const jestConfig = {
+const jestConfig: Config.InitialOptions = {
   automock: true,
   clearMocks: true,
   collectCoverage: true,

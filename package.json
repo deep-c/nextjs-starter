@@ -15,7 +15,7 @@
     "db:makemigration": "dotenv -c -- prisma migrate dev",
     "dev": "npm run build:types && dotenv -c -- next dev",
     "lint": "npm run -s lint:eslint && npm run -s lint:prettier && npm run -s lint:ts",
-    "lint:eslint": "next lint --fix",
+    "lint:eslint": "eslint --ext=.js,.jsx,.mjs,.ts,.tsx --ignore-path .gitignore --max-warnings 0",
     "lint:prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "lint:ts": "tsc",
     "pre-commit": "lint-staged && npm run -s lint:ts",
