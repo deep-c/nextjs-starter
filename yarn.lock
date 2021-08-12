@@ -4156,7 +4156,7 @@ eslint-plugin-sort-destructure-keys@1.3.5:
   dependencies:
     natural-compare-lite "^1.4.0"
 
-eslint-plugin-tailwind@^0.2.1:
+eslint-plugin-tailwind@0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-tailwind/-/eslint-plugin-tailwind-0.2.1.tgz#61399bd3747e077694b14b7fa9acd6bd354cc5d3"
   integrity sha512-cTWZXnefG007dGNEyg/tuef1mWFuatp4nDWDTVywfd9y6VeRXg9QRQCAeJ4VMfQJzkP8+i7cqsyEiq1nmR7JzQ==
