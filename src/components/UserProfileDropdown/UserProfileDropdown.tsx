@@ -8,15 +8,15 @@ import { ACCOUNT_SETTINGS, ADMIN_LOGIN } from 'src/routes';
 import { classNames } from 'src/utils/ui';
 
 const AccountDropdown: React.FC = () => (
-  <Menu as="div" className="ml-3 relative">
+  <Menu as="div" className="relative ml-3">
     {({ open }) => (
       <>
         <div>
-          <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+          <Menu.Button className="flex items-center max-w-xs text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
             <span className="sr-only">Open user menu</span>
             <Image
               alt=""
-              className="h-8 w-8 rounded-full"
+              className="w-8 h-8 rounded-full"
               height={50}
               src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
               width={50}
@@ -34,7 +34,7 @@ const AccountDropdown: React.FC = () => (
           show={open}
         >
           <Menu.Items
-            className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
+            className="absolute right-0 w-48 mt-2 bg-white shadow-lg origin-top-right rounded-md ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
             static
           >
             <div className="py-1">

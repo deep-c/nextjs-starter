@@ -5,13 +5,13 @@ import React from 'react';
 import { ADMIN_DASHBOARD, ADMIN_LOGIN, NextRoutePage } from 'src/routes';
 
 export const AdminLogin: NextRoutePage<unknown> = () => (
-  <div className="min-h-screen bg-white flex">
-    <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-      <div className="mx-auto w-full max-w-sm lg:w-96">
+  <div className="flex min-h-screen bg-white">
+    <div className="flex flex-col justify-center flex-1 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+      <div className="w-full max-w-sm mx-auto lg:w-96">
         <div>
           <Image
             alt="Workflow"
-            className="h-12 w-auto"
+            className="w-auto h-12"
             height={100}
             src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
             width={100}
@@ -29,7 +29,7 @@ export const AdminLogin: NextRoutePage<unknown> = () => (
               <div className="mt-1 grid grid-cols-3 gap-3">
                 <div>
                   <button
-                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
                     onClick={() =>
                       signIn('cognito', {
                         callbackUrl:
@@ -56,10 +56,10 @@ export const AdminLogin: NextRoutePage<unknown> = () => (
         </div>
       </div>
     </div>
-    <div className="hidden lg:block relative w-0 flex-1">
+    <div className="relative flex-1 hidden w-0 lg:block">
       <Image
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 object-cover w-full h-full"
         layout="fill"
         src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
       />

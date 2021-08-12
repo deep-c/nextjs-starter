@@ -52,16 +52,16 @@ const UserSettingsForm: React.FC = () => {
 
   return (
     <form
-      className="space-y-8 divide-y divide-gray-200 mt-4"
+      className="mt-4 space-y-8 divide-y divide-gray-200"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
         <div>
           <div>
-            <h2 className="text-lg leading-6 font-medium text-gray-900">
+            <h2 className="text-lg font-medium text-gray-900 leading-6">
               Profile
             </h2>
-            <p className="mt-1 max-w-2xl text-sm text-gray-500">
+            <p className="max-w-2xl mt-1 text-sm text-gray-500">
               This information will be displayed publicly so be careful what
               you share.
             </p>
@@ -74,12 +74,12 @@ const UserSettingsForm: React.FC = () => {
               >
                 Name
               </label>
-              <div className="mt-1 sm:mt-0 sm:col-span-2 relative">
+              <div className="relative mt-1 sm:mt-0 sm:col-span-2">
                 <input
                   aria-describedby="name-error"
                   aria-invalid={formErrors.name ? 'true' : 'false'}
                   autoComplete="name"
-                  className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                  className="block w-full max-w-lg border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm rounded-md"
                   defaultValue={data?.me?.name ?? ''}
                   id="name"
                   type="text"
@@ -107,7 +107,7 @@ const UserSettingsForm: React.FC = () => {
                 <div className="flex items-center">
                   <input
                     autoComplete="image"
-                    className="max-w-lg block w-full mr-6 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full max-w-lg mr-6 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm rounded-md"
                     defaultValue={data?.me?.image ?? ''}
                     id="image"
                     type="text"
@@ -126,7 +126,7 @@ const UserSettingsForm: React.FC = () => {
               </label>
               <div className="mt-1 sm:mt-0 sm:col-span-2">
                 <textarea
-                  className="max-w-lg shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
+                  className="block w-full max-w-lg border border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                   defaultValue={data?.me?.bio ?? ''}
                   id="bio"
                   rows={3}
@@ -143,7 +143,7 @@ const UserSettingsForm: React.FC = () => {
       <div className="pt-5">
         <div className="flex justify-end">
           <button
-            className="disabled:opacity-50 disabled:cursor-text bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 disabled:opacity-50 disabled:cursor-text rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             disabled={queryLoading || mutationLoading || !isDirty}
             onClick={() => reset()}
             type="button"
@@ -151,7 +151,7 @@ const UserSettingsForm: React.FC = () => {
             Cancel
           </button>
           <button
-            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-text"
+            className="inline-flex justify-center px-4 py-2 ml-3 text-sm font-medium text-white bg-indigo-600 border border-transparent shadow-sm rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-text"
             disabled={queryLoading || mutationLoading || !isDirty}
             type="submit"
           >

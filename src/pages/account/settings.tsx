@@ -21,7 +21,7 @@ export const AccountSettings: NextRoutePage<unknown> = () => (
           Select a tab
         </label>
         <select
-          className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          className="block w-full py-2 pl-3 pr-10 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
           defaultValue="general"
           id="tabs"
           name="tabs"
@@ -31,11 +31,11 @@ export const AccountSettings: NextRoutePage<unknown> = () => (
       </div>
       <div className="hidden sm:block">
         <div className="border-b border-gray-200">
-          <nav aria-label="Tabs" className="-mb-px flex space-x-8">
+          <nav aria-label="Tabs" className="flex -mb-px space-x-8">
             <button
               key="general"
               aria-current="page"
-              className="border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+              className="px-1 py-4 text-sm font-medium text-indigo-600 border-b-2 border-indigo-500 whitespace-nowrap"
               type="button"
             >
               General

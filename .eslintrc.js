@@ -116,6 +116,7 @@ const commonExtends = [
   'plugin:compat/recommended',
   'plugin:eslint-comments/recommended',
   'plugin:jest/all',
+  'plugin:tailwind/recommended',
 ];
 const commonPlugins = ['sort-destructure-keys'];
 module.exports = {

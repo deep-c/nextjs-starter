@@ -80,15 +80,15 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
             >
               Quick Search
             </label>
-            <div className="mt-1 relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <div className="relative mt-1 rounded-md shadow-sm">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <SearchIcon
                   aria-hidden="true"
-                  className="h-5 w-5 text-gray-400"
+                  className="w-5 h-5 text-gray-400"
                 />
               </div>
               <input
-                className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
+                className="block w-full pl-10 border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                 defaultValue=""
                 id="search"
                 placeholder="Search name or email.."
@@ -99,33 +99,33 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
           </div>
         </form>
       </div>
-      <div className="mt-4 flex flex-col">
+      <div className="flex flex-col mt-4">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+            <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
                     <th
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                       scope="col"
                     >
                       ID
                     </th>
                     <th
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                       scope="col"
                     >
                       Expires
                     </th>
                     <th
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                       scope="col"
                     >
                       Created On
                     </th>
                     <th
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                       scope="col"
                     >
                       Updated On
@@ -141,7 +141,7 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
                       <td className="px-6 py-4 whitespace-nowrap ">
                         <ExclamationIcon
                           aria-hidden="true"
-                          className="h-5 w-5 text-yellow-400 inline-block"
+                          className="inline-block w-5 h-5 text-yellow-400"
                         />
                         <span className="pl-4">No sessions found</span>
                       </td>
@@ -155,7 +155,7 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
                         <tr key={session.id}>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
-                              <div className="flex-shrink-0 h-10 w-10">
+                              <div className="flex-shrink-0 w-10 h-10">
                                 <UserAvatar image={session.user.image} />
                               </div>
                               <div className="ml-4">
@@ -188,16 +188,16 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
                               )}
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
+                          <td className="px-6 py-4 text-sm text-gray-500 capitalize whitespace-nowrap">
                             <div className="text-sm text-gray-500">
                               {new Date(session.updatedAt).toLocaleDateString(
                                 locale
                               )}
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                             <button
-                              className="text-red-600 hover:text-red-900 cursor-pointer"
+                              className="text-red-600 cursor-pointer hover:text-red-900"
                               onClick={async () => {
                                 try {
                                   await removeSession({
@@ -233,7 +233,7 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
       </div>
       <nav
         aria-label="Pagination"
-        className="bg-white py-3 flex items-center justify-between border-t border-gray-200"
+        className="flex items-center justify-between py-3 bg-white border-t border-gray-200"
       >
         <div className="hidden sm:block">
           <p className="text-sm text-gray-700">
@@ -242,9 +242,9 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
             results
           </p>
         </div>
-        <div className="flex-1 flex justify-between sm:justify-end">
+        <div className="flex justify-between flex-1 sm:justify-end">
           <button
-            className="disabled:opacity-50 disabled:cursor-not-allowed ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+            className="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed rounded-md hover:bg-gray-50"
             disabled={!pageInfo?.hasNextPage}
             onClick={() => {
               if (pageInfo?.hasNextPage) {

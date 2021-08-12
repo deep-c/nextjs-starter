@@ -31,11 +31,11 @@ export const AdminDashboard: NextRoutePage<unknown> = () => {
       <div className="pt-6 pb-6">
         <h1 className="text-3xl font-extrabold text-gray-900">Dashboard</h1>
       </div>
-      <div className="rounded-lg bg-white overflow-hidden border-b border-gray-200 shadow">
+      <div className="overflow-hidden bg-white border-b border-gray-200 rounded-lg shadow">
         <h2 className="sr-only" id="profile-overview-title">
           Profile Overview
         </h2>
-        <div className="bg-white p-6">
+        <div className="p-6 bg-white">
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="sm:flex sm:space-x-5">
               <div className="flex-shrink-0">
@@ -55,9 +55,9 @@ export const AdminDashboard: NextRoutePage<unknown> = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-5 flex justify-center sm:mt-0">
+            <div className="flex justify-center mt-5 sm:mt-0">
               <Link href={ACCOUNT_SETTINGS.path}>
-                <a className="flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                <a className="flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 shadow-sm rounded-md hover:bg-gray-50">
                   Edit Settings
                 </a>
               </Link>

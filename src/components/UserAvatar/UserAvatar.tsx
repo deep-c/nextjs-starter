@@ -8,19 +8,19 @@ export interface AvatarProps {
 }
 
 const Avatar: React.FC<AvatarProps> = ({ image, name, size }) => (
-  <span className="flex min-w-0 items-center justify-between space-x-3">
+  <span className="flex items-center justify-between min-w-0 space-x-3">
     {image ? (
       <Image
         alt=""
-        className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
+        className="flex-shrink-0 w-10 h-10 bg-gray-300 rounded-full"
         height={size?.[1] ?? 60}
         src={image}
         width={size?.[0] ?? 60}
       />
     ) : (
-      <span className="h-14 w-14 rounded-full overflow-hidden bg-gray-100">
+      <span className="overflow-hidden bg-gray-100 rounded-full h-14 w-14">
         <svg
-          className="h-full w-full text-gray-300"
+          className="w-full h-full text-gray-300"
           fill="currentColor"
           viewBox="0 0 24 24"
         >
@@ -29,8 +29,8 @@ const Avatar: React.FC<AvatarProps> = ({ image, name, size }) => (
       </span>
     )}
     {name && (
-      <span className="flex-1 flex flex-col min-w-0">
-        <span className="text-gray-900 text-sm font-medium truncate">
+      <span className="flex flex-col flex-1 min-w-0">
+        <span className="text-sm font-medium text-gray-900 truncate">
           {name}
         </span>
       </span>
