@@ -13,6 +13,7 @@ const Avatar: React.FC<AvatarProps> = ({ image, name, size }) => (
       <Image
         alt=""
         className="flex-shrink-0 w-10 h-10 bg-gray-300 rounded-full"
+        data-testid="avatarImage"
         height={size?.[1] ?? 60}
         src={image}
         width={size?.[0] ?? 60}

@@ -1,11 +1,13 @@
+/* istanbul ignore file */
 import type { Config } from '@jest/types';
 
 const jestConfig: Config.InitialOptions = {
-  automock: true,
-  clearMocks: true,
+  automock: false,
+  clearMocks: false,
   collectCoverage: true,
   collectCoverageFrom: [
-    '**/*.{js,jsx,ts,tsx}',
+    'src/**/*.{js,jsx,ts,tsx}',
+    'tests/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!*.js',
     '!coverage/**',
