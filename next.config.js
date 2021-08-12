@@ -3,6 +3,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 module.exports = withBundleAnalyzer({
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   i18n: {
     defaultLocale: 'en-AU',
     locales: ['en-AU'],
