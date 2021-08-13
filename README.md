@@ -1,18 +1,17 @@
 ## Getting Started
 
-NOTE: Ensure NODE_ENV is appropriately set when using dev and start npm commands
-
-First create a .env.local file from the env.local.example and then:
+Ensure docker is running on your system, create a .env.local file from the env.local.example and then:
 
 ```bash
 yarn install #Yarn must be used for now
-docker compose up -d
-npm run db:makemigration
+npm run db:migrate:dev
 
 npm run dev
 # OR
 Run Launch configuration via vscode below
 ```
+
+NOTE: Ensure NODE_ENV is appropriately set when using dev and start npm commands
 
 Attach to debugger:
 
