@@ -9,11 +9,15 @@ services:
   db:
     image: postgres:13.3-alpine
     ports:
-      - "5432:5432"
+      - '5432:5432'
     env_file:
       - .env.local
     volumes:
-      - "pgdata:/var/lib/postgresql/data"
+      - 'pgdata:/var/lib/postgresql/data'
     restart: always
-
-
+  test-db:
+    image: postgres:13.3-alpine
+    ports:
+      - '6432:5432'
+    env_file:
+      - .env.test
