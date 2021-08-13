@@ -16,11 +16,12 @@ const jestConfig: Config.InitialOptions = {
   ],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
+  globalSetup: '<rootDir>/tests/jest.globalSetup.ts',
   moduleDirectories: ['node_modules', 'src'],
   moduleNameMapper: {
     '.+\\.css$': 'identity-obj-proxy',
   },
-  setupFilesAfterEnv: ['<rootDir>/tests/jest.setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/tests/jest.setupAfterEnv.ts'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transform: {
