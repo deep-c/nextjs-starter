@@ -8,8 +8,10 @@ const jestConfig: Config.InitialOptions = {
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     'tests/**/*.{js,jsx,ts,tsx}',
+    '!src/types/**',
+    '!tests/css.transform.js',
+    '!tests/prisma.mock.ts',
     '!**/*.d.ts',
-    '!*.js',
     '!coverage/**',
     '!.next/**',
     '!**/node_modules/**',
@@ -21,12 +23,13 @@ const jestConfig: Config.InitialOptions = {
   moduleNameMapper: {
     '.+\\.css$': 'identity-obj-proxy',
   },
+  roots: ['<rootDir>/tests', '<rootDir>/src'],
   setupFilesAfterEnv: ['<rootDir>/tests/jest.setupAfterEnv.ts'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
-    '^.+\\.css$': '<rootDir>/tests/css-transform.js',
+    '^.+\\.css$': '<rootDir>/tests/css.transform.js',
   },
   transformIgnorePatterns: [
     '/node_modules/',
