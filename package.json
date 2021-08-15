@@ -24,10 +24,10 @@
     "pre-commit": "lint-staged && npm run -s lint:ts",
     "prepare": "husky install",
     "start": "dotenv -c -- next start",
-    "test": "npm run -s docker:up && npm run -s db:migrate:test && jest --watch",
+    "test": "npm run -s docker:up && jest --watch",
     "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit",
     "test:debug": "npm run -s docker:up && jest --watchAll --runInBand --no-cache",
-    "test:once": "npm run -s docker:up && npm run -s db:migrate:test && jest"
+    "test:once": "npm run -s docker:up && jest"
   },
   "lint-staged": {
     "*.json": "npm run -s lint:prettier -- --check",
