@@ -22,7 +22,7 @@ Attach to debugger:
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch",
+      "name": "Launch App",
       "skipFiles": ["<node_internals>/**"],
       "port": 9229,
       "runtimeExecutable": "npm",
@@ -30,7 +30,21 @@ Attach to debugger:
       "console": "integratedTerminal"
     },
     {
-      "name": "Attach",
+      "name": "Debug Tests",
+      "request": "launch",
+      "runtimeArgs": [
+        "run-script",
+        "test:debug"
+      ],
+      "runtimeExecutable": "npm",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Attach App",
       "port": 9229,
       "request": "attach",
       "skipFiles": ["<node_internals>/**"],
@@ -38,7 +52,6 @@ Attach to debugger:
     }
   ]
 }
-
 ```
 
 Technologies Used:

@@ -17,7 +17,7 @@ export const config = {
   },
 };
 
-const server = new ApolloServer({
+export const server = new ApolloServer({
   context,
   plugins: [
     process.env.NODE_ENV === 'production'

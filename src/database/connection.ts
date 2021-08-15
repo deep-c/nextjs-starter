@@ -9,7 +9,12 @@ declare const global: CustomNodeJsGlobal;
 
 const prisma =
   global.prisma ||
-  new PrismaClient({ log: ['query', 'info', 'error', 'warn'] });
+  new PrismaClient({
+    log:
+      process.env.NODE_ENV !== 'test'
+        ? ['query', 'info', 'error', 'warn']
+        : [],
+  });
 
 if (process.env.NODE_ENV === 'development') global.prisma = prisma;
 

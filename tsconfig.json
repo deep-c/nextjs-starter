@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
+      "tests/*": ["tests/*"],
       "src/genTypes/*": ["src/types/__gen__/*"]
     }
   },

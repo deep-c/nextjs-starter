@@ -11,6 +11,7 @@ const jestConfig: Config.InitialOptions = {
     '!src/types/**',
     '!tests/css.transform.js',
     '!tests/prisma.mock.ts',
+    '!tests/integration.context.ts',
     '!**/*.d.ts',
     '!coverage/**',
     '!.next/**',
@@ -19,7 +20,7 @@ const jestConfig: Config.InitialOptions = {
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   globalSetup: '<rootDir>/tests/jest.globalSetup.ts',
-  moduleDirectories: ['node_modules', 'src'],
+  moduleDirectories: ['node_modules', '<rootDir>'],
   moduleNameMapper: {
     '.+\\.css$': 'identity-obj-proxy',
   },
