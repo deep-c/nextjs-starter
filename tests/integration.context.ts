@@ -9,14 +9,24 @@ import { join } from 'path';
 
 import { PrismaClient } from '@prisma/client';
 import { nanoid } from 'nanoid';
-import { Client } from 'pg';
 
 import prisma from 'src/database/connection';
+import { server } from 'src/pages/api/v1/graphql';
 
 const prismaBinary = join(__dirname, '..', 'node_modules', '.bin', 'prisma');
 
 interface TestContext {
   db: PrismaClient;
+  gqlServer: typeof server;
+}
+
+function graphQLTestContext() {
+  return {
+    after() {},
+    before() {
+      return server;
+    },
+  };
 }
 
 function prismaTestContext() {
@@ -39,15 +49,9 @@ function prismaTestContext() {
           `ALTER SEQUENCE "${schema}"."${relname}" RESTART WITH 1;`
         );
       }
-      const client = new Client({
-        connectionString: databaseUrl,
-      });
-      await client.connect();
-      await client.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
-      await client.end();
+      await prisma.$queryRaw(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
       await prisma?.$disconnect();
     },
-
     before() {
       schema = `test_${nanoid()}`;
       databaseUrl = `${process.env.DATABASE_URL}?schema=${schema}`;
@@ -66,16 +70,20 @@ function prismaTestContext() {
 export function createTestContext(): TestContext {
   const ctx = {} as TestContext;
   const prismaCtx = prismaTestContext();
+  const graphQLCtx = graphQLTestContext();
 
   beforeEach(() => {
     const db = prismaCtx.before();
+    const gqlServer = graphQLCtx.before();
     Object.assign(ctx, {
       db,
+      gqlServer,
     });
   });
 
   afterEach(async () => {
     await prismaCtx.after();
+    graphQLCtx.after();
   });
 
   return ctx;

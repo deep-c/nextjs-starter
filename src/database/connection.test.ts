@@ -1,6 +1,6 @@
 import { createTestContext } from 'tests/integration.context';
 
-describe('prisma connection', () => {
+describe('prisma client', () => {
   const ctx = createTestContext();
 
   it('connects successfully', async () => {
