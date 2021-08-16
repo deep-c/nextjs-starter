@@ -1,5 +1,5 @@
 node_modules
 .next
-src/types/__gen__
+.generated
 .vscode
 public
