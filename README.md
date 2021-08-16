@@ -3,7 +3,9 @@
 Ensure docker is running on your system, create a .env.local file from the env.local.example and then:
 
 ```bash
-yarn install #Yarn must be used for now
+# Yarn must be used for now
+yarn install
+npm run docker:up
 npm run db:migrate:dev
 
 npm run dev
