@@ -68,8 +68,10 @@ Technologies Used:
 - Tailwindcss
 - Typescript
 - Jest
+- React Testing Library
 - Prettier
 - ESLint
+- TestCafe
 
 Recommendations:
 
