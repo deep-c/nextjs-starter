@@ -43,5 +43,5 @@ lhreport.html
 .vscode
 
 # nexus generated types and GraphQL schema
-generated
-__gen__
+.generated
+

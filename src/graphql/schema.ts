@@ -5,17 +5,16 @@ import NexusPrismaScalars from 'nexus-prisma/scalars';
 
 import * as allTypes from './types';
 
+const generatedDir = path.join(process.cwd(), '.generated', 'graphql');
+
 const schema = makeSchema({
   contextType: {
     export: 'AppGqlContext',
     module: path.join(process.cwd(), 'src/graphql/context.ts'),
   },
   outputs: {
-    schema: path.join(process.cwd(), 'src/types/__gen__/nexus/schema.graphql'),
-    typegen: path.join(
-      process.cwd(),
-      'src/types/__gen__/nexus/nexus-typegen.ts'
-    ),
+    schema: path.join(generatedDir, 'schema.graphql'),
+    typegen: path.join(generatedDir, 'nexus-typegen.ts'),
   },
   plugins: [
     fieldAuthorizePlugin(),

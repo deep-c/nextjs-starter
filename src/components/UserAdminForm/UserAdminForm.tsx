@@ -10,9 +10,9 @@ import UserAvatar from 'src/components/UserAvatar';
 import { updateUserMutation } from 'src/graphql/mutation/user';
 import { getUserForAdminQuery } from 'src/graphql/query/user';
 
-import type { GetUserForAdmin } from 'src/genTypes/apollo/GetUserForAdmin';
-import type { UpdateUser } from 'src/genTypes/apollo/UpdateUser';
-import type { UpdateUserInput } from 'src/genTypes/apollo/globalTypes';
+import type { GetUserForAdmin } from 'types/graphql/GetUserForAdmin';
+import type { UpdateUser } from 'types/graphql/UpdateUser';
+import type { UpdateUserInput } from 'types/graphql/globalTypes';
 
 export type UserAdminFormProps = Pick<User, 'id'>;
 

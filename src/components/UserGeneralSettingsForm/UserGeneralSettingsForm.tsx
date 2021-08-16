@@ -9,9 +9,9 @@ import UserAvatar from 'src/components/UserAvatar';
 import { updateMeMutation } from 'src/graphql/mutation/user';
 import { meQuery } from 'src/graphql/query/user';
 
-import type { GetMe } from 'src/genTypes/apollo/GetMe';
-import type { UpdateUser } from 'src/genTypes/apollo/UpdateUser';
-import type { UpdateMeInput } from 'src/genTypes/apollo/globalTypes';
+import type { GetMe } from 'types/graphql/GetMe';
+import type { UpdateUser } from 'types/graphql/UpdateUser';
+import type { UpdateMeInput } from 'types/graphql/globalTypes';
 
 const UserSettingsForm: React.FC = () => {
   const { data, loading: queryLoading } = useQuery<GetMe>(meQuery);

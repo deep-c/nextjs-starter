@@ -17,10 +17,10 @@
     "paths": {
       "src/*": ["src/*"],
       "tests/*": ["tests/*"],
-      "src/genTypes/*": ["src/types/__gen__/*"]
+      "types/*": [".generated/*", "src/types/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".generated/**/*.ts"],
   "exclude": ["node_modules"],
   "ts-node": {
     "compilerOptions": {

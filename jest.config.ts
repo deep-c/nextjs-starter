@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import type { Config } from '@jest/types';
 
 const jestConfig: Config.InitialOptions = {
@@ -7,11 +6,7 @@ const jestConfig: Config.InitialOptions = {
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
-    'tests/**/*.{js,jsx,ts,tsx}',
     '!src/types/**',
-    '!tests/css.transform.js',
-    '!tests/prisma.mock.ts',
-    '!tests/integration.context.ts',
     '!**/*.d.ts',
     '!coverage/**',
     '!.next/**',

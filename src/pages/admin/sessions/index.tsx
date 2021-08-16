@@ -15,8 +15,8 @@ import AdminLayout from 'src/layouts/AdminLayout';
 import { ADMIN_USERS, NextRoutePage } from 'src/routes';
 import { classNames } from 'src/utils/ui';
 
-import type { GetSessionsForAdmin } from 'src/genTypes/apollo/GetSessionsForAdmin';
-import type { RemoveSession } from 'src/genTypes/apollo/RemoveSession';
+import type { GetSessionsForAdmin } from 'types/graphql/GetSessionsForAdmin';
+import type { RemoveSession } from 'types/graphql/RemoveSession';
 
 export interface SessionsAdminFilterForm {
   search: string;

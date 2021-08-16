@@ -8,7 +8,7 @@ import { meQuery } from 'src/graphql/query/user';
 import AdminLayout from 'src/layouts/AdminLayout';
 import { ACCOUNT_SETTINGS, ADMIN_DASHBOARD, NextRoutePage } from 'src/routes';
 
-import type { GetMe } from 'src/genTypes/apollo/GetMe';
+import type { GetMe } from 'types/graphql/GetMe';
 
 const stats = [
   { label: 'Items posted for sale', value: 12 },

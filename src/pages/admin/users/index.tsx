@@ -10,7 +10,7 @@ import { getUsersForAdminQuery } from 'src/graphql/query/user';
 import AdminLayout from 'src/layouts/AdminLayout';
 import { ADMIN_USER, ADMIN_USERS, NextRoutePage } from 'src/routes';
 
-import type { GetUsersForAdmin } from 'src/genTypes/apollo/GetUsersForAdmin';
+import type { GetUsersForAdmin } from 'types/graphql/GetUsersForAdmin';
 
 export interface UsersAdminFilterForm {
   search: string;
