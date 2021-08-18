@@ -1,11 +1,11 @@
 import { Menu, Transition } from '@headlessui/react';
+import classnames from 'classnames';
 import { signOut } from 'next-auth/client';
 import Image from 'next/image';
 import React, { Fragment } from 'react';
 
 import ActiveLink from 'src/components/ActiveLink';
 import { ACCOUNT_SETTINGS, ADMIN_LOGIN } from 'src/routes';
-import { classNames } from 'src/utils/ui';
 
 const AccountDropdown: React.FC = () => (
   <Menu as="div" className="relative ml-3">
@@ -43,12 +43,10 @@ const AccountDropdown: React.FC = () => (
                   <ActiveLink href={ACCOUNT_SETTINGS.path}>
                     {({ isActive }) => (
                       <a
-                        className={classNames(
-                          isActive
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-700',
-                          'block px-4 py-2 text-sm'
-                        )}
+                        className={classnames('block px-4 py-2 text-sm', {
+                          'bg-gray-100 text-gray-900': isActive,
+                          'text-gray-700': !isActive,
+                        })}
                       >
                         Settings
                       </a>
@@ -61,10 +59,10 @@ const AccountDropdown: React.FC = () => (
               <Menu.Item>
                 {({ active }) => (
                   <button
-                    className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
-                    )}
+                    className={classnames('block px-4 py-2 text-sm', {
+                      'bg-gray-100 text-gray-900': active,
+                      'text-gray-700': !active,
+                    })}
                     onClick={() =>
                       signOut({
                         callbackUrl:

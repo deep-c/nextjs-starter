@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { LogoutIcon, XIcon } from '@heroicons/react/outline';
+import classnames from 'classnames';
 import { signOut } from 'next-auth/client';
 import Image from 'next/image';
 import React, { Fragment, useCallback } from 'react';
@@ -14,7 +15,6 @@ import {
   ADMIN_USERS,
   filterRoutesForRole,
 } from 'src/routes';
-import { classNames } from 'src/utils/ui';
 
 import type { Session } from 'src/components/Auth';
 
@@ -39,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
       <Transition.Root as={Fragment} show={open}>
         <Dialog
           as="div"
-          className="fixed inset-0 flex z-40 lg:hidden"
+          className="fixed inset-0 z-40 flex lg:hidden"
           onClose={handleState}
           open={open}
           static
@@ -64,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
           >
-            <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white">
+            <div className="relative flex flex-col flex-1 w-full max-w-xs pt-5 pb-4 bg-white">
               <Transition.Child
                 as={Fragment}
                 enter="ease-in-out duration-300"
@@ -74,27 +74,27 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="absolute top-0 right-0 -mr-12 pt-2">
+                <div className="absolute top-0 right-0 pt-2 -mr-12">
                   <button
-                    className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                    className="flex items-center justify-center w-10 h-10 ml-1 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                     onClick={() => handleState(false)}
                     type="button"
                   >
                     <span className="sr-only">Close sidebar</span>
-                    <XIcon aria-hidden="true" className="h-6 w-6 text-white" />
+                    <XIcon aria-hidden="true" className="w-6 h-6 text-white" />
                   </button>
                 </div>
               </Transition.Child>
-              <div className="flex-shrink-0 flex items-center px-4">
+              <div className="flex items-center flex-shrink-0 px-4">
                 <Image
                   alt="Workflow"
-                  className="h-8 w-auto"
+                  className="w-auto h-8"
                   height={50}
                   src="https://tailwindui.com/img/logos/workflow-logo-purple-500-mark-gray-700-text.svg"
                   width={200}
                 />
               </div>
-              <div className="mt-5 flex-1 h-0 overflow-y-auto">
+              <div className="flex-1 h-0 mt-5 overflow-y-auto">
                 <nav className="px-2">
                   <div className="space-y-1">
                     {navigation.filter(filterRoutes).map((item) => (
@@ -102,22 +102,26 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
                         {({ isActive }) => (
                           <a
                             aria-current={isActive ? 'page' : undefined}
-                            className={classNames(
-                              isActive
-                                ? 'bg-gray-100 text-gray-900'
-                                : // eslint-disable-next-line max-len
-                                  'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+                            className={classnames(
                               // eslint-disable-next-line max-len
-                              'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md'
+                              'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md',
+                              {
+                                'bg-gray-100 text-gray-900': isActive,
+                                // eslint-disable-next-line max-len
+                                'text-gray-600 hover:text-gray-900 hover:bg-gray-50':
+                                  !isActive,
+                              }
                             )}
                           >
                             <item.icon
                               aria-hidden="true"
-                              className={classNames(
-                                isActive
-                                  ? 'text-gray-500'
-                                  : 'text-gray-400 group-hover:text-gray-500',
-                                'mr-3 flex-shrink-0 h-6 w-6'
+                              className={classnames(
+                                'mr-3 flex-shrink-0 h-6 w-6',
+                                {
+                                  'text-gray-400 group-hover:text-gray-500':
+                                    !isActive,
+                                  'text-gray-500': isActive,
+                                }
                               )}
                             />
                             {item.name}
@@ -137,42 +141,43 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
       </Transition.Root>
       {/* Static sidebar for desktop */}
       <div className="hidden lg:flex lg:flex-shrink-0">
-        <div className="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-gray-100">
+        <div className="flex flex-col w-64 pt-5 pb-4 bg-gray-100 border-r border-gray-200">
           <div className="flex items-center flex-shrink-0 px-6">
             <Image
               alt="Workflow"
-              className="h-8 w-auto"
+              className="w-auto h-8"
               height={50}
               src="https://tailwindui.com/img/logos/workflow-logo-purple-500-mark-gray-700-text.svg"
               width={200}
             />
           </div>
-          <div className="h-0 flex-1 flex flex-col overflow-y-auto">
+          <div className="flex flex-col flex-1 h-0 overflow-y-auto">
             {/* Navigation */}
-            <nav className="flex-1 px-3 divide-y mt-6">
+            <nav className="flex-1 px-3 mt-6 divide-y">
               <div className="space-y-1">
                 {navigation.filter(filterRoutes).map((item) => (
                   <ActiveLink key={item.path} href={item.path} nested>
                     {({ isActive }) => (
                       <a
                         aria-current={isActive ? 'page' : undefined}
-                        className={classNames(
-                          isActive
-                            ? 'bg-gray-200 text-gray-900'
-                            : // eslint-disable-next-line max-len
-                              'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                        className={classnames(
                           // eslint-disable-next-line max-len
-                          'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                          'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                          {
+                            'bg-gray-200 text-gray-900': isActive,
+                            // eslint-disable-next-line max-len
+                            'text-gray-700 hover:text-gray-900 hover:bg-gray-50':
+                              !isActive,
+                          }
                         )}
                       >
                         <item.icon
                           aria-hidden="true"
-                          className={classNames(
-                            isActive
-                              ? 'text-gray-500'
-                              : 'text-gray-400 group-hover:text-gray-500',
-                            'mr-3 flex-shrink-0 h-6 w-6'
-                          )}
+                          className={classnames('mr-3 flex-shrink-0 h-6 w-6', {
+                            'text-gray-400 group-hover:text-gray-500':
+                              !isActive,
+                            'text-gray-500': isActive,
+                          })}
                         />
                         {item.name}
                       </a>
@@ -181,8 +186,8 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
                 ))}
               </div>
             </nav>
-            <div className="group w-full bg-gray-100 rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700">
-              <span className="flex w-full justify-between items-center">
+            <div className="w-full py-2 text-sm font-medium text-left text-gray-700 bg-gray-100 group rounded-md px-3.5">
+              <span className="flex items-center justify-between w-full">
                 {session?.user && (
                   <UserAvatar
                     image={session.user.image}
@@ -198,23 +203,22 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
                   {({ isActive }) => (
                     <a
                       aria-current={isActive ? 'page' : undefined}
-                      className={classNames(
-                        isActive
-                          ? 'bg-gray-200 text-gray-900'
-                          : // eslint-disable-next-line max-len
-                            'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                      className={classnames(
                         // eslint-disable-next-line max-len
-                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                        {
+                          'bg-gray-200 text-gray-900': isActive,
+                          'text-gray-700 hover:text-gray-900 hover:bg-gray-50':
+                            !isActive,
+                        }
                       )}
                     >
                       <item.icon
                         aria-hidden="true"
-                        className={classNames(
-                          isActive
-                            ? 'text-gray-500'
-                            : 'text-gray-400 group-hover:text-gray-500',
-                          'mr-3 flex-shrink-0 h-6 w-6'
-                        )}
+                        className={classnames('mr-3 flex-shrink-0 h-6 w-6', {
+                          'text-gray-400 group-hover:text-gray-500': !isActive,
+                          'text-gray-500': isActive,
+                        })}
                       />
                       {item.name}
                     </a>
@@ -222,11 +226,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
                 </ActiveLink>
               ))}
               <button
-                className={classNames(
-                  'text-gray-700 hover:text-gray-900 hover:bg-gray-50 w-full',
-                  // eslint-disable-next-line max-len
-                  'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                )}
+                className="flex items-center w-full px-2 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
                 onClick={() =>
                   signOut({
                     callbackUrl:
@@ -237,10 +237,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
               >
                 <LogoutIcon
                   aria-hidden="true"
-                  className={classNames(
-                    'text-gray-400 group-hover:text-gray-500',
-                    'mr-3 flex-shrink-0 h-6 w-6'
-                  )}
+                  className="flex-shrink-0 w-6 h-6 mr-3 text-gray-400 group-hover:text-gray-500"
                 />
                 Logout
               </button>

@@ -82,6 +82,7 @@
     "babel-jest": "27.0.6",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-react-remove-properties": "0.3.0",
+    "classnames": "2.3.1",
     "cross-env": "7.0.3",
     "dotenv-cli": "4.0.0",
     "eslint": "7.32.0",

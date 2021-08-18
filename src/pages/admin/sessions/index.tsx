@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import { ExclamationIcon, SearchIcon } from '@heroicons/react/outline';
+import classnames from 'classnames';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -13,7 +14,6 @@ import { removeSessionMutation } from 'src/graphql/mutation/session';
 import { getSessionsForAdminQuery } from 'src/graphql/query/session';
 import AdminLayout from 'src/layouts/AdminLayout';
 import { ADMIN_USERS, NextRoutePage } from 'src/routes';
-import { classNames } from 'src/utils/ui';
 
 import type { GetSessionsForAdmin } from 'types/graphql/GetSessionsForAdmin';
 import type { RemoveSession } from 'types/graphql/RemoveSession';
@@ -170,12 +170,15 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span
-                              className={classNames(
-                                expiresAt > today
-                                  ? 'bg-green-100 text-green-800'
-                                  : 'bg-red-100 text-red-800',
+                              className={classnames(
                                 // eslint-disable-next-line max-len
-                                'px-2 inline-flex text-xs leading-5 font-semibold rounded-full'
+                                'px-2 inline-flex text-xs leading-5 font-semibold rounded-full',
+                                {
+                                  'bg-green-100 text-green-800':
+                                    expiresAt > today,
+                                  'bg-red-100 text-red-800':
+                                    expiresAt <= today,
+                                }
                               )}
                             >
                               {expiresAt.toLocaleDateString(locale)}
