@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
-      "tests/*": ["tests/*"],
+      "test/*": ["test/*"],
       "types/*": [".generated/*", "src/types/*"]
     }
   },

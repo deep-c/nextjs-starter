@@ -14,18 +14,18 @@ const jestConfig: Config.InitialOptions = {
   ],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
-  globalSetup: '<rootDir>/tests/jest.globalSetup.ts',
+  globalSetup: '<rootDir>/test/jest.globalSetup.ts',
   moduleDirectories: ['node_modules', '<rootDir>'],
   moduleNameMapper: {
     '.+\\.css$': 'identity-obj-proxy',
   },
-  roots: ['<rootDir>/tests', '<rootDir>/src'],
-  setupFilesAfterEnv: ['<rootDir>/tests/jest.setupAfterEnv.ts'],
+  roots: ['<rootDir>/test', '<rootDir>/src'],
+  setupFilesAfterEnv: ['<rootDir>/test/jest.setupAfterEnv.ts'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
-    '^.+\\.css$': '<rootDir>/tests/css.transform.js',
+    '^.+\\.css$': '<rootDir>/test/css.transform.js',
   },
   transformIgnorePatterns: [
     '/node_modules/',

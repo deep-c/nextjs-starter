@@ -1,4 +1,4 @@
-import { createTestContext } from 'tests/integration.context';
+import { createTestContext } from 'test/integration.context';
 
 describe('prisma client', () => {
   const ctx = createTestContext();
