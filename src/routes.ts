@@ -14,7 +14,7 @@ import { isAuthorized } from 'src/utils/auth';
 
 import type { NextPage } from 'next';
 import type { ReactNode } from 'react';
-import type { AuthProps, AuthSettings } from 'src/components/Auth';
+import type { AuthSettings } from 'src/components/Auth';
 import type { AuthSessionUser } from 'src/types/next-auth';
 
 export type Url = string;
@@ -26,7 +26,7 @@ export interface AppRoute {
   path: Url;
 }
 export type NextRoutePage<P> = NextPage<P, P> & {
-  auth?: AuthProps | boolean;
+  auth?: AuthSettings | boolean;
   layout?: ReactNode;
 };
 

@@ -7,7 +7,7 @@ export interface AvatarProps {
   size?: [number, number];
 }
 
-const Avatar: React.FC<AvatarProps> = ({ image, name, size }) => (
+const Avatar = ({ image, name, size }: AvatarProps): React.ReactElement => (
   <span className="flex items-center justify-between min-w-0 space-x-3">
     {image ? (
       <Image

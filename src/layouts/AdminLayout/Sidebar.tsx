@@ -28,7 +28,11 @@ const navigation = [ADMIN_DASHBOARD, ADMIN_USERS, ADMIN_SESSIONS];
 
 const userNavigation = [ACCOUNT_SETTINGS];
 
-const Sidebar: React.FC<SidebarProps> = ({ handleState, open, session }) => {
+const Sidebar = ({
+  handleState,
+  open,
+  session,
+}: SidebarProps): React.ReactElement => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const filterRoutes = useCallback(filterRoutesForRole(session?.user), [
     session,

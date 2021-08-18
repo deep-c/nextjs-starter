@@ -8,42 +8,46 @@ import Sidebar from './Sidebar';
 
 import type { AuthChildProps } from 'src/components/Auth';
 
-export const AdminLayout: React.FC<AuthChildProps> = ({
+export interface AdminlayoutProps extends AuthChildProps {
+  children: React.ReactChild;
+}
+
+export const AdminLayout = ({
   children,
   session,
-}) => {
+}: AdminlayoutProps): React.ReactElement => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="h-screen flex overflow-hidden bg-white">
+    <div className="flex h-screen overflow-hidden bg-white">
       <Sidebar
         handleState={setSidebarOpen}
         open={sidebarOpen}
         session={session}
       />
       {/* Main column */}
-      <div className="flex flex-col w-0 flex-1 overflow-hidden">
+      <div className="flex flex-col flex-1 w-0 overflow-hidden">
         {/* Search header */}
-        <div className="relative z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200 lg:hidden">
+        <div className="relative z-10 flex flex-shrink-0 h-16 bg-white border-b border-gray-200 lg:hidden">
           <button
-            className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 lg:hidden"
+            className="px-4 text-gray-500 border-r border-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 lg:hidden"
             onClick={() => setSidebarOpen(true)}
             type="button"
           >
             <span className="sr-only">Open sidebar</span>
-            <MenuAlt1Icon aria-hidden="true" className="h-6 w-6" />
+            <MenuAlt1Icon aria-hidden="true" className="w-6 h-6" />
           </button>
-          <div className="flex-1 flex justify-between px-4 sm:px-6 lg:px-8">
-            <div className="flex-1 flex">
-              <form action="#" className="w-full flex md:ml-0" method="GET">
+          <div className="flex justify-between flex-1 px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-1">
+              <form action="#" className="flex w-full md:ml-0" method="GET">
                 <label className="sr-only" htmlFor="search_field">
                   Search
                 </label>
                 <div className="relative w-full text-gray-400 focus-within:text-gray-600">
                   <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
-                    <SearchIcon aria-hidden="true" className="h-5 w-5" />
+                    <SearchIcon aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <input
-                    className="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:text-sm"
+                    className="block w-full h-full py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 border-transparent focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400 sm:text-sm"
                     id="search_field"
                     name="search_field"
                     placeholder="Search"

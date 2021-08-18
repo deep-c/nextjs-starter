@@ -15,7 +15,7 @@
     "docker:down": "docker compose down",
     "docker:up": "docker compose up -d",
     "lint": "npm run -s lint:eslint && npm run -s lint:prettier && npm run -s lint:ts",
-    "lint:eslint": "eslint --ext=.js,.jsx,.mjs,.ts,.tsx --ignore-path .gitignore --max-warnings 0",
+    "lint:eslint": "eslint --ext=.js,.jsx,.mjs,.ts,.tsx --ignore-path .gitignore --max-warnings 0 .",
     "lint:prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config .prettierrc",
     "lint:ts": "tsc",
     "pre-commit": "lint-staged && npm run -s lint:ts",

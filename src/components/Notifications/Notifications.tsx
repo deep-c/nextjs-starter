@@ -21,13 +21,13 @@ export interface SimpleNotificationProps extends Toast {
   state: SimpleNotificationState;
 }
 
-const SimpleNotification: React.FC<SimpleNotificationProps> = ({
+const SimpleNotification = ({
   content,
   icon,
   id,
   state,
   visible,
-}) => (
+}: SimpleNotificationProps) => (
   <>
     <Transition
       as={Fragment}

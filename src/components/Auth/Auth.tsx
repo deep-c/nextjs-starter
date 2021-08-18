@@ -11,13 +11,19 @@ export interface AuthSettings {
   allowedRoles?: Role[];
   loginUrl?: Url;
 }
-export type AuthProps = AuthSettings;
+export interface AuthProps extends AuthSettings {
+  children: React.ReactNode;
+}
 export type Session = ReturnType<typeof useSession>[0];
 export interface AuthChildProps {
   session: Session;
 }
 
-const Auth: React.FC<AuthProps> = ({ allowedRoles, children, loginUrl }) => {
+const Auth = ({
+  allowedRoles,
+  children,
+  loginUrl,
+}: AuthProps): React.ReactElement => {
   const [session, loading] = useSession();
   const hasAuth = isAuthenticated(session?.user);
   const router = useRouter();

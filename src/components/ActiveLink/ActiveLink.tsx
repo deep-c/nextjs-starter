@@ -11,11 +11,11 @@ export interface ActiveLinkProps extends LinkProps {
   nested?: boolean;
 }
 
-const ActiveLink: React.FC<ActiveLinkProps> = ({
+const ActiveLink = ({
   children,
   nested,
   ...linkProps
-}) => {
+}: ActiveLinkProps): React.ReactElement => {
   const { asPath } = useRouter();
   const isActive =
     asPath === linkProps.href ||

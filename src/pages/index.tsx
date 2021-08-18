@@ -2,7 +2,7 @@ import { signIn, signOut, useSession } from 'next-auth/client';
 import Head from 'next/head';
 import React from 'react';
 
-const Home: React.FC = () => {
+const Home = (): React.ReactElement => {
   const [session] = useSession();
 
   return (

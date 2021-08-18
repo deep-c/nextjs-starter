@@ -13,7 +13,7 @@ import type { GetMe } from 'types/graphql/GetMe';
 import type { UpdateUser } from 'types/graphql/UpdateUser';
 import type { UpdateMeInput } from 'types/graphql/globalTypes';
 
-const UserSettingsForm: React.FC = () => {
+const UserSettingsForm = (): React.ReactElement | null => {
   const { data, loading: queryLoading } = useQuery<GetMe>(meQuery);
   const [updateUserSettings, { loading: mutationLoading }] =
     useMutation<UpdateUser>(updateMeMutation);

@@ -8,7 +8,7 @@ import { AppInitialState, useApollo } from 'src/graphql/client';
 
 import type { Session } from 'next-auth';
 import type { AppProps } from 'next/app';
-import type { FC, FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
 
 import '../styles/globals.css';
 
@@ -27,7 +27,7 @@ export interface MyAppProps extends AppProps {
   };
 }
 
-const MyApp: FC<MyAppProps> = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps }: MyAppProps): React.ReactElement => {
   const client = useApollo(pageProps.initialApolloState);
   const Layout = Component.layout ?? (({ children }) => <>{children}</>);
   return (

@@ -16,7 +16,9 @@ import type { UpdateUserInput } from 'types/graphql/globalTypes';
 
 export type UserAdminFormProps = Pick<User, 'id'>;
 
-const UserAdminForm: React.FC<UserAdminFormProps> = ({ id }) => {
+const UserAdminForm = ({
+  id,
+}: UserAdminFormProps): React.ReactElement | null => {
   const { data, loading: queryLoading } = useQuery<GetUserForAdmin>(
     getUserForAdminQuery,
     { variables: { id } }

@@ -7,7 +7,7 @@ import React, { Fragment } from 'react';
 import ActiveLink from 'src/components/ActiveLink';
 import { ACCOUNT_SETTINGS, ADMIN_LOGIN } from 'src/routes';
 
-const AccountDropdown: React.FC = () => (
+const AccountDropdown = (): React.ReactElement => (
   <Menu as="div" className="relative ml-3">
     {({ open }) => (
       <>
