@@ -138,12 +138,9 @@ const Sidebar = ({
               </div>
             </div>
           </Transition.Child>
-          <div aria-hidden="true" className="flex-shrink-0 w-14">
-            {/* Dummy element to force sidebar to shrink to fit close icon */}
-          </div>
+          <div aria-hidden="true" className="flex-shrink-0 w-14" />
         </Dialog>
       </Transition.Root>
-      {/* Static sidebar for desktop */}
       <div className="hidden lg:flex lg:flex-shrink-0">
         <div className="flex flex-col w-64 pt-5 pb-4 bg-gray-100 border-r border-gray-200">
           <div className="flex items-center flex-shrink-0 px-6">
@@ -156,7 +153,6 @@ const Sidebar = ({
             />
           </div>
           <div className="flex flex-col flex-1 h-0 overflow-y-auto">
-            {/* Navigation */}
             <nav className="flex-1 px-3 mt-6 divide-y">
               <div className="space-y-1">
                 {navigation.filter(filterRoutes).map((item) => (
@@ -200,7 +196,6 @@ const Sidebar = ({
                 )}
               </span>
             </div>
-            {/* User Navigation */}
             <div className="px-3 mt-2">
               {userNavigation.map((item) => (
                 <ActiveLink key={item.path} href={item.path} nested>
