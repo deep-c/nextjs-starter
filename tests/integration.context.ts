@@ -13,11 +13,13 @@ import { nanoid } from 'nanoid';
 import prisma from 'src/database/connection';
 import { server } from 'src/pages/api/v1/graphql';
 
+import type { ApolloServer } from 'apollo-server-micro';
+
 const prismaBinary = join(__dirname, '..', 'node_modules', '.bin', 'prisma');
 
 interface TestContext {
   db: PrismaClient;
-  gqlServer: typeof server;
+  gqlServer: ApolloServer;
 }
 
 function graphQLTestContext() {
