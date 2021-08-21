@@ -14,6 +14,8 @@
     "dev": "npm run docker:up && npm run build:types && dotenv -c -- next dev",
     "docker:down": "docker compose down",
     "docker:up": "docker compose up -d",
+    "e2e": "dotenv -e .env.test -- testcafe --config-file e2e/.testcaferc.json --app 'npm run dev' --app-init-delay 20000 ./e2e/**/*.ts",
+    "e2e:ci": "dotenv -e .env.test testcafe --config-file e2e/.testcaferc.json",
     "lint": "npm run -s lint:eslint && npm run -s lint:prettier && npm run -s lint:ts",
     "lint:eslint": "eslint --ext=.js,.jsx,.mjs,.ts,.tsx --ignore-path .gitignore --max-warnings 0 .",
     "lint:prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config .prettierrc",
@@ -23,8 +25,6 @@
     "start": "dotenv -c -- next start",
     "test": "npm run -s docker:up && jest --watch",
     "test:ci": "jest --ci --coverage --reporters=default --reporters=jest-junit",
-    "test:e2e": "dotenv -e .env.test -- testcafe --config-file e2e/.testcaferc.json --app 'npm run dev' --app-init-delay 20000 ./e2e/**/*.ts",
-    "test:e2e:ci": "testcafe --config-file e2e/.testcaferc.json",
     "test:debug": "npm run -s docker:up && jest --watchAll --runInBand --no-cache",
     "test:once": "npm run -s docker:up && jest"
   },
