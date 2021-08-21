@@ -42,20 +42,17 @@ const MyApp = ({
 }: AppPropsWithExtra<NextPagePropsExtra>): React.ReactElement => {
   const client = useApollo(pageProps.initialApolloState);
   const getLayout = Component.getLayout ?? ((page) => page);
+  const WrappedComponent = getLayout(<Component {...pageProps} />, {
+    session: pageProps.session,
+  });
   return (
     <Provider session={pageProps.session}>
       <ApolloProvider client={client}>
         <Toaster position="top-right" />
         {Component.auth ? (
-          <Auth {...Component.auth}>
-            {getLayout(<Component {...pageProps} />, {
-              session: pageProps.session,
-            })}
-          </Auth>
+          <Auth {...Component.auth}>{WrappedComponent}</Auth>
         ) : (
-          getLayout(<Component {...pageProps} />, {
-            session: pageProps.session,
-          })
+          WrappedComponent
         )}
       </ApolloProvider>
     </Provider>

@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-
 export { default as accountObject } from './accountObject';
 export { default as userObject } from './userObject';
 export { default as updateMeInput } from './updateMeInput';
