@@ -17,7 +17,7 @@
     "paths": {
       "src/*": ["src/*"],
       "test/*": ["test/*"],
-      "types/*": [".generated/*", "src/types/*"]
+      "types/*": [".generated/*", "src/common/types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".generated/**/*.ts"],

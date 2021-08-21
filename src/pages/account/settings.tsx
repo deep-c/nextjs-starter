@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import React from 'react';
 
-import UserSettingsForm from 'src/components/UserGeneralSettingsForm';
-import AdminLayout from 'src/layouts/AdminLayout';
-import { ACCOUNT_SETTINGS, NextRoutePage } from 'src/routes';
+import { ACCOUNT_SETTINGS } from 'src/common/routes';
+import { getLayout } from 'src/layouts/AdminLayout';
+import UserSettingsForm from 'src/modules/user/components/admin/UserGeneralSettingsForm';
 
-export const AccountSettings: NextRoutePage<unknown> = () => (
+export const AccountSettings = (): React.ReactElement => (
   <>
     <Head>
       <title>Account Settings | Admin</title>
@@ -49,6 +49,6 @@ export const AccountSettings: NextRoutePage<unknown> = () => (
 );
 
 AccountSettings.auth = ACCOUNT_SETTINGS.auth;
-AccountSettings.layout = AdminLayout;
+AccountSettings.getLayout = getLayout;
 
 export default AccountSettings;

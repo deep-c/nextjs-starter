@@ -8,12 +8,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import makeSimpleNotification, {
   SimpleNotificationState,
-} from 'src/components/Notifications';
-import UserAvatar from 'src/components/UserAvatar';
-import { removeSessionMutation } from 'src/graphql/mutation/session';
-import { getSessionsForAdminQuery } from 'src/graphql/query/session';
-import AdminLayout from 'src/layouts/AdminLayout';
-import { ADMIN_USERS, NextRoutePage } from 'src/routes';
+} from 'src/common/components/Notifications';
+import { ADMIN_USERS } from 'src/common/routes';
+import { getLayout } from 'src/layouts/AdminLayout';
+import removeSessionMutation from 'src/modules/session/graphql/mutation/RemoveSession';
+import getSessionsForAdminQuery from 'src/modules/session/graphql/query/GetSessionsForAdmin';
+import UserAvatar from 'src/modules/user/components/UserAvatar';
 
 import type { GetSessionsForAdmin } from 'types/graphql/GetSessionsForAdmin';
 import type { RemoveSession } from 'types/graphql/RemoveSession';
@@ -22,7 +22,7 @@ export interface SessionsAdminFilterForm {
   search: string;
 }
 
-export const SessionsAdmin: NextRoutePage<unknown> = () => {
+export const SessionsAdmin = (): React.ReactElement => {
   // eslint-disable-next-line prefer-const
   let { data, fetchMore, loading, refetch } = useQuery<GetSessionsForAdmin>(
     getSessionsForAdminQuery,
@@ -270,6 +270,6 @@ export const SessionsAdmin: NextRoutePage<unknown> = () => {
 };
 
 SessionsAdmin.auth = ADMIN_USERS.auth;
-SessionsAdmin.layout = AdminLayout;
+SessionsAdmin.getLayout = getLayout;
 
 export default SessionsAdmin;

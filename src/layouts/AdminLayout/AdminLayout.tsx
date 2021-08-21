@@ -2,11 +2,12 @@ import { MenuAlt1Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 import React, { useState } from 'react';
 
-import UserProfileDropdown from 'src/components/UserProfileDropdown';
+import UserProfileDropdown from 'src/modules/user/components/UserProfileDropdown';
 
 import Sidebar from './Sidebar';
 
-import type { AuthChildProps } from 'src/components/Auth';
+import type { AuthChildProps } from 'src/modules/auth/components/Auth';
+import type { GetLayoutFn } from 'src/pages/_app';
 
 export interface AdminlayoutProps extends AuthChildProps {
   children: React.ReactChild;
@@ -70,5 +71,9 @@ export const AdminLayout = ({
     </div>
   );
 };
+
+export const getLayout: GetLayoutFn = (page, props) => (
+  <AdminLayout {...props}>{page}</AdminLayout>
+);
 
 export default AdminLayout;

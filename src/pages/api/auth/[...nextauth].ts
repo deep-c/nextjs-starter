@@ -3,7 +3,7 @@ import { Role, Status } from '@prisma/client';
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
-import prisma from 'src/database/connection';
+import prisma from 'src/prisma/connection';
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),

@@ -5,10 +5,10 @@ import Link from 'next/link';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import UserAvatar from 'src/components/UserAvatar';
-import { getUsersForAdminQuery } from 'src/graphql/query/user';
-import AdminLayout from 'src/layouts/AdminLayout';
-import { ADMIN_USER, ADMIN_USERS, NextRoutePage } from 'src/routes';
+import { ADMIN_USER, ADMIN_USERS } from 'src/common/routes';
+import { getLayout } from 'src/layouts/AdminLayout';
+import UserAvatar from 'src/modules/user/components/UserAvatar';
+import getUsersForAdminQuery from 'src/modules/user/graphql/query/GetUsersForAdmin';
 
 import type { GetUsersForAdmin } from 'types/graphql/GetUsersForAdmin';
 
@@ -16,7 +16,7 @@ export interface UsersAdminFilterForm {
   search: string;
 }
 
-export const UsersAdmin: NextRoutePage<unknown> = () => {
+export const UsersAdmin = (): React.ReactElement => {
   // eslint-disable-next-line prefer-const
   let { data, fetchMore, loading, refetch } = useQuery<GetUsersForAdmin>(
     getUsersForAdminQuery,
@@ -212,6 +212,6 @@ export const UsersAdmin: NextRoutePage<unknown> = () => {
 };
 
 UsersAdmin.auth = ADMIN_USERS.auth;
-UsersAdmin.layout = AdminLayout;
+UsersAdmin.getLayout = getLayout;
 
 export default UsersAdmin;

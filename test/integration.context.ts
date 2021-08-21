@@ -10,8 +10,8 @@ import { join } from 'path';
 import { PrismaClient } from '@prisma/client';
 import { nanoid } from 'nanoid';
 
-import prisma from 'src/database/connection';
 import { server } from 'src/pages/api/v1/graphql';
+import prisma from 'src/prisma/connection';
 
 import type { ApolloServer } from 'apollo-server-micro';
 

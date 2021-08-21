@@ -1,10 +1,10 @@
 import { BanIcon } from '@heroicons/react/solid';
 import React from 'react';
 
-import AdminLayout from 'src/layouts/AdminLayout';
-import { NextRoutePage, UNAUTHORIZED } from 'src/routes';
+import { UNAUTHORIZED } from 'src/common/routes';
+import { getLayout } from 'src/layouts/AdminLayout';
 
-const UnAuthorized: NextRoutePage<unknown> = () => (
+const UnAuthorized = (): React.ReactElement => (
   <div className="p-4 mx-auto mt-6 rounded-md bg-red-50">
     <div className="flex">
       <div className="flex-shrink-0">
@@ -20,6 +20,6 @@ const UnAuthorized: NextRoutePage<unknown> = () => (
 );
 
 UnAuthorized.auth = UNAUTHORIZED.auth;
-UnAuthorized.layout = AdminLayout;
+UnAuthorized.layout = getLayout;
 
 export default UnAuthorized;

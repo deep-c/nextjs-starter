@@ -18,7 +18,6 @@ const rules = {
       tsx: 'never',
     },
   ],
-  'import/no-named-as-default': 0,
   'import/order': [
     'error',
     {

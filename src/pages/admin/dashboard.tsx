@@ -3,10 +3,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 
-import UserAvatar from 'src/components/UserAvatar';
-import { meQuery } from 'src/graphql/query/user';
-import AdminLayout from 'src/layouts/AdminLayout';
-import { ACCOUNT_SETTINGS, ADMIN_DASHBOARD, NextRoutePage } from 'src/routes';
+import { ACCOUNT_SETTINGS, ADMIN_DASHBOARD } from 'src/common/routes';
+import { getLayout } from 'src/layouts/AdminLayout';
+import UserAvatar from 'src/modules/user/components/UserAvatar';
+import meQuery from 'src/modules/user/graphql/query/GetMe';
 
 import type { GetMe } from 'types/graphql/GetMe';
 
@@ -16,7 +16,7 @@ const stats = [
   { label: 'New messages', value: 2 },
 ];
 
-export const AdminDashboard: NextRoutePage<unknown> = () => {
+export const AdminDashboard = (): React.ReactElement => {
   const { data } = useQuery<GetMe>(meQuery);
   return (
     <>
@@ -81,6 +81,6 @@ export const AdminDashboard: NextRoutePage<unknown> = () => {
 };
 
 AdminDashboard.auth = ADMIN_DASHBOARD.auth;
-AdminDashboard.layout = AdminLayout;
+AdminDashboard.getLayout = getLayout;
 
 export default AdminDashboard;

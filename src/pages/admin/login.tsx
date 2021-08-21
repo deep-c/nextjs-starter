@@ -2,9 +2,9 @@ import { signIn } from 'next-auth/client';
 import Image from 'next/image';
 import React from 'react';
 
-import { ADMIN_DASHBOARD, ADMIN_LOGIN, NextRoutePage } from 'src/routes';
+import { ADMIN_DASHBOARD, ADMIN_LOGIN } from 'src/common/routes';
 
-export const AdminLogin: NextRoutePage<unknown> = () => (
+export const AdminLogin = (): React.ReactElement => (
   <div className="flex min-h-screen bg-white">
     <div className="flex flex-col justify-center flex-1 px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <div className="w-full max-w-sm mx-auto lg:w-96">

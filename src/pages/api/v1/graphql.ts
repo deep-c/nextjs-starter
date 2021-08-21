@@ -5,18 +5,17 @@ import {
 } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-micro';
 import { send } from 'micro';
-import cors from 'micro-cors';
+import Cors from 'micro-cors';
 
+import { GRAPHQL_V1_API } from 'src/common/routes';
 import context from 'src/graphql/context';
 import schema from 'src/graphql/schema';
-import { GRAPHQL_V1_API } from 'src/routes';
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
-
 export const server = new ApolloServer({
   context,
   plugins: [
@@ -33,10 +32,10 @@ export const server = new ApolloServer({
   ],
   schema,
 });
-
 const startServer = server.start();
+const cors = Cors();
 
-export default cors()(async (req, res) => {
+export default cors(async (req, res) => {
   if (req.method === 'OPTIONS') {
     return send(res, 200);
   }

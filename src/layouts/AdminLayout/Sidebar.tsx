@@ -5,8 +5,7 @@ import { signOut } from 'next-auth/client';
 import Image from 'next/image';
 import React, { Fragment, useCallback } from 'react';
 
-import ActiveLink from 'src/components/ActiveLink';
-import UserAvatar from 'src/components/UserAvatar';
+import ActiveLink from 'src/common/components/ActiveLink';
 import {
   ACCOUNT_SETTINGS,
   ADMIN_DASHBOARD,
@@ -14,9 +13,10 @@ import {
   ADMIN_SESSIONS,
   ADMIN_USERS,
   filterRoutesForRole,
-} from 'src/routes';
+} from 'src/common/routes';
+import UserAvatar from 'src/modules/user/components/UserAvatar';
 
-import type { Session } from 'src/components/Auth';
+import type { Session } from 'src/modules/auth/components/Auth';
 
 export interface SidebarProps {
   handleState: (state: boolean) => void;

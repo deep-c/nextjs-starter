@@ -1,49 +1,61 @@
 import { ApolloProvider } from '@apollo/client';
-import { NextComponentType, NextPageContext } from 'next';
 import { Provider } from 'next-auth/client';
-import { Toaster } from 'react-hot-toast';
+import dynamic from 'next/dynamic';
 
-import Auth, { AuthProps } from 'src/components/Auth';
 import { AppInitialState, useApollo } from 'src/graphql/client';
+import Auth, { AuthProps } from 'src/modules/auth/components/Auth';
 
+import type { NextPage } from 'next';
 import type { Session } from 'next-auth';
 import type { AppProps } from 'next/app';
-import type { FunctionComponent } from 'react';
+import type { ReactElement, ReactNode } from 'react';
+import type { Toaster as ToasterComponent } from 'react-hot-toast';
+import type { ExtractFCProps } from 'src/common/types/utils';
+import 'src/common/styles/globals.css';
 
-import '../styles/globals.css';
+type NextPagePropsExtra = {
+  initialApolloState: AppInitialState;
+  session: Session;
+};
 
-export interface MyAppProps extends AppProps {
-  Component: NextComponentType<
-    NextPageContext,
-    Record<string, unknown>,
-    Record<string, unknown>
-  > & {
-    auth?: AuthProps;
-    layout?: FunctionComponent;
-  };
-  pageProps: {
-    initialApolloState: AppInitialState;
-    session: Session;
-  };
-}
+export type GetLayoutFn = (
+  page: ReactElement,
+  layoutProps: { session: Session }
+) => ReactNode;
 
-const MyApp = ({ Component, pageProps }: MyAppProps): React.ReactElement => {
+export type NextPageWithExtra = NextPage & {
+  auth?: AuthProps;
+  getLayout?: GetLayoutFn;
+};
+
+export type AppPropsWithExtra<P = unknown> = {
+  Component: NextPageWithExtra;
+  pageProps: P;
+} & Omit<AppProps<P>, 'pageProps'>;
+
+const Toaster: React.ComponentType<ExtractFCProps<typeof ToasterComponent>> =
+  dynamic(() => import('react-hot-toast').then((mod) => mod.Toaster));
+
+const MyApp = ({
+  Component,
+  pageProps,
+}: AppPropsWithExtra<NextPagePropsExtra>): React.ReactElement => {
   const client = useApollo(pageProps.initialApolloState);
-  const Layout = Component.layout ?? (({ children }) => <>{children}</>);
+  const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <Provider session={pageProps.session}>
       <ApolloProvider client={client}>
         <Toaster position="top-right" />
         {Component.auth ? (
           <Auth {...Component.auth}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            {getLayout(<Component {...pageProps} />, {
+              session: pageProps.session,
+            })}
           </Auth>
         ) : (
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          getLayout(<Component {...pageProps} />, {
+            session: pageProps.session,
+          })
         )}
       </ApolloProvider>
     </Provider>
