@@ -18,10 +18,7 @@ type NextPagePropsExtra = {
   session: Session;
 };
 
-export type GetLayoutFn = (
-  page: ReactElement,
-  layoutProps: { session: Session }
-) => ReactNode;
+export type GetLayoutFn = (page: ReactElement) => ReactNode;
 
 export type NextPageWithExtra = NextPage & {
   auth?: AuthProps;
@@ -42,17 +39,16 @@ const MyApp = ({
 }: AppPropsWithExtra<NextPagePropsExtra>): React.ReactElement => {
   const client = useApollo(pageProps.initialApolloState);
   const getLayout = Component.getLayout ?? ((page) => page);
-  const WrappedComponent = getLayout(<Component {...pageProps} />, {
-    session: pageProps.session,
-  });
   return (
     <Provider session={pageProps.session}>
       <ApolloProvider client={client}>
         <Toaster position="top-right" />
         {Component.auth ? (
-          <Auth {...Component.auth}>{WrappedComponent}</Auth>
+          <Auth {...Component.auth}>
+            {getLayout(<Component {...pageProps} />)}
+          </Auth>
         ) : (
-          WrappedComponent
+          getLayout(<Component {...pageProps} />)
         )}
       </ApolloProvider>
     </Provider>

@@ -72,8 +72,13 @@ export const AdminLayout = ({
   );
 };
 
-export const getLayout: GetLayoutFn = (page, props) => (
-  <AdminLayout {...props}>{page}</AdminLayout>
+export const getLayout: GetLayoutFn = (page) => (
+  // Layout components are wrapped by Auth in  _app.tsx,
+  // Auth clones it and injects the props. Not sure if its even
+  // possible to type this so ignore for now.
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  <AdminLayout>{page}</AdminLayout>
 );
 
 export default AdminLayout;
