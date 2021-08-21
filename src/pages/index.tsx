@@ -16,7 +16,11 @@ const Home = (): React.ReactElement => {
         {!session && (
           <>
             Not signed in <br />
-            <button onClick={() => signIn()} type="button">
+            <button
+              data-testid="loginButton"
+              onClick={() => signIn()}
+              type="button"
+            >
               Sign in
             </button>
           </>

@@ -124,7 +124,6 @@ module.exports = {
     {
       extends: ['airbnb', ...commonExtends],
       files: ['*.js', '*.jsx'],
-      parser: '@babel/eslint-parser',
       plugins: commonPlugins,
       rules,
     },
@@ -136,7 +135,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
         ...commonExtends,
       ],
-      files: ['*.ts', '*.tsx'],
+      files: ['src/**/*.ts{,x}', 'test/**/*.ts{,x}'],
       parserOptions: {
         project: './tsconfig.json',
       },
@@ -158,14 +157,78 @@ module.exports = {
         ...rules,
       },
     },
+    {
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:testcafe-community/recommended',
+      ],
+      files: ['e2e/**/*.ts'],
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+      plugins: ['deprecation', 'sort-destructure-keys', 'testcafe-community'],
+      rules: {
+        '@typescript-eslint/member-ordering': [
+          'warn',
+          {
+            classes: {
+              // Prefer react/sort-comp
+              memberTypes: 'never',
+            },
+            default: {
+              order: 'alphabetically',
+            },
+          },
+        ],
+        'deprecation/deprecation': 'warn',
+        'import/order': [
+          'error',
+          {
+            alphabetize: {
+              order: 'asc',
+            },
+            groups: [
+              'builtin',
+              'external',
+              'internal',
+              'parent',
+              'sibling',
+              'index',
+              'object',
+              'type',
+            ],
+            'newlines-between': 'always',
+          },
+        ],
+        'sort-destructure-keys/sort-destructure-keys': 'warn',
+        'sort-imports': [
+          'warn',
+          {
+            ignoreDeclarationSort: true,
+          },
+        ],
+        'sort-keys': [
+          'warn',
+          'asc',
+          {
+            natural: true,
+          },
+        ],
+      },
+    },
   ],
+  parser: '@babel/eslint-parser',
   rules,
   settings: {
     'import/resolver': {
       node: {
-        moduleDirectory: ['node_modules', 'src'],
+        moduleDirectory: ['node_modules', 'src', 'test', 'e2e'],
       },
     },
     polyfills: ['fetch', 'Promise', 'URL', 'URLSearchParams'],
+    react: {
+      version: 'detect',
+    },
   },
 };

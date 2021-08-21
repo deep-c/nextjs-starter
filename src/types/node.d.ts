@@ -16,5 +16,6 @@ declare namespace NodeJS {
     POSTGRES_DB: string;
     POSTGRES_PASSWORD: string;
     POSTGRES_USER: string;
+    TESTCAFE_BASE_URL: string;
   }
 }
