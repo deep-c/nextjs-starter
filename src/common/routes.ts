@@ -10,52 +10,39 @@ import {
 } from '@heroicons/react/outline';
 import { Role } from '@prisma/client';
 
-import { isAuthorized } from 'src/modules/auth/utils';
-
-import type { ReactNode } from 'react';
-import type { AuthSessionUser } from 'src/common/types/next-auth';
 import type { AuthSettings } from 'src/modules/auth/components/Auth';
 
 export type Url = string;
 export type DynamicPathFn = (option: Record<string, unknown>) => Url;
 export interface Route {
   auth: AuthSettings | boolean;
-  icon: ReactNode;
+  icon: typeof BanIcon;
   name: string;
   path: Url;
 }
 
-export const filterRoutesForRole =
-  (user: AuthSessionUser | undefined) =>
-  (item: Route): boolean => {
-    if (!item.auth || item.auth === true || !item?.auth.allowedRoles) {
-      return true;
-    }
-    return isAuthorized(item.auth.allowedRoles, user);
-  };
-
-export const LOGIN = {
+export const LOGIN: Route = {
   auth: false,
   icon: LoginIcon,
   name: 'Login',
   path: '/login',
 };
 
-export const UNAUTHORIZED = {
+export const UNAUTHORIZED: Route = {
   auth: false,
   icon: BanIcon,
   name: 'Unauthorized',
   path: '/unauthorized',
 };
 
-export const ADMIN_LOGIN = {
+export const ADMIN_LOGIN: Route = {
   auth: false,
   icon: LoginIcon,
   name: 'Login',
   path: '/admin/login',
 };
 
-export const ADMIN_DASHBOARD = {
+export const ADMIN_DASHBOARD: Route = {
   auth: {
     loginUrl: ADMIN_LOGIN.path,
   },
@@ -64,7 +51,7 @@ export const ADMIN_DASHBOARD = {
   path: '/admin/dashboard',
 };
 
-export const ADMIN_USERS = {
+export const ADMIN_USERS: Route = {
   auth: {
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
     loginUrl: ADMIN_LOGIN.path,
@@ -74,7 +61,7 @@ export const ADMIN_USERS = {
   path: '/admin/users',
 };
 
-export const ADMIN_USER = {
+export const ADMIN_USER: Route = {
   auth: {
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
     loginUrl: ADMIN_LOGIN.path,
@@ -84,7 +71,7 @@ export const ADMIN_USER = {
   path: '/admin/users/[id]',
 };
 
-export const ADMIN_SESSIONS = {
+export const ADMIN_SESSIONS: Route = {
   auth: {
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
     loginUrl: ADMIN_LOGIN.path,
@@ -94,7 +81,7 @@ export const ADMIN_SESSIONS = {
   path: '/admin/sessions',
 };
 
-export const ADMIN_SESSION = {
+export const ADMIN_SESSION: Route = {
   auth: {
     allowedRoles: [Role.ADMIN, Role.SUPPORT],
     loginUrl: ADMIN_LOGIN.path,
@@ -104,7 +91,7 @@ export const ADMIN_SESSION = {
   path: '/admin/session/[id]',
 };
 
-export const ACCOUNT_SETTINGS = {
+export const ACCOUNT_SETTINGS: Route = {
   auth: {
     loginUrl: ADMIN_LOGIN.path,
   },
@@ -113,7 +100,7 @@ export const ACCOUNT_SETTINGS = {
   path: '/account/settings',
 };
 
-export const GRAPHQL_V1_API = {
+export const GRAPHQL_V1_API: Route = {
   auth: false,
   icon: LinkIcon,
   name: 'GraphQL API',
