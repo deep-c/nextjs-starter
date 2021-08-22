@@ -5,7 +5,7 @@ import ActiveLink from 'src/common/components/ActiveLink';
 import { isRouteAuthorized } from 'src/modules/auth/utils';
 
 import type { Route } from 'src/common/routes';
-import type { Session } from 'src/modules/auth/components/Auth';
+import type { Session } from 'src/modules/session/types';
 
 export interface NavigationItemProps {
   item: Route;

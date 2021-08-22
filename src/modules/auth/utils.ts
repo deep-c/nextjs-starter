@@ -1,7 +1,7 @@
 import type { Role } from '@prisma/client';
 import type { Route } from 'src/common/routes';
 import type { AuthSessionUser } from 'src/common/types/next-auth';
-import type { Session } from 'src/modules/auth/components/Auth';
+import type { Session } from 'src/modules/session/types';
 
 export const isAuthenticated = (user?: AuthSessionUser | null): boolean =>
   !!user;

@@ -15,7 +15,7 @@ import UserAvatar from 'src/modules/user/components/UserAvatar';
 
 import NavigationItem from './components/NavigationItem';
 
-import type { Session } from 'src/modules/auth/components/Auth';
+import type { Session } from 'src/modules/session/types';
 
 export interface SidebarProps {
   handleState: (state: boolean) => void;

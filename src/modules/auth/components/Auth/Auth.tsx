@@ -7,6 +7,7 @@ import { LOGIN, UNAUTHORIZED, Url } from 'src/common/routes';
 import { isAuthenticated, isAuthorized } from '../../utils';
 
 import type { Role } from '@prisma/client';
+import type { Session } from 'src/modules/session/types';
 
 export interface AuthSettings {
   allowedRoles?: Role[];
@@ -15,7 +16,6 @@ export interface AuthSettings {
 export interface AuthProps extends AuthSettings {
   children: React.ReactNode;
 }
-export type Session = ReturnType<typeof useSession>[0];
 export interface AuthChildProps {
   session: Session;
 }
