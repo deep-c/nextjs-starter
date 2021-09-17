@@ -10,6 +10,7 @@ declare namespace NodeJS {
     COGNITO_DOMAIN: string;
     DATABASE_URL: string;
     DEBUG: string;
+    ENVIRONMENT: string;
     NEXTAUTH_URL: string;
     NEXT_PUBLIC_HOST: string;
     PORT?: string;
