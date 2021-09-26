@@ -33,9 +33,9 @@ export const AccountSettings = (): React.ReactElement => (
         <div className="border-b border-gray-200">
           <nav aria-label="Tabs" className="flex -mb-px space-x-8">
             <button
-              key="general"
               aria-current="page"
               className="px-1 py-4 text-sm font-medium text-indigo-600 border-b-2 border-indigo-500 whitespace-nowrap"
+              key="general"
               type="button"
             >
               General

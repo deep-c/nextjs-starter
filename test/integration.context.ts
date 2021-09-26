@@ -36,22 +36,25 @@ function prismaTestContext() {
   let databaseUrl = '';
   return {
     async after() {
-      for (const { tablename } of await prisma.$queryRaw(
-        `SELECT tablename FROM pg_tables WHERE schemaname='${schema}'`
-      )) {
-        await prisma.$queryRaw(
-          `TRUNCATE TABLE "${schema}"."${tablename}" CASCADE;`
+      for (const {
+        tablename,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any,max-len
+      } of await prisma.$queryRaw<any>`SELECT tablename FROM pg_tables WHERE schemaname=${schema};`) {
+        await prisma.$queryRawUnsafe(
+          `TRUNCATE TABLE "${schema}"."${tablename}" CASCADE`
         );
       }
-      for (const { relname } of await prisma.$queryRaw(
-        // eslint-disable-next-line max-len
-        `SELECT c.relname FROM pg_class AS c JOIN pg_namespace AS n ON c.relnamespace = n.oid WHERE c.relkind='S' AND n.nspname='${schema}';`
-      )) {
-        await prisma.$queryRaw(
+      for (const {
+        relname,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any,max-len
+      } of await prisma.$queryRaw<any>`SELECT c.relname FROM pg_class AS c JOIN pg_namespace AS n ON c.relnamespace = n.oid WHERE c.relkind='S' AND n.nspname=${schema};`) {
+        await prisma.$queryRawUnsafe(
           `ALTER SEQUENCE "${schema}"."${relname}" RESTART WITH 1;`
         );
       }
-      await prisma.$queryRaw(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
+      await prisma.$queryRawUnsafe(
+        `DROP SCHEMA IF EXISTS "${schema}" CASCADE;`
+      );
       await prisma?.$disconnect();
     },
     before() {

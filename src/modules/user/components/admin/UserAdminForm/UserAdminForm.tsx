@@ -162,7 +162,7 @@ const UserAdminForm = ({
                       </p>
                       <div className="mt-4 space-y-4">
                         {Object.keys(Role).map((role) => (
-                          <div key={role} className="flex items-center">
+                          <div className="flex items-center" key={role}>
                             <input
                               className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
                               defaultChecked={role === data?.user?.role}
@@ -200,7 +200,7 @@ const UserAdminForm = ({
                     <div className="max-w-lg">
                       <div className="mt-4 space-y-4">
                         {Object.keys(Status).map((status) => (
-                          <div key={status} className="flex items-center">
+                          <div className="flex items-center" key={status}>
                             <input
                               className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
                               defaultChecked={status === data?.user?.status}

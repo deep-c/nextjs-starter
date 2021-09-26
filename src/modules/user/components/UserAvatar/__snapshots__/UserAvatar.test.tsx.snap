@@ -49,16 +49,16 @@ exports[`user avatar renders with an image only 1`] = `
           style="max-width: 100%; display: block; margin: 0px; padding: 0px;"
         />
       </div>
-      <noscript />
       <img
         alt=""
         class="flex-shrink-0 w-10 h-10 bg-gray-300 rounded-full"
-        data-nimg="true"
+        data-nimg="intrinsic"
         data-testid="avatarImage"
         decoding="async"
         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
         style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
       />
+      <noscript />
     </div>
   </span>
 </div>
@@ -82,16 +82,16 @@ exports[`user avatar renders with both the avatar and image 1`] = `
           style="max-width: 100%; display: block; margin: 0px; padding: 0px;"
         />
       </div>
-      <noscript />
       <img
         alt=""
         class="flex-shrink-0 w-10 h-10 bg-gray-300 rounded-full"
-        data-nimg="true"
+        data-nimg="intrinsic"
         data-testid="avatarImage"
         decoding="async"
         src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
         style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
       />
+      <noscript />
     </div>
     <span
       class="flex flex-col flex-1 min-w-0"
