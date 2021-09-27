@@ -1,5 +1,2 @@
-import UserAdminForm from './UserAdminForm';
-
+export { default } from './UserAdminForm';
 export * from './UserAdminForm';
-
-export default UserAdminForm;

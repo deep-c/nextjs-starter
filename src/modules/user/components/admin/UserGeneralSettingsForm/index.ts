@@ -1,3 +1,2 @@
-import UserGeneralSettingsForm from './UserGeneralSettingsForm';
-
-export default UserGeneralSettingsForm;
+export { default } from './UserGeneralSettingsForm';
+export * from './UserGeneralSettingsForm';

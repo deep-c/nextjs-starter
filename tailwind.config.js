@@ -5,7 +5,11 @@ module.exports = {
   plugins: [require('@tailwindcss/forms')],
   purge: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      maxWidth: {
+        48: '12rem',
+      },
+    },
   },
   variants: {
     extend: {},

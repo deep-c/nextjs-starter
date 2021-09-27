@@ -13,7 +13,7 @@ import {
 } from 'src/common/routes';
 import UserAvatar from 'src/modules/user/components/UserAvatar';
 
-import NavigationItem from './components/NavigationItem';
+import NavigationItem from '../NavigationItem';
 
 import type { Session } from 'src/modules/session/types';
 
@@ -126,6 +126,7 @@ const Sidebar = ({
                 <UserAvatar
                   image={session.user.image}
                   name={session.user.name}
+                  nameClassName="max-w-48"
                 />
               )}
             </span>

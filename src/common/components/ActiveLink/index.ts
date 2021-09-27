@@ -1,5 +1,2 @@
-import ActiveLink from './ActiveLink';
-
+export { default } from './ActiveLink';
 export * from './ActiveLink';
-
-export default ActiveLink;

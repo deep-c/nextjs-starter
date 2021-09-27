@@ -1,3 +1,2 @@
-import UserProfileDropdown from './UserProfileDropdown';
-
-export default UserProfileDropdown;
+export { default } from './UserProfileDropdown';
+export * from './UserProfileDropdown';

@@ -1,13 +1,20 @@
+import classnames from 'classnames';
 import Image from 'next/image';
 import React from 'react';
 
 export interface AvatarProps {
   image?: string | null;
   name?: string | null;
+  nameClassName?: string;
   size?: [number, number];
 }
 
-const Avatar = ({ image, name, size }: AvatarProps): React.ReactElement => (
+const Avatar = ({
+  image,
+  name,
+  nameClassName,
+  size,
+}: AvatarProps): React.ReactElement => (
   <span className="flex items-center justify-between min-w-0 space-x-3">
     {image ? (
       <Image
@@ -31,7 +38,12 @@ const Avatar = ({ image, name, size }: AvatarProps): React.ReactElement => (
     )}
     {name && (
       <span className="flex flex-col flex-1 min-w-0">
-        <span className="text-sm font-medium text-gray-900 truncate">
+        <span
+          className={classnames(
+            'text-sm font-medium text-gray-900 truncate',
+            nameClassName
+          )}
+        >
           {name}
         </span>
       </span>

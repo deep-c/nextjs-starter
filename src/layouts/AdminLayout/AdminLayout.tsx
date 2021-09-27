@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 import UserProfileDropdown from 'src/modules/user/components/UserProfileDropdown';
 
-import Sidebar from './Sidebar';
+import Sidebar from './components/Sidebar';
 
 import type { AuthChildProps } from 'src/modules/auth/components/Auth';
 import type { GetLayoutFn } from 'src/pages/_app';
