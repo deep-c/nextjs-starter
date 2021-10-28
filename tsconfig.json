@@ -18,7 +18,8 @@
       "src/*": ["src/*"],
       "test/*": ["test/*"],
       "types/*": [".generated/*", "src/common/types/*"]
-    }
+    },
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".generated/**/*.ts"],
   "exclude": ["node_modules"],
