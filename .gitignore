@@ -45,3 +45,6 @@ lhreport.html
 # nexus generated types and GraphQL schema
 .generated
 
+# typescript
+tsconfig.tsbuildinfo
+
